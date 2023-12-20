@@ -23,7 +23,8 @@
             "@database/*": ["./src/database/*"],
             "@util/*": ["./src/util/*"],
             "@yumtypes/*": ["./src/types/*"],
-            "@params/*": ["./src/params/*"]
+            "@params/*": ["./src/params/*"],
+            "@schema/*": ["./src/schema/*"]
         }
     },
     "include": ["./src/**/*.ts", "src/.d.ts"],

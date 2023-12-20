@@ -39,6 +39,14 @@ const appKeyValidationError = (): HttpError => {
   );
 };
 
+const orderSumError = (): HttpError => {
+  return createHttpError(
+    HttpCode.BAD_REQUEST,
+    `Total sum of order does not match prices!`,
+    { type: "BadRequest" }
+  );
+};
+
 const middyValidationError = (message: string): any => {
   return createResponse(HttpCode.BAD_REQUEST, message);
 };
@@ -48,4 +56,5 @@ export {
   failedResponse,
   appKeyValidationError,
   middyValidationError,
+  orderSumError,
 };

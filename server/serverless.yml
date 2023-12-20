@@ -15,7 +15,7 @@ package:
   individually: true
 
 functions:
-#  - ${file(src/files/yml/get-functions.yml)}
+  - ${file(src/files/yml/get-functions.yml)}
   - ${file(src/files/yml/post-functions.yml)}
 
 resources:

@@ -108,6 +108,20 @@ export type PartialDipItem = Omit<IDipItem, "PK" | "SK">;
 /*
  **** ORDER ****
  */
+export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
+  let base = baseItemProperties();
+  return {
+    PK: `Customer#${order.customerId}`,
+    SK: `Order#${base.id}Created#${base.createdAt}`,
+    GSI_PK_1: `Order`,
+    GSI_SK_1: `Ongoing#${base.id}#${order.customerId}`,
+    id: order.customerId,
+    selection: order.selection,
+    createdAt: base.createdAt,
+    totalSum: order.totalSum,
+  };
+};
+
 export interface ISelectionItem {
   name: string;
   type: string;
@@ -116,9 +130,10 @@ export interface ISelectionItem {
 }
 
 export interface IOrderItem extends YumYumBase {
+  GSI_PK_1: string;
+  GSI_SK_1: string;
   id: string;
   selection: ISelectionItem[];
-  inProgress: boolean;
   totalSum: number;
   createdAt: string;
 }
@@ -128,7 +143,7 @@ export interface IOrderItem extends YumYumBase {
  */
 
 export interface ISchemaCreateOrder {
-  userId: string;
+  customerId: string;
   selection: ISelectionItem[];
   totalSum: number;
 }

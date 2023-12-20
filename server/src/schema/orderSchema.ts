@@ -15,10 +15,10 @@ export const bodySchema = {
         required: ["name", "count", "totalPrice", "type"],
       },
     },
-    userId: { type: "string", minLength: 1, maxLength: 50 },
+    customerId: { type: "string", minLength: 1, maxLength: 50 },
     totalSum: { type: "number", minimum: 1 },
   },
-  required: ["selection", "totalSum", "userId"],
+  required: ["selection", "totalSum", "customerId"],
 } as const;
 
 export const schema = {
