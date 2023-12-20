@@ -8,7 +8,7 @@ import { getMenuData } from '..';
 type MenuItem = {
     id: string, 
     title: string,
-    desc: string,
+    description: string,
     price: number,
     category: string
     ingredients?: [],
@@ -17,27 +17,24 @@ type MenuItem = {
 export const LandingPage = () => {
 
     const [menu, setMenu] = useState<MenuItem[]>([])
-    const {fetchMenu} = getMenuData();
+    const { fetchMenu } = getMenuData();
     
     useEffect(() => {
         async function handleFetchMenu() {
             const data = await fetchMenu()
-            const menu = data.menu
-            setMenu(menu ? menu: null)
-            console.log(menu);
-            
+            const menuObjects = data.menu
+            setMenu(menuObjects ? menuObjects: null)
+            console.log(menuObjects);
         }
         handleFetchMenu();
     }, []);
-
-    const sortedMenu = menu.sort((a, b) => a.id - b.id);
 
     return (
         <main>
             <h2>Meny</h2>
             <section>
-                {sortedMenu && sortedMenu.map((menuItem) => (
-                    <MenuObject key={menuItem.id} title={menuItem.title} price={menuItem.price} desc={menuItem.desc}/>
+                {menu && menu.map((menuItem) => (
+                    <MenuObject key={menuItem.id} title={menuItem.title} price={menuItem.price} description={menuItem.description}/>
                 ))}
             </section>
         </main>

@@ -14,7 +14,7 @@ interface MenuObjectProps {
     data: MenuObject
 }
 
-export const MenuObject= ({data}:MenuObjectProps) => {
+export const MenuObject = ({data}:MenuObjectProps) => {
     
     return (
         <article>
