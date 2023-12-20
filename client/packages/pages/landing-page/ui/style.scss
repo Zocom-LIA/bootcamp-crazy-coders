@@ -3,15 +3,7 @@
 .landing-page {
     width: 100vw;
     height: 100vh;
-    background-color: #eee;
+    background-color: $color-mint;
     @include column;
     padding: $padding-large;
-
-    .quote {
-        margin: auto;
-        max-width: 60vw;
-        width: 100%;
-        text-align: center;
-        @include fontsizeLarge;
-    }
 }

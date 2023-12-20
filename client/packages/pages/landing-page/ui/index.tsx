@@ -22,7 +22,7 @@ export const LandingPage = () => {
     useEffect(() => {
         async function handleFetchMenu() {
             const data = await fetchMenu()
-            const menuObjects = data.menu
+            const menuObjects = data.wontons
             setMenu(menuObjects ? menuObjects: null)
             console.log(menuObjects);
         }
@@ -30,7 +30,7 @@ export const LandingPage = () => {
     }, []);
 
     return (
-        <main>
+        <main className='landing-page'>
             <h2>Meny</h2>
             <section>
                 {menu && menu.map((menuItem) => (
