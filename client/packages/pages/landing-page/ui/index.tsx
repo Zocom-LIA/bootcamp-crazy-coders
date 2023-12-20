@@ -1,25 +1,45 @@
 import './style.scss';
 
 /* Import dependencies */
-import { useState } from 'react';
-import { Button } from '@zocom/button';
-import { useData, ChuckNorrisResponse } from '..';
+import { useEffect, useState } from 'react';
+import { MenuObject } from '@zocom/menu-object';
+import { getMenuData } from '..';
+
+type MenuItem = {
+    id: string, 
+    title: string,
+    desc: string,
+    price: number,
+    category: string
+    ingredients?: [],
+} 
 
 export const LandingPage = () => {
 
-    const [quote, setQuote] = useState<ChuckNorrisResponse|null>(null);
+    const [menu, setMenu] = useState<MenuItem[]>([])
+    const {fetchMenu} = getMenuData();
+    
+    useEffect(() => {
+        async function handleFetchMenu() {
+            const data = await fetchMenu()
+            const menu = data.menu
+            setMenu(menu ? menu: null)
+            console.log(menu);
+            
+        }
+        handleFetchMenu();
+    }, []);
 
-    const { fetchQuote } = useData();
-
-    async function handleFetchQuote(){
-        const quote = await fetchQuote();
-        setQuote(quote ? quote: null);
-    }   
+    const sortedMenu = menu.sort((a, b) => a.id - b.id);
 
     return (
-    <main className="landing-page">
-        <h1 className='quote'>{quote?.value}</h1>
-        <Button onClick={() => handleFetchQuote()}>Fetch a quote!</Button>
-    </main>
+        <main>
+            <h2>Meny</h2>
+            <section>
+                {sortedMenu && sortedMenu.map((menuItem) => (
+                    <MenuObject key={menuItem.id} title={menuItem.title} price={menuItem.price} desc={menuItem.desc}/>
+                ))}
+            </section>
+        </main>
     )
 }

@@ -1,17 +1,10 @@
-export type ChuckNorrisResponse = {
-  icon_url: string;
-  id: string;
-  url: string;
-  value: string;
-};
-
-export const useData = () => {
+export const getMenuData = () => {
   return {
-    async fetchQuote(): Promise<ChuckNorrisResponse | void> {
+    async fetchMenu(){
       try {
-        const URL = "https://api.chucknorris.io/jokes/random";
-        const resp = await fetch(URL);
-        return await resp.json();
+        const URL = "urlToAws";
+        const response = await fetch(URL);
+        return await response.json();
       } catch (error) {
         console.error(error);
       }

@@ -10,3 +10,12 @@ export enum StyleTypes {
   "DARK" = "dark",
   "LIGHT" = "light",
 }
+
+export type MenuItem = {
+  id: string, 
+  title: string,
+  desc: string,
+  price: number,
+  category: string
+  ingredients?: [],
+} 
