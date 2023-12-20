@@ -1,21 +1,17 @@
-import {
-    createBrowserRouter,
-    RouterProvider,
-  } from "react-router-dom";
-  
-  import { LandingPage } from "@zocom/landing-page";
-  
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <LandingPage />,
-    },
-    {
-      path: "*",
-      element: <p>Page Not Found</p>,
-    },
-  ]);
-  
-  export const AppRoutes = () => {
-    return <RouterProvider router={router} />;
-  };
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AppLayout } from '@zocom/applayout';
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [{ path: '/', element: <p>Hej</p> }],
+  },
+  {
+    path: '*',
+    element: <p>Page Not Found</p>,
+  },
+]);
+
+export const AppRoutes = () => {
+  return <RouterProvider router={router} />;
+};

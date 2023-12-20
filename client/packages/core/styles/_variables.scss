@@ -4,19 +4,18 @@
 $primaryTextColor: #222;
 $primaryBg: #ccc;
 
-$color-alert: #EB5757;
-$color-ash: #EEEEEE;
-$color-bacon: #FBE9E9;
+$color-alert: #eb5757;
+$color-ash: #eeeeee;
+$color-bacon: #fbe9e9;
 $color-clay: #605858;
 $color-coal: #353131;
 $color-dark-mint: #489078;
-$color-light-mint: #DBFBF0;
-$color-mint: #8ED8BF;
-$color-snow: #F4F3F1F0;
-$color-shade-12-light: #F1F0EC1F;
-$color-shade-24-dark: #3531313D;
-$color-shade-24-light: #F1F0EC3D;
-
+$color-light-mint: #dbfbf0;
+$color-mint: #8ed8bf;
+$color-snow: #f4f3f1f0;
+$color-shade-12-light: #f1f0ec1f;
+$color-shade-24-dark: #3531313d;
+$color-shade-24-light: #f1f0ec3d;
 
 /* MARGINS, PADDINGS, GAPS */
 
@@ -45,24 +44,17 @@ $radius-tier-1: 8px;
 $radius-tier-2: 4px;
 $radius-tier-3: 2px;
 
-$shadow-sml:
-  0px 0px 1.2px rgba(0, 0, 0, 0.025),
-  0px 0px 3.3px rgba(0, 0, 0, 0.019),
-  0px 0px 10px rgba(0, 0, 0, 0.012),
+$shadow-sml: 0px 0px 1.2px rgba(0, 0, 0, 0.025),
+  0px 0px 3.3px rgba(0, 0, 0, 0.019), 0px 0px 10px rgba(0, 0, 0, 0.012),
   0px 0px 17.9px rgba(0, 0, 0, 0.009);
 
-$shadow-medium:
-  0px 0px 3.2px rgba(0, 0, 0, 0.035),
-  0px 0px 7.3px rgba(0, 0, 0, 0.029),
-  0px 0px 20px rgba(0, 0, 0, 0.022),
+$shadow-medium: 0px 0px 3.2px rgba(0, 0, 0, 0.035),
+  0px 0px 7.3px rgba(0, 0, 0, 0.029), 0px 0px 20px rgba(0, 0, 0, 0.022),
   0px 0px 40.9px rgba(0, 0, 0, 0.019);
 
-$shadow-large:
-  0px 0px 2.2px rgba(0, 0, 0, 0.015),
-  0px 0px 5.3px rgba(0, 0, 0, 0.021),
-  0px 0px 10px rgba(0, 0, 0, 0.009),
-  0px 0px 17.9px rgba(0, 0, 0, 0.019),
-  0px 0px 33.4px rgba(0, 0, 0, 0.042),
+$shadow-large: 0px 0px 2.2px rgba(0, 0, 0, 0.015),
+  0px 0px 5.3px rgba(0, 0, 0, 0.021), 0px 0px 10px rgba(0, 0, 0, 0.009),
+  0px 0px 17.9px rgba(0, 0, 0, 0.019), 0px 0px 33.4px rgba(0, 0, 0, 0.042),
   0px 0px 80px rgba(0, 0, 0, 0.2);
 
 /* RESPONSIVE */
