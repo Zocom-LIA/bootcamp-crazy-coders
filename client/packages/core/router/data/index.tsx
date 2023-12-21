@@ -1,12 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { LandingPage } from '@zocom/landing-page';
-import { ReceiptPage } from '@zocom/receipt-page';
+import { Button } from '@zocom/button';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LandingPage />,
+    element: (
+      <Button type="primary" onClick={() => console.log('first')}>
+        Beställ mer
+      </Button>
+    ),
   },
   {
     path: '*',
