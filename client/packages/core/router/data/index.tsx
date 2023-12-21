@@ -9,10 +9,6 @@ const router = createBrowserRouter([
     element: <LandingPage />,
   },
   {
-    path: '/receipt',
-    element: <ReceiptPage />,
-  },
-  {
     path: '*',
     element: <p>Page Not Found</p>,
   },

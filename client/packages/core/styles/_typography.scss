@@ -4,7 +4,7 @@
   font-family: 'Fira Sans', sans-serif;
 }
 
-$base: 16px;
+$base: 1.6rem;
 
 @mixin fontsizeLarge {
   font-size: calc($base * 1.6);
