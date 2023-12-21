@@ -1,0 +1,37 @@
+@use '@zocom/styles' as *;
+
+.menuItem{
+    @include fontsizeMedium;
+    font-family: 'Fira Sans';
+    display: flex;
+    color: $color-snow;
+    margin: $margin-large;
+}
+
+.wontonTitle{
+    margin-right: $margin-large;
+    white-space: nowrap;
+}
+
+.dottedLine{
+    border: none;
+    border-bottom: 2px dotted $color-snow;
+    background-color: $color-clay;
+    height: 2px;
+    margin-right: $margin-sml;
+    margin-top: $margin-large;
+}
+
+.wontonPrice{
+    white-space: nowrap;
+}
+
+.separator{
+    background-color: $color-shade-24-light;
+}
+.ingredients{
+    @include fontsizeRegular;
+    color: $color-snow;
+    margin: 10px $margin-large; 
+    text-shadow: $shadow-ingedientsText;
+}

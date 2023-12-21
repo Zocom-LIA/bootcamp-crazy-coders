@@ -1,25 +1,71 @@
 import './style.scss';
 
 /* Import dependencies */
-import { useState } from 'react';
-import { Button } from '@zocom/button';
-import { useData, ChuckNorrisResponse } from '..';
+import { useEffect, useState } from 'react';
+import { MenuObject } from '@zocom/menu-object';
+import { DipObject } from '@zocom/dip-object';
+import { getMenuData } from '..';
+
+type MenuItem = {
+    key: string, 
+    name: string,
+    description: string,
+    price: number,
+    cookingTime: number
+    ingredients: string[],
+} 
+
+type DipItem = { 
+    id: string,
+    name: string,
+    description: string,
+    price: number,
+} 
 
 export const LandingPage = () => {
 
-    const [quote, setQuote] = useState<ChuckNorrisResponse|null>(null);
-
-    const { fetchQuote } = useData();
-
-    async function handleFetchQuote(){
-        const quote = await fetchQuote();
-        setQuote(quote ? quote: null);
-    }   
+    const [menu, setMenu] = useState<MenuItem[]>([]);
+    const [dip, setDip] = useState<DipItem[]>([]);
+    const [dipPrice, setDipPrice] = useState(0);
+    const { fetchMenu } = getMenuData();
+    
+    useEffect(() => {
+        async function handleFetchMenu() {
+            const data = await fetchMenu()
+            const menuObjects = data.record.wontons
+            const dipSauces = data.record.dip;
+            setMenu(menuObjects ? menuObjects: null)
+            setDip(dipSauces ? dipSauces: null)
+            setDipPrice(dipSauces[0].price);
+            
+        }
+        handleFetchMenu();
+    }, []);
 
     return (
-    <main className="landing-page">
-        <h1 className='quote'>{quote?.value}</h1>
-        <Button onClick={() => handleFetchQuote()}>Fetch a quote!</Button>
-    </main>
+        <main className='landing-page'>
+            <section className='menu'>
+                <h1 className='title'>MENY</h1>
+                {menu && menu.map((menuItem) => (
+                    <MenuObject key={menuItem.key} name={menuItem.name} 
+                        price={menuItem.price} desc={menuItem.description}
+                        cookingTime={menuItem.cookingTime} ingredients={menuItem.ingredients}
+                     />   
+                ))}
+                <section className='dipTitlePrice'>
+                    <p className='dipTitle'>DIPSÅS</p>
+                    <hr className='dipDottedLine'/>
+                    <p className='dipPrice'>{dipPrice + ' SEK'}</p>
+                </section>
+                <section className='dipItems'>
+                    {dip && dip.map((dipItem) => (
+                        <DipObject key={dipItem.id} name={dipItem.name} 
+                            price={dipItem.price} desc={dipItem.description}
+                        />   
+                    ))}
+                </section>
+                
+            </section>
+        </main>
     )
 }
