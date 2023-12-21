@@ -1,0 +1,10 @@
+name: aws
+runtime: nodejs18.x
+profile: ${env:AWS_PROFILE}
+region: eu-north-1
+iam:
+  role: ${env:AWS_IAM_ROLE}
+environment:
+  YUM_YUM_TABLE: ${env:YUM_YUM_TABLE}
+  APP_KEY: ${env:APP_KEY}
+  YUM_YUM_GSI_1: ${env:YUM_YUM_GSI_1}
