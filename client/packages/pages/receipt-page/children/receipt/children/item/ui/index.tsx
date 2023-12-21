@@ -1,6 +1,6 @@
 import './style.scss';
 import { Item } from '@zocom/types';
-import { List, ListType, Separator } from '@zocom/list';
+import { List, Separator } from '@zocom/list';
 
 type ReceiptItemProps = {
   item: Item;
@@ -12,6 +12,7 @@ export const ReceiptItem = ({ item, currency = 'sek' }: ReceiptItemProps) => {
     <article className="receipt-item">
       <List>
         <p className="receipt-item__product">{item.product}</p>
+
         <Separator />
 
         <p className="receipt-item__total">
