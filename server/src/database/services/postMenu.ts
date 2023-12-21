@@ -1,6 +1,6 @@
 import { createMenuItemFrom } from "@yumtypes/index.js";
-import { createPutMenuParams } from "@params/index.js";
-import { execPutMenuRequest } from ".";
+import { createPutRequestParams } from "@params/index.js";
+import { execPutRequest } from ".";
 
 let menu = {
   wontons: [
@@ -102,6 +102,6 @@ let menu = {
 
 export const writeMenu = async () => {
   let menuItem = createMenuItemFrom(menu);
-  let params = createPutMenuParams(menuItem);
-  return execPutMenuRequest(params);
+  let params = createPutRequestParams(menuItem);
+  return execPutRequest(params);
 };
