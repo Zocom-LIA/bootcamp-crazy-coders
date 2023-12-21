@@ -1,22 +1,26 @@
  import './style.scss';
 
 type MenuObjectProps = {
-    title: string,
-    description: string,
+    key: string,
+    name: string,
+    desc: string,
+    ingredients: string[],
     price: number,
+    cookingTime: number
 } 
 
-export const MenuObject = ({title, description, price} : MenuObjectProps) => { 
+export const MenuObject = ({
+    key, name, desc, ingredients, price, cookingTime} : MenuObjectProps) => { 
     
     return (
         <article>
             <section>
-                <h3>{title}</h3>
+                <h3>{name}</h3>
                 {<hr className='dottedLine'/>}
-                <h3>{price}</h3>
+                <h3>{price} SEK</h3>
             </section>
             <section>
-                <p>{description}</p>
+                <p>{ingredients}</p>
             </section>
         </article>
     )

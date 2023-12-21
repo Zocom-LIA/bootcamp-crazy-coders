@@ -6,12 +6,12 @@ import { MenuObject } from '@zocom/menu-object';
 import { getMenuData } from '..';
 
 type MenuItem = {
-    id: string, 
-    title: string,
+    key: string, 
+    name: string,
     description: string,
     price: number,
-    category: string
-    ingredients?: [],
+    cookingTime: number
+    ingredients: string[],
 } 
 
 export const LandingPage = () => {
@@ -22,9 +22,8 @@ export const LandingPage = () => {
     useEffect(() => {
         async function handleFetchMenu() {
             const data = await fetchMenu()
-            const menuObjects = data.wontons
+            const menuObjects = data.record.wontons
             setMenu(menuObjects ? menuObjects: null)
-            console.log(menuObjects);
         }
         handleFetchMenu();
     }, []);
@@ -32,9 +31,12 @@ export const LandingPage = () => {
     return (
         <main className='landing-page'>
             <h2>Meny</h2>
-            <section>
+            <section className='menu'>
                 {menu && menu.map((menuItem) => (
-                    <MenuObject key={menuItem.id} title={menuItem.title} price={menuItem.price} description={menuItem.description}/>
+                    <MenuObject key={menuItem.key} name={menuItem.name} 
+                        price={menuItem.price} desc={menuItem.description}
+                        cookingTime={menuItem.cookingTime} ingredients={menuItem.ingredients}
+                     />
                 ))}
             </section>
         </main>
