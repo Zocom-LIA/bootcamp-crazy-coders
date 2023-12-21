@@ -49,6 +49,8 @@ export const LandingPage = () => {
                         cookingTime={menuItem.cookingTime} ingredients={menuItem.ingredients}
                      />   
                 ))}
+                
+            </section>
                 {dip && dip.map((dipItem) => (
                     <DipObject key={dipItem.id} name={dipItem.name} 
                         price={dipItem.price} desc={dipItem.description}

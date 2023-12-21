@@ -9,11 +9,10 @@ type DipObjectProps = {
 
 export const DipObject = ({
     key, name, desc, price} : DipObjectProps) => { 
-    
     return (
         <article className='dipContainer'>
             <section className='dipItem'>
-                <p>{name}</p>
+                <p className='dipLabel'>{name}</p>
             </section>
         </article>
     )

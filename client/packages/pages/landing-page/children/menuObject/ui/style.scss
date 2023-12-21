@@ -5,7 +5,7 @@
     font-family: 'Fira Sans';
     display: flex;
     color: $color-snow;
-    margin: $margin-huge;
+    margin: $margin-large;
 }
 
 .wontonTitle{
@@ -32,7 +32,6 @@
 .ingredients{
     @include fontsizeRegular;
     color: $color-snow;
-    margin: $margin$margin-large;
+    margin: 10px $margin-large; 
     text-shadow: $shadow-ingedientsText;
-    
 }

@@ -3,3 +3,9 @@
 .dipContainer{
     @include row;
 }
+
+.dipLabel{
+    background-color: $color-shade-24-light;
+    padding: $padding-sml;
+    border-radius: $radius-tier-2;
+}
