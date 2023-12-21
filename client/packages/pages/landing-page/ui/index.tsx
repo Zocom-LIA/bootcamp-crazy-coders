@@ -54,14 +54,17 @@ export const LandingPage = () => {
                 ))}
                 <section className='dipTitlePrice'>
                     <p className='dipTitle'>DIPSÅS</p>
-                    <hr className='dottedLine'/>
+                        <hr className='dottedLine'/>
                     <p className='dipPrice'>{dipPrice + ' SEK'}</p>
                 </section>
-                {dip && dip.map((dipItem) => (
-                    <DipObject key={dipItem.id} name={dipItem.name} 
-                        price={dipItem.price} desc={dipItem.description}
-                     />   
-                ))}
+                <section className='dipItems'>
+                    {dip && dip.map((dipItem) => (
+                        <DipObject key={dipItem.id} name={dipItem.name} 
+                            price={dipItem.price} desc={dipItem.description}
+                        />   
+                    ))}
+                </section>
+                
             </section>
         </main>
     )

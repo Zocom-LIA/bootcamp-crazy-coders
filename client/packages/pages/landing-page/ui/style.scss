@@ -34,15 +34,18 @@
     white-space: nowrap;
 }
 
+.dipItems{
+    @include fontsizeRegular;
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr; 
+    gap: $gap-large;
+    margin: $margin; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center;
+    color: $color-snow;
+}
 .dipTitlePrice{
     display: flex;
-}
-
-.dottedLine{
-    border: none;
-    border-bottom: 2px dotted $color-snow;
-    background-color: $color-clay;
-    height: 2px;
-    margin-right: $margin-sml;
-    margin-top: $margin-large;
 }
