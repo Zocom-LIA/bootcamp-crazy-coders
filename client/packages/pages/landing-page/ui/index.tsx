@@ -54,7 +54,7 @@ export const LandingPage = () => {
                 ))}
                 <section className='dipTitlePrice'>
                     <p className='dipTitle'>DIPSÅS</p>
-                        <hr className='dottedLine'/>
+                    <hr className='dipDottedLine'/>
                     <p className='dipPrice'>{dipPrice + ' SEK'}</p>
                 </section>
                 <section className='dipItems'>
