@@ -1,4 +1,4 @@
-import { IOrderItem, ISelectionItem } from "@src/types";
+import { IMenu } from "@src/types";
 import { DocumentClient } from "aws-sdk/clients/dynamodb.js";
 
 /*
@@ -27,36 +27,16 @@ export const deleteRequestItem = (data: any): any => {
   };
 };
 
-export const batchGetMenuItemParams = (
-  items: ISelectionItem[]
-): DocumentClient.BatchGetItemInput => {
-  return {
-    RequestItems: {
-      [`${process.env["YUM_YUM_TABLE"]}`]: {
-        Keys: items.map((item) => ({
-          ["PK"]: `Menu`,
-          ["SK"]: `${item.type}#${item.name}`,
-        })),
-        ProjectionExpression: "#n,#p",
-        ExpressionAttributeNames: {
-          "#p": "price",
-          "#n": "name",
-        },
-      },
-    },
-  };
-};
-
 /*
  ***************************************** POST *****************************************
  */
 
-export const createPutOrderParams = (
-  order: IOrderItem
+export const createPutMenuParams = (
+  menu: IMenu
 ): DocumentClient.PutItemInput => {
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
-    Item: order,
+    Item: menu,
   };
 };
 
@@ -67,27 +47,11 @@ export const createPutOrderParams = (
 export const queryMenuParam = (): AWS.DynamoDB.DocumentClient.QueryInput => {
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
-    KeyConditionExpression: "#pk = :pk",
-    ExpressionAttributeNames: { "#pk": "PK" },
-    ExpressionAttributeValues: {
-      ":pk": `Menu`,
-    },
-  };
-};
-
-export const queryMenuItemParam = (
-  type: string,
-  name: string,
-  projectionExpr: string
-): AWS.DynamoDB.DocumentClient.QueryInput => {
-  return {
-    TableName: `${process.env["YUM_YUM_TABLE"]}`,
-    ProjectionExpression: projectionExpr,
     KeyConditionExpression: "#pk = :pk AND #sk = :sk",
     ExpressionAttributeNames: { "#pk": "PK", "#sk": "SK" },
     ExpressionAttributeValues: {
       ":pk": `Menu`,
-      ":sk": `${type}#${name}`,
+      ":sk": `Original`,
     },
   };
 };

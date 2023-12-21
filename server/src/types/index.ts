@@ -45,65 +45,44 @@ export type YumYumBase = {
   SK: string;
 };
 
-export type YumYumMenuBase = {
-  PK: string;
-  SK: string;
-  id: string;
-  name: string;
-  desc: string;
-  price: number;
-};
-
 /*
  **** MENU ****
  */
 
-export const createWontonItemFrom = (
-  wonton: PartialWontonItem
-): IWontonItem => {
-  let base = baseItemProperties();
+export const createMenuItemFrom = (menu: IMenuItem): IMenu => {
   return {
     PK: `Menu`,
-    SK: `Wonton#${wonton.name}`,
-    id: base.id,
-    name: wonton.name,
-    desc: wonton.desc,
-    ingredients: wonton.ingredients,
-    price: wonton.price,
-    cookingTime: wonton.cookingTime,
+    SK: `Original`,
+    items: menu,
   };
 };
 
-export const createDipItemFrom = (dip: PartialDipItem): IDipItem => {
-  let base = baseItemProperties();
-  return {
-    PK: `Menu`,
-    SK: `Dip#${dip.name}`,
-    id: base.id,
-    name: dip.name,
-    desc: dip.desc,
-    price: dip.price,
-  };
-};
+export interface IMenu extends YumYumBase {
+  items: IMenuItem;
+}
 
-export interface IWontonItem extends YumYumBase {
+export interface IMenuItem {
+  wontons: IWontonItem[];
+  dip: IDipItem[];
+}
+
+export type IWontonItem = {
   id: string;
   name: string;
   desc: string;
   ingredients: string[];
   price: number;
   cookingTime: number;
-}
+};
 
-export interface IDipItem extends YumYumBase {
+export type IDipItem = {
   id: string;
   name: string;
   desc: string;
   price: number;
-}
+};
 
-export type PartialWontonItem = Omit<IWontonItem, "PK" | "SK">;
-export type PartialDipItem = Omit<IDipItem, "PK" | "SK">;
+export type PartialMenu = Omit<IMenu, "PK" | "SK">;
 
 /*
  **** ORDER ****

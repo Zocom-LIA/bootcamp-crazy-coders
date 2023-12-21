@@ -1,7 +1,6 @@
-import { createWontonItemFrom, createDipItemFrom } from "@yumtypes/index.js";
-import { putRequestItem, batchWriteParams } from "@params/index.js";
-import { PutRequestItem } from "@yumtypes/index.js";
-import { exeBatchWrite } from ".";
+import { createMenuItemFrom } from "@yumtypes/index.js";
+import { createPutMenuParams } from "@params/index.js";
+import { execPutMenuRequest } from ".";
 
 let menu = {
   wontons: [
@@ -101,24 +100,8 @@ let menu = {
   ],
 };
 
-const generateMenu = (): PutRequestItem[] => {
-  const data: PutRequestItem[] = [];
-  menu.wontons.forEach((wonton) => {
-    let item = createWontonItemFrom(wonton);
-    let req = putRequestItem(item);
-    data.push(req);
-  });
-  menu.dip.forEach((dip) => {
-    let item = createDipItemFrom(dip);
-    let req = putRequestItem(item);
-    data.push(req);
-  });
-
-  return data;
-};
-
 export const writeMenu = async () => {
-  let menuItems = generateMenu();
-  let params = batchWriteParams(menuItems);
-  return await exeBatchWrite(params);
+  let menuItem = createMenuItemFrom(menu);
+  let params = createPutMenuParams(menuItem);
+  return execPutMenuRequest(params);
 };
