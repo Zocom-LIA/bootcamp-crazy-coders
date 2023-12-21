@@ -1,0 +1,39 @@
+@use '@zocom/styles' as *;
+
+.receipt-item {
+  &__item {
+    @include row();
+    align-items: flex-end;
+  }
+
+  &__product {
+    @include fontsizeRegular();
+    @include fontBold();
+  }
+
+  &__separator {
+    flex: 1;
+
+    margin-bottom: $margin-nano;
+
+    $dash-color: $color-coal;
+    $dash-width: 2px;
+
+    background: linear-gradient(
+        90deg,
+        $dash-color 0%,
+        $dash-color 50%,
+        transparent 50%
+      )
+      0 / calc($dash-width * 2);
+  }
+
+  &__total {
+    @include fontsizeRegular();
+    @include fontBold();
+  }
+
+  &__quantity {
+    @include fontsizeSmall();
+  }
+}
