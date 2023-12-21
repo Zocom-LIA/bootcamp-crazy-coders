@@ -4,3 +4,9 @@ generateMenu:
       - httpApi:
           path: '/api/admin/generateMenu'
           method: POST
+createAdminAccount:
+    handler: src/functions/api/admin/create/index.handler
+    events:
+      - httpApi:
+          path: '/api/admin/create'
+          method: POST

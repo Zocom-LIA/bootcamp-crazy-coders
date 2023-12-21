@@ -51,10 +51,43 @@ const middyValidationError = (message: string): any => {
   return createResponse(HttpCode.BAD_REQUEST, message);
 };
 
+const adminNotFoundError = (): HttpError => {
+  return createHttpError(HttpCode.NOT_FOUND, `Incorrect username or password`, {
+    type: "NotFound",
+  });
+};
+
+const appTokenValidationError = (): HttpError => {
+  return createHttpError(
+    HttpCode.UNAUTHORIZED,
+    `You are not authorized to access this resource!`,
+    { type: "NotAuthorized" }
+  );
+};
+
+const appTokenExpiredError = (): HttpError => {
+  return createHttpError(
+    HttpCode.UNAUTHORIZED,
+    `You are not authorized to access this resource, current token has expired!`,
+    { type: "NotAuthorized" }
+  );
+};
+
+const createAdminExistsError = (): any => {
+  return {
+    statusCode: HttpCode.BAD_REQUEST,
+    message: `Create account failed. User already exists in database.`,
+  };
+};
+
 export {
   createResponse,
   failedResponse,
   appKeyValidationError,
   middyValidationError,
+  adminNotFoundError,
+  appTokenValidationError,
+  appTokenExpiredError,
+  createAdminExistsError,
   orderSumError,
 };
