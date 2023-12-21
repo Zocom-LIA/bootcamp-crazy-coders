@@ -18,7 +18,8 @@
     border-bottom: 2px dotted $color-snow;
     background-color: $color-clay;
     height: 2px;
-    margin-right: $margin-huge;
+    margin-right: $margin-sml;
+    margin-top: $margin-large;
 }
 
 .wontonPrice{
@@ -29,5 +30,7 @@
     background-color: $color-shade-24-light;
 }
 .ingredients{
+    @include fontsizeRegular;
     color: $color-snow;
+    margin: $margin-large;
 }

@@ -20,7 +20,7 @@ export const MenuObject = ({
                 <p className='wontonPrice'>{price + ' SEK'}</p>
             </section>
             <section>
-                <p className='ingredients'>{ingredients}</p>
+                <p className='ingredients'>{ingredients.join(', ')}</p>
             </section>
             <hr className='separator'/>
         </article>
