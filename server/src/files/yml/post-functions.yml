@@ -1,0 +1,6 @@
+generateMenu:
+    handler: src/functions/api/menu/post/index.handler
+    events:
+      - httpApi:
+          path: '/api/admin/generateMenu'
+          method: POST
