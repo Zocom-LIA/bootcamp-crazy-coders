@@ -1,22 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap');
 
 :root {
-    font-family: 'Cairo', sans-serif;
+  font-family: 'Cairo', sans-serif;
+  font-size: 62.5%;
 }
 
-$base: 16px;
+$base: 1.6rem;
 
 @mixin fontsizeLarge {
-    font-size: calc($base * 1.6);
-    line-height: 120%;
+  font-size: calc($base * 1.6);
+  line-height: 120%;
 }
 
 @mixin fontsizeRegular {
-    font-size: $base;
-    line-height: 140%;
+  font-size: $base;
+  line-height: 140%;
 }
 
 @mixin fontsizeSmall {
-    font-size: calc($base * .8);
-    line-height: 120%;
+  font-size: calc($base * 0.8);
+  line-height: 120%;
 }
