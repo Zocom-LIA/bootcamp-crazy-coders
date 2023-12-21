@@ -1,0 +1,17 @@
+@use '@zocom/styles' as *;
+
+.separator {
+  align-self: flex-end;
+  margin-bottom: $margin-nano;
+
+  $dash-color: $color-coal;
+  $dash-width: 2px;
+
+  background: linear-gradient(
+      90deg,
+      $dash-color 0%,
+      $dash-color 50%,
+      transparent 50%
+    )
+    0 / calc($dash-width * 2);
+}
