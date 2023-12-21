@@ -30,7 +30,8 @@ export const LandingPage = () => {
 
     return (
         <main className='landing-page'>
-            <section className='menu'>MENY
+            <section className='menu'>
+                <h1 className='title'>MENY</h1>
                 {menu && menu.map((menuItem) => (
                     <MenuObject key={menuItem.key} name={menuItem.name} 
                         price={menuItem.price} desc={menuItem.description}

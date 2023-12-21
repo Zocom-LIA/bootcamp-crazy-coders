@@ -1,16 +1,22 @@
 @use '@zocom/styles' as *;
 
 .landing-page {
-    display: flex;
-    justify-content: center;
+    @include center;
     width: 100vw;
     height: 100vh;
     background: url('assets/leaves.png') $color-mint;
-    @include column;
     padding: $padding-large;
 }
 
 .menu{
     background-color: $color-clay;
     border-radius: $radius-tier-2;
+    width: 90vw;
+    height: 70vh;
+}
+
+.title{
+    @include fontsizeLarge;
+    color: $color-snow;
+    margin: $margin-large;
 }

@@ -17,10 +17,10 @@ export const MenuObject = ({
             <section className='menuItem'>
                 <h3 className='wontonTitle'>{name}</h3>
                 <hr className='dottedLine'/>
-                <h3>{price} SEK</h3>
+                <p className='wontonPrice'>{price + ' SEK'}</p>
             </section>
             <section>
-                <p>{ingredients}</p>
+                <p className='ingredients'>{ingredients}</p>
             </section>
             <hr className='separator'/>
         </article>
