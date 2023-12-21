@@ -1,6 +1,8 @@
 @use '@zocom/styles' as *;
 
 .landing-page {
+    display: flex;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
     background: url('assets/leaves.png') $color-mint;
@@ -10,4 +12,5 @@
 
 .menu{
     background-color: $color-clay;
+    border-radius: $radius-tier-2;
 }

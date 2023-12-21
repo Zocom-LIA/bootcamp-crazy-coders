@@ -1,0 +1,19 @@
+@use '@zocom/styles' as *;
+
+.menuItem{
+    display: flex;
+
+}
+.wontonTitle{
+    color: $color-snow;
+    
+}
+.dottedLine{
+    border: none;
+    border-bottom: 2px dotted $color-snow;
+    background-color: $color-clay;
+    height: 2px;
+}
+.separator{
+    background-color: $color-shade-24-light;
+}

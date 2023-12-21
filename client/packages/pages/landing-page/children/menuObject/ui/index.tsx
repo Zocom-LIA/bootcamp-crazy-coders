@@ -13,15 +13,16 @@ export const MenuObject = ({
     key, name, desc, ingredients, price, cookingTime} : MenuObjectProps) => { 
     
     return (
-        <article>
-            <section>
-                <h3>{name}</h3>
-                {<hr className='dottedLine'/>}
+        <article className='menuContainer'>
+            <section className='menuItem'>
+                <h3 className='wontonTitle'>{name}</h3>
+                <hr className='dottedLine'/>
                 <h3>{price} SEK</h3>
             </section>
             <section>
                 <p>{ingredients}</p>
             </section>
+            <hr className='separator'/>
         </article>
     )
 }
