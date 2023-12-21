@@ -1,0 +1,16 @@
+@use '@zocom/styles' as *;
+
+.list {
+  white-space: nowrap;
+
+  &--row {
+    @include row;
+    align-items: flex-end;
+    justify-content: stretch;
+  }
+
+  &--column {
+    @include column;
+    align-items: flex-start;
+  }
+}
