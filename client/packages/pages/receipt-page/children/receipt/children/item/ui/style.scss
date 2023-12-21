@@ -1,0 +1,22 @@
+@use '@zocom/styles' as *;
+
+.receipt-item {
+  &__item {
+    @include row();
+    align-items: flex-end;
+  }
+
+  &__product {
+    @include fontsizeRegular();
+    @include fontBold();
+  }
+
+  &__total {
+    @include fontsizeRegular();
+    @include fontBold();
+  }
+
+  &__quantity {
+    @include fontsizeSmall();
+  }
+}

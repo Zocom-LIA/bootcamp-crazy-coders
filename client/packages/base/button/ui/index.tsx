@@ -1,28 +1,21 @@
 import './style.scss';
 import { ReactNode } from 'react';
-import { StyleTypes } from '@zocom/types';
 
-/* Local Component Types */
-export enum ButtonType {
-    'REGULAR' = 'regular',
-    'STRETCH' = 'stretch'
-}
+type Props = {
+  children: ReactNode;
+  type: 'primary' | 'secondary';
+  bgColor?: string;
+  onClick: () => void;
+};
 
-/* Component Props */
-type ButtonProps = {
-    children: ReactNode | ReactNode[];
-    style?: StyleTypes;
-    type?: ButtonType; 
-    onClick: () => void;
-}
-
-/* Component */
-export const Button = ({ 
-    children, 
-    type = ButtonType.REGULAR, // default value
-    style = StyleTypes.DEFAULT, // default value
-    onClick
-}: ButtonProps) => {
-    return (
-        <button className={`button__${type}--${style}`} onClick={() => onClick()}>{children}</button>)
-}
+export const Button = ({ children, onClick, type, bgColor }: Props) => {
+  return (
+    <button
+      style={{ backgroundColor: bgColor }}
+      className={`btn btn__${type}`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};

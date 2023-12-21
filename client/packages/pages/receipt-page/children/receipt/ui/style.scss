@@ -1,0 +1,60 @@
+@use '@zocom/styles' as *;
+
+$logo-width: 42px;
+$logo-height: 51px;
+
+.receipt {
+  @include column();
+  align-items: stretch;
+
+  color: $color-coal;
+  background-color: $color-ash;
+
+  box-shadow: $shadow-medium;
+
+  border-radius: $radius-tier-2;
+
+  &__header {
+    @include column();
+    align-items: center;
+
+    padding: $padding-huge 0 $padding 0;
+    gap: $gap-sml;
+
+    text-align: center;
+  }
+
+  &__logo {
+    width: $logo-width;
+    height: $logo-height;
+  }
+
+  &__title {
+    @include fontsizeLarge();
+    @include fontBold();
+  }
+
+  &__order-id {
+    @include fontsizeSmall();
+    @include fontBold();
+
+    color: $color-clay;
+  }
+
+  &__items {
+    padding: 0 $padding 0 $padding;
+
+    ol > li {
+      &:not(:last-child) {
+        margin-bottom: $gap;
+      }
+    }
+  }
+
+  &__total {
+    padding: $padding;
+    margin-top: $margin-large;
+    background-color: $color-shade-24-dark;
+    border-radius: $radius-tier-2;
+  }
+}
