@@ -8,18 +8,31 @@
 $base: 1.6rem;
 
 @mixin fontsizeLarge {
-  font-size: calc($base * 1.6);
+    font-size: calc($base * 2);
+    line-height: 120%;
+    font-family: 'Fira Sans';
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+@mixin fontsizeMedium {
+  font-size: calc($base * 1.5);
   line-height: 120%;
+    font-family: 'Fira Sans';
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 @mixin fontsizeRegular {
-  font-size: $base;
-  line-height: 140%;
+    font-size: $base;
+    line-height: 140%;
+    font-family: 'Fira Sans';
+    font-weight: 500;
 }
 
 @mixin fontsizeSmall {
-  font-size: calc($base * 0.8);
-  line-height: 120%;
+    font-size: calc($base * .8);
+    line-height: 120%;
 }
 
 @mixin fontBold {
