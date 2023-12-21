@@ -5,7 +5,6 @@ import {
   failedResponse,
   createResponse,
   adminNotFoundError,
-  appKeyValidationError,
 } from "@util/response.js";
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
 import { ISchemaLoginAdmin, createPayload } from "@yumtypes/index.js";
