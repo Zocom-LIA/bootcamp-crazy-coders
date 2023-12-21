@@ -1,12 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-<<<<<<< HEAD
-import { AppLayout } from '@zocom/applayout';
-
-const router = createBrowserRouter([
-  {
-    element: <AppLayout />,
-    children: [{ path: '/', element: <p>Hej</p> }],
-=======
 import { LandingPage } from '@zocom/landing-page';
 import { ReceiptPage } from '@zocom/receipt-page';
 import { CheckoutPage } from '@zocom/checkout-page';
@@ -33,7 +25,6 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: <AdminPage />,
->>>>>>> dev
   },
   {
     path: '*',

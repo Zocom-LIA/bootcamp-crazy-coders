@@ -7,65 +7,41 @@
 }
 
 :root {
-<<<<<<< HEAD
-  font-family: 'Cairo', sans-serif;
-  font-size: 62.5%;
-}
-
-body {
-  @include flexCenter;
-=======
   font-family: 'Fira Sans', sans-serif;
   font-size: 62.5%;
->>>>>>> dev
 }
 
 $base: 1.6rem;
 
 @mixin fontsizeLarge {
-<<<<<<< HEAD
-  font-size: calc($base * 1.6);
+  font-size: calc($base * 2);
   line-height: 120%;
-}
-
-@mixin fontsizeRegular {
-  font-size: $base;
-  line-height: 140%;
-}
-
-@mixin fontsizeSmall {
-  font-size: calc($base * 0.8);
-  line-height: 120%;
-=======
-    font-size: calc($base * 2);
-    line-height: 120%;
-    font-family: 'Fira Sans';
-    font-weight: 700;
-    text-transform: uppercase;
+  font-family: 'Fira Sans';
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 @mixin fontsizeMedium {
   font-size: calc($base * 1.5);
   line-height: 120%;
-    font-family: 'Fira Sans';
-    font-weight: 700;
-    text-transform: uppercase;
+  font-family: 'Fira Sans';
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 @mixin fontsizeRegular {
-    font-size: $base;
-    line-height: 140%;
-    font-family: 'Fira Sans';
-    font-weight: 500;
+  font-size: $base;
+  line-height: 140%;
+  font-family: 'Fira Sans';
+  font-weight: 500;
 }
 
 @mixin fontsizeSmall {
-    font-size: calc($base * .8);
-    line-height: 120%;
+  font-size: calc($base * 0.8);
+  line-height: 120%;
 }
 
 @mixin fontBold {
   font-weight: 700;
   text-transform: uppercase;
->>>>>>> dev
 }
