@@ -1,0 +1,4 @@
+{
+  "name": "@zocom/admin-page",
+  "main": "./index.ts"
+}
