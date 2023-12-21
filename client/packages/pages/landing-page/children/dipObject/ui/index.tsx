@@ -11,7 +11,8 @@ export const DipObject = ({
     key, name, desc, price} : DipObjectProps) => { 
     return (
         <article className='dipContainer'>
-            <section className='dipItem'>
+            
+            <section className='dipContainer'>
                 <p className='dipLabel'>{name}</p>
             </section>
         </article>
