@@ -20,3 +20,9 @@
     margin: $margin-large;
     text-shadow: $shadow-titleText;
 }
+
+.dipTitle{
+    @include fontsizeMedium;
+    color: $color-snow;
+    margin: $margin-large;
+}
