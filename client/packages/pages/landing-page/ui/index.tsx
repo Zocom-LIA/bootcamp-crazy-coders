@@ -24,8 +24,9 @@ type DipItem = {
 
 export const LandingPage = () => {
 
-    const [menu, setMenu] = useState<MenuItem[]>([])
-    const [dip, setDip] = useState<DipItem[]>([])
+    const [menu, setMenu] = useState<MenuItem[]>([]);
+    const [dip, setDip] = useState<DipItem[]>([]);
+    const [dipPrice, setDipPrice] = useState(0);
     const { fetchMenu } = getMenuData();
     
     useEffect(() => {
@@ -35,6 +36,8 @@ export const LandingPage = () => {
             const dipSauces = data.record.dip;
             setMenu(menuObjects ? menuObjects: null)
             setDip(dipSauces ? dipSauces: null)
+            setDipPrice(dipSauces[0].price);
+            
         }
         handleFetchMenu();
     }, []);
@@ -49,7 +52,11 @@ export const LandingPage = () => {
                         cookingTime={menuItem.cookingTime} ingredients={menuItem.ingredients}
                      />   
                 ))}
-                <p className='dipTitle'>DIPSÅS</p>
+                <section className='dipTitlePrice'>
+                    <p className='dipTitle'>DIPSÅS</p>
+                    <hr className='dottedLine'/>
+                    <p className='dipPrice'>{dipPrice + ' SEK'}</p>
+                </section>
                 {dip && dip.map((dipItem) => (
                     <DipObject key={dipItem.id} name={dipItem.name} 
                         price={dipItem.price} desc={dipItem.description}

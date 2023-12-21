@@ -1,6 +1,6 @@
  import './style.scss';
 
-type MenuObjectProps = {
+type props = {
     key: string,
     name: string,
     desc: string,
@@ -10,7 +10,7 @@ type MenuObjectProps = {
 } 
 
 export const MenuObject = ({
-    key, name, desc, ingredients, price, cookingTime} : MenuObjectProps) => { 
+    key, name, desc, ingredients, price, cookingTime} : props) => { 
     
     return (
         <article className='menuContainer'>

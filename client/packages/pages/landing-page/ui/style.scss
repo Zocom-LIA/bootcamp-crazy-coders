@@ -26,3 +26,23 @@
     color: $color-snow;
     margin: $margin-large;
 }
+
+.dipPrice{
+    @include fontsizeMedium;
+    color: $color-snow;
+    margin: $margin-large;
+    white-space: nowrap;
+}
+
+.dipTitlePrice{
+    display: flex;
+}
+
+.dottedLine{
+    border: none;
+    border-bottom: 2px dotted $color-snow;
+    background-color: $color-clay;
+    height: 2px;
+    margin-right: $margin-sml;
+    margin-top: $margin-large;
+}

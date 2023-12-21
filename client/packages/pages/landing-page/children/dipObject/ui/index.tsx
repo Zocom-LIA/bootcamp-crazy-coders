@@ -1,6 +1,6 @@
  import './style.scss';
 
-type DipObjectProps = {
+type props = {
     key: string,
     name: string,
     desc: string,  
@@ -8,11 +8,10 @@ type DipObjectProps = {
 } 
 
 export const DipObject = ({
-    key, name, desc, price} : DipObjectProps) => { 
+    key, name, desc, price} : props) => { 
     return (
         <article className='dipContainer'>
-            
-            <section className='dipContainer'>
+            <section className='dipItem'>
                 <p className='dipLabel'>{name}</p>
             </section>
         </article>
