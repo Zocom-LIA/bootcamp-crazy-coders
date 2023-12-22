@@ -10,3 +10,9 @@ createAdminAccount:
       - httpApi:
           path: '/api/admin/create'
           method: POST
+postOrder:
+    handler: src/functions/api/order/post/index.handler
+    events:
+      - httpApi:
+          path: '/api/order'
+          method: POST

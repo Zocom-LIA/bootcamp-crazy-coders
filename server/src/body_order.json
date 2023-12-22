@@ -1,0 +1,73 @@
+{
+	"customerId": "optional",
+	"totalSum": "92",
+	"selection":[
+		{
+			"name":"Karlstad",
+			"type":"Wonton",
+			"count":"3",
+			"totalPrice":"27"
+		},
+		{
+			"name":"Ho Chi Minh",
+			"type":"Wonton",
+			"count":"2",
+			"totalPrice":"18"
+		},
+		{
+			"name":"Paris",
+			"type":"Wonton",
+			"count":"1",
+			"totalPrice":"9"
+		},
+		{
+			"name":"Sweet Chili",
+			"type":"Dip",
+			"count":"1",
+			"totalPrice":"19"
+		},
+		{
+			"name":"Guacamole",
+			"type":"Dip",
+			"count":"1",
+			"totalPrice":"19"
+		}
+	]
+	
+}
+
+{
+	"customerId": "optional",
+	"totalSum": "92",
+	"selection":{
+		"Wonton": [
+				{
+					"name":"Karlstad",
+					"count":"3",
+					"totalPrice":"27"
+				},
+				{
+					"name":"Ho Chi Minh",
+					"count":"2",
+					"totalPrice":"18"
+				},
+				{
+					"name":"Paris",
+					"count":"1",
+					"totalPrice":"9"
+				}
+			],
+		"Dip":[
+			{
+				"name":"Sweet Chili",
+				"count":"1",
+				"totalPrice":"19"
+			},
+			{
+				"name":"Guacamole",
+				"count":"1",
+				"totalPrice":"19"
+			}
+		]
+	}
+}

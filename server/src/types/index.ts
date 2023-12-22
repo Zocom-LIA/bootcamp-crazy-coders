@@ -49,10 +49,16 @@ export type YumYumBase = {
  **** MENU ****
  */
 
+export type MenuItemBase = {
+  name: string;
+  desc: string;
+  price: number;
+};
+
 export const createMenuItemFrom = (menu: IMenuItem): IMenu => {
   return {
-    PK: `YumYum`,
-    SK: `Menu`,
+    PK: `Menu`,
+    SK: `Original`,
     items: menu,
   };
 };
@@ -66,21 +72,12 @@ export interface IMenuItem {
   dip: IDipItem[];
 }
 
-export type IWontonItem = {
-  id: string;
-  name: string;
-  desc: string;
+export interface IWontonItem extends MenuItemBase {
   ingredients: string[];
-  price: number;
   cookingTime: number;
-};
+}
 
-export type IDipItem = {
-  id: string;
-  name: string;
-  desc: string;
-  price: number;
-};
+export interface IDipItem extends MenuItemBase {}
 
 export type PartialMenu = Omit<IMenu, "PK" | "SK">;
 
@@ -94,7 +91,7 @@ export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
     SK: `Order#${base.id}Created#${base.createdAt}`,
     GSI_PK_1: `Order`,
     GSI_SK_1: `Ongoing#${base.id}#${order.customerId}`,
-    id: order.customerId,
+    id: order.customerId ?? "",
     selection: order.selection,
     createdAt: base.createdAt,
     totalSum: order.totalSum,
@@ -182,7 +179,7 @@ export interface IJwtToken {
  */
 
 export interface ISchemaCreateOrder {
-  customerId: string;
+  customerId?: string;
   selection: ISelectionItem[];
   totalSum: number;
 }

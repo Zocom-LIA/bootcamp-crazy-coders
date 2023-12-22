@@ -1,4 +1,9 @@
-import { IAdminItem, IMenu, ISchemaLoginAdmin } from "@src/types";
+import {
+  IAdminItem,
+  IMenu,
+  ISchemaLoginAdmin,
+  ISelectionItem,
+} from "@src/types";
 import { DocumentClient } from "aws-sdk/clients/dynamodb.js";
 
 /*
@@ -54,16 +59,23 @@ export const createAdminAccountParams = (
  ***************************************** QUERY MENU *****************************************
  */
 
-export const queryMenuParam = (): AWS.DynamoDB.DocumentClient.QueryInput => {
+export const menuItemsProjectExpression = (items: ISelectionItem[]): string => {
+  let projectExpression = "";
+  items.forEach((item) => {
+    projectExpression += `#i.${item.type}.${item.name},`;
+  });
+  return projectExpression;
+};
+
+export const getMenuParams = (): DocumentClient.GetItemInput => {
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
-    KeyConditionExpression: "#pk = :pk AND #sk = :sk",
-    ProjectionExpression: "#i",
-    ExpressionAttributeNames: { "#pk": "PK", "#sk": "SK", "#i": "items" },
-    ExpressionAttributeValues: {
-      ":pk": `Menu`,
-      ":sk": `Original`,
+    Key: {
+      PK: `Menu`,
+      SK: `Original`,
     },
+    ProjectionExpression: "#i",
+    ExpressionAttributeNames: { "#i": "items" },
   };
 };
 
