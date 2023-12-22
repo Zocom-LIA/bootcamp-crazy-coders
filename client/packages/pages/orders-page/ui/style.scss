@@ -1,0 +1,12 @@
+@use '@zocom/styles' as *;
+
+.orders-page {
+  @include column;
+
+  padding: $padding-large;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: $color-coal;
+}
