@@ -4,31 +4,37 @@ import { ReceiptPage } from '@zocom/receipt-page';
 import { CheckoutPage } from '@zocom/checkout-page';
 import { OrderPage } from '@zocom/order-page';
 import { AdminPage } from '@zocom/admin-page';
+import { AppLayout } from '@zocom/applayout';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <LandingPage />,
-  },
-  {
-    path: '/receipt',
-    element: <ReceiptPage />,
-  },
-  {
-    path: '/checkout',
-    element: <CheckoutPage />,
-  },
-  {
-    path: '/order',
-    element: <OrderPage />,
-  },
-  {
-    path: '/admin',
-    element: <AdminPage />,
-  },
-  {
-    path: '*',
-    element: <p>Page Not Found</p>,
+    element: <AppLayout />,
+    children: [
+      {
+        path: '/',
+        element: <LandingPage />,
+      },
+      {
+        path: '/receipt',
+        element: <ReceiptPage />,
+      },
+      {
+        path: '/checkout',
+        element: <CheckoutPage />,
+      },
+      {
+        path: '/order',
+        element: <OrderPage />,
+      },
+      {
+        path: '/admin',
+        element: <AdminPage />,
+      },
+      {
+        path: '*',
+        element: <p>Page Not Found</p>,
+      },
+    ],
   },
 ]);
 

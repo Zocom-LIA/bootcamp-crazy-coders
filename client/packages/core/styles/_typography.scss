@@ -11,6 +11,10 @@
   font-size: 62.5%;
 }
 
+body {
+  @include flexCenter();
+}
+
 $base: 1.6rem;
 
 @mixin fontsizeLarge {

@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { MenuObject } from '@zocom/menu-object';
 import { DipObject } from '@zocom/dip-object';
 import { getMenuData } from '..';
+import { Cart } from '@zocom/cart';
+import { Logo } from '@zocom/logo';
 
 type MenuItem = {
   key: string;
@@ -42,6 +44,11 @@ export const LandingPage = () => {
 
   return (
     <main className="landing-page">
+      <section className="landing-page__header">
+        <Logo />
+        <Cart quantity={0} />
+      </section>
+
       <section className="menu">
         <h1 className="title">MENY</h1>
         {menu &&

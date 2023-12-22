@@ -3,8 +3,8 @@ import { Outlet } from 'react-router-dom';
 
 export const AppLayout = () => {
   return (
-    <main className="applayout">
+    <article className="applayout">
       <Outlet />
-    </main>
+    </article>
   );
 };
