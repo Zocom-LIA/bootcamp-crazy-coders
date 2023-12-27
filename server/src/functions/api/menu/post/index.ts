@@ -1,11 +1,7 @@
 import { Handler, middyfy } from "@lib/middywrapper.js";
 import { failedResponse, createResponse } from "@util/response.js";
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
-import {
-  IPriceList,
-  createMenuItemFrom,
-  createPriceListFrom,
-} from "@yumtypes/index.js";
+import { createMenuItemFrom, createPriceListFrom } from "@yumtypes/index.js";
 import { createPutRequestParams } from "@params/index.js";
 import { execPutRequest } from "@database/services/index.js";
 

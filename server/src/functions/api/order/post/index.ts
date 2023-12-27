@@ -5,7 +5,7 @@ import {
   failedResponse,
   createResponse,
   orderSumError,
-} from "../../../../util/response.js";
+} from "@util/response.js";
 import { ISchemaCreateOrder } from "@yumtypes/index.js";
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
 import {
