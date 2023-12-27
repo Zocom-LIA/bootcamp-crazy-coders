@@ -32,7 +32,7 @@ export const exeGetAdminRequest = async (
 
 export const exeGetMenuRequest = async (
   params: DocumentClient.GetItemInput
-): Promise<PartialMenu> => {
+): Promise<PartialMenu | undefined> => {
   let { Item } = await dynamoDBClient.get(params).promise();
   return Item as PartialMenu;
 };

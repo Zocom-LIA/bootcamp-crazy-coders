@@ -6,41 +6,30 @@ import {
   createResponse,
   orderSumError,
 } from "../../../../util/response.js";
-import { ISchemaCreateOrder, MenuItemBase } from "@yumtypes/index.js";
-import { createOrderItemFrom } from "@yumtypes/index.js";
+import { ISchemaCreateOrder } from "@yumtypes/index.js";
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
 import {
-  menuItemsProjectExpression,
-  queryMenuItemsParam,
+  getMenuPricesParam,
+  menuPricesProjectExpression,
 } from "@src/params/index.js";
-import { execQueryTable } from "@src/database/services/index.js";
-import { ItemList } from "aws-sdk/clients/dynamodb.js";
-
-/*
-const post = async (order: ISchemaCreateOrder) => {
-  let orderItem = createOrderItemFrom(order);
-  let params = createPutOrderParams(orderItem);
-  return execPutOrderRequest(params);
-};*/
+import { exeGetMenuRequest } from "@src/database/services/index.js";
+import { objectLength } from "@src/util/functions.js";
 
 const validateSumBeforePurchase = async (
   order: ISchemaCreateOrder
-): Promise<ItemList | undefined> => {
-  let projectExpression = menuItemsProjectExpression(order.selection);
-  let params = queryMenuItemsParam(projectExpression);
-  let itemsList = await execQueryTable(params);
-  itemsList?.forEach(({ item }) => {});
-  //return execQueryTable(params);
-
-  /*let totalSum: number = 0;
+): Promise<boolean> => {
+  let projectExpression = menuPricesProjectExpression(order.selection);
+  let params = getMenuPricesParam(projectExpression);
+  let itemsList = await exeGetMenuRequest(params);
+  if (order.selection.length !== objectLength(itemsList?.prices)) {
+    return false;
+  }
+  let totalSum: number = 0;
   order.selection.forEach((item) => {
-    let index = attrmap.findIndex((e) => e.name === item.name);
-    if (index > -1) {
-      let m = attrmap[index];
-      totalSum += m.price ? m.price * item.count : 0;
-    }
+    let name = item.name.toLowerCase().replaceAll(" ", "");
+    totalSum += (itemsList?.prices[`${name}`] ?? 0) * item.count;
   });
-  return totalSum === order.totalSum;*/
+  return totalSum === order.totalSum;
 };
 
 const postOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (

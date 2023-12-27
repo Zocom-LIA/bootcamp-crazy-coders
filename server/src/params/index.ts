@@ -42,6 +42,7 @@ export const createPutRequestParams = (
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
     Item: menu,
+    ConditionExpression: "attribute_not_exists(PK)",
   };
 };
 
@@ -59,12 +60,31 @@ export const createAdminAccountParams = (
  ***************************************** QUERY MENU *****************************************
  */
 
-export const menuItemsProjectExpression = (items: ISelectionItem[]): string => {
+export const menuPricesProjectExpression = (
+  items: ISelectionItem[]
+): string => {
   let projectExpression = "";
-  items.forEach((item) => {
-    projectExpression += `#i.${item.type}.${item.name},`;
+  items.forEach((item, i) => {
+    if (i !== 0) {
+      projectExpression += `,`;
+    }
+    projectExpression += `#p.${item.name.toLowerCase().replaceAll(" ", "")}`;
   });
   return projectExpression;
+};
+
+export const getMenuPricesParam = (
+  projectExpression: string
+): DocumentClient.GetItemInput => {
+  return {
+    TableName: `${process.env["YUM_YUM_TABLE"]}`,
+    Key: {
+      PK: `Menu`,
+      SK: `Original`,
+    },
+    ProjectionExpression: projectExpression,
+    ExpressionAttributeNames: { "#p": "prices" },
+  };
 };
 
 export const getMenuParams = (): DocumentClient.GetItemInput => {

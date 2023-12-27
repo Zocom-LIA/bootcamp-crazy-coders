@@ -8,7 +8,7 @@ export const baseItemProperties = () => {
 };
 
 /*
- **** REQUEST ITEMS ****
+ **************************************** REQUEST ITEMS ****************************************
  */
 
 export type PutRequestItem = {
@@ -18,7 +18,7 @@ export type PutRequestItem = {
 };
 
 /*
- **** MIDDY ERROR ****
+ **************************************** MIDDY ERROR ****************************************
  */
 export interface MiddyError {
   name: string;
@@ -37,7 +37,7 @@ export interface MiddyErrorObject {
 }
 
 /*
- **** YUM YUM TABLE ****
+ **************************************** YUM YUM TABLE ****************************************
  */
 
 export type YumYumBase = {
@@ -46,8 +46,31 @@ export type YumYumBase = {
 };
 
 /*
- **** MENU ****
+ ******************************************** MENU ********************************************
  */
+
+export const createMenuItemFrom = (
+  menu: IMenuItem,
+  priceList: IPriceList
+): IMenu => {
+  return {
+    PK: `Menu`,
+    SK: `Original`,
+    items: menu,
+    prices: priceList,
+  };
+};
+
+export const createPriceListFrom = (menu: IMenuItem): IPriceList => {
+  let priceList: IPriceList = {};
+  menu.wontons.forEach((w) => {
+    priceList[w.name.toLowerCase().replaceAll(" ", "")] = w.price;
+  });
+  menu.dip.forEach((d) => {
+    priceList[`${d.name.toLowerCase().replaceAll(" ", "")}`] = d.price;
+  });
+  return priceList;
+};
 
 export type MenuItemBase = {
   name: string;
@@ -55,21 +78,18 @@ export type MenuItemBase = {
   price: number;
 };
 
-export const createMenuItemFrom = (menu: IMenuItem): IMenu => {
-  return {
-    PK: `Menu`,
-    SK: `Original`,
-    items: menu,
-  };
-};
-
 export interface IMenu extends YumYumBase {
   items: IMenuItem;
+  prices: IPriceList;
 }
 
 export interface IMenuItem {
   wontons: IWontonItem[];
   dip: IDipItem[];
+}
+
+export interface IPriceList {
+  [key: string]: number;
 }
 
 export interface IWontonItem extends MenuItemBase {
@@ -82,7 +102,7 @@ export interface IDipItem extends MenuItemBase {}
 export type PartialMenu = Omit<IMenu, "PK" | "SK">;
 
 /*
- **** ORDER ****
+ ******************************************** ORDER ********************************************
  */
 export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
   let base = baseItemProperties();
@@ -100,7 +120,6 @@ export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
 
 export interface ISelectionItem {
   name: string;
-  type: string;
   count: number;
   totalPrice: number;
 }
@@ -115,7 +134,7 @@ export interface IOrderItem extends YumYumBase {
 }
 
 /*
- **** ADMIN PERSONAL ****
+ ******************************************** ADMIN PERSONAL ********************************************
  */
 
 export const createAdminItemFrom = (
@@ -149,7 +168,7 @@ export interface IAdminItem extends YumYumBase {
 export type PartialAdminItem = Omit<IAdminItem, "PK" | "SK">;
 
 /*
- **** JWT TOKEN ****
+ ******************************************** JWT TOKEN ********************************************
  */
 
 export const createPayload = (id: string, username: string): IPayload => {
@@ -175,7 +194,7 @@ export interface IJwtToken {
 }
 
 /*
- **** SCHEMA ****
+ ******************************************** SCHEMA ********************************************
  */
 
 export interface ISchemaCreateOrder {

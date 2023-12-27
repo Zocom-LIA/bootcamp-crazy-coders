@@ -1,7 +1,11 @@
 import { Handler, middyfy } from "@lib/middywrapper.js";
 import { failedResponse, createResponse } from "@util/response.js";
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
-import { createMenuItemFrom } from "@yumtypes/index.js";
+import {
+  IPriceList,
+  createMenuItemFrom,
+  createPriceListFrom,
+} from "@yumtypes/index.js";
 import { createPutRequestParams } from "@params/index.js";
 import { execPutRequest } from "@database/services/index.js";
 
@@ -93,7 +97,8 @@ let menu = {
 };
 
 const writeMenu = async () => {
-  let menuItem = createMenuItemFrom(menu);
+  let priceList = createPriceListFrom(menu);
+  let menuItem = createMenuItemFrom(menu, priceList);
   let params = createPutRequestParams(menuItem);
   return execPutRequest(params);
 };
