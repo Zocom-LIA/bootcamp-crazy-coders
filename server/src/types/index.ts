@@ -114,7 +114,7 @@ export const createOrderHistoryItemFrom = (
 ): IOrderHistoryItem => {
   return {
     PK: `Order`,
-    SK: `History#${order.orderId}`,
+    SK: `History#${order.orderId}#${order.customerId}`,
     orderId: order.orderId,
     customerId: order.customerId,
     selection: order.selection,
@@ -128,7 +128,7 @@ export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
   let baseOrder = baseItemProperties();
   return {
     PK: `Order`,
-    SK: `InProgress#${baseOrder.id}`,
+    SK: `InProgress#${baseOrder.id}#${customerId}`,
     orderId: baseOrder.id,
     customerId: customerId,
     status: OrderStatus.QUEUED,
