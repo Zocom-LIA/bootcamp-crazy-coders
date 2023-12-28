@@ -45,6 +45,13 @@ export type YumYumBase = {
   SK: string;
 };
 
+export const createKeysOnlyItem = (item: YumYumBase) => {
+  return {
+    PK: item.PK,
+    SK: item.SK,
+  };
+};
+
 /*
  ******************************************** MENU ********************************************
  */
@@ -104,16 +111,25 @@ export type PartialMenu = Omit<IMenu, "PK" | "SK">;
 /*
  ******************************************** ORDER ********************************************
  */
+
+export enum OrderStatus {
+  QUEUED = "queued",
+  PROCESSING = "processing",
+  READY = "ready",
+  SERVED = "served",
+}
+
 export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
-  let base = baseItemProperties();
+  let customerId = order.customerId ?? nanoid();
+  let baseOrder = baseItemProperties();
   return {
-    PK: `Customer#${order.customerId}`,
-    SK: `Order#${base.id}Created#${base.createdAt}`,
-    GSI_PK_1: `Order`,
-    GSI_SK_1: `Ongoing#${base.id}#${order.customerId}`,
-    id: order.customerId ?? "",
+    PK: `Order`,
+    SK: `InProgress#${baseOrder.id}`,
+    orderId: baseOrder.id,
+    customerId: customerId,
+    status: OrderStatus.QUEUED,
     selection: order.selection,
-    createdAt: base.createdAt,
+    createdAt: baseOrder.createdAt,
     totalSum: order.totalSum,
   };
 };
@@ -125,13 +141,51 @@ export interface ISelectionItem {
 }
 
 export interface IOrderItem extends YumYumBase {
-  GSI_PK_1: string;
-  GSI_SK_1: string;
-  id: string;
+  customerId: string;
+  orderId: string;
+  status: OrderStatus;
   selection: ISelectionItem[];
   totalSum: number;
   createdAt: string;
 }
+
+/*
+ ******************************************** RECIEPE ********************************************
+ */
+
+export const createReciepeItemFrom = (order: IOrderItem): IReciepeItem => {
+  return {
+    PK: `Customer#${order.customerId}`,
+    SK: `Reciepe#${order.orderId}`,
+    orderId: order.orderId,
+    customerId: order.customerId,
+    selection: order.selection,
+    createdAt: order.createdAt,
+    totalSum: order.totalSum,
+  };
+};
+
+export const createReciepeResponseItemFrom = (
+  order: IReciepeItem
+): PartialReciepe => {
+  return {
+    orderId: order.orderId,
+    customerId: order.customerId,
+    selection: order.selection,
+    createdAt: order.createdAt,
+    totalSum: order.totalSum,
+  };
+};
+
+export interface IReciepeItem extends YumYumBase {
+  orderId: string;
+  customerId: string;
+  selection: ISelectionItem[];
+  totalSum: number;
+  createdAt: string;
+}
+
+export type PartialReciepe = Omit<IReciepeItem, "PK" | "SK">;
 
 /*
  ******************************************** ADMIN PERSONAL ********************************************

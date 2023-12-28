@@ -10,7 +10,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb.js";
  ***************************************** BATCH *****************************************
  */
 
-export const batchWriteParams = (
+export const batchRequestParams = (
   items: any
 ): DocumentClient.BatchWriteItemInput => {
   return { RequestItems: { [`${process.env["YUM_YUM_TABLE"]}`]: items } };
