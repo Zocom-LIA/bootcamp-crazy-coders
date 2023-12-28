@@ -8,16 +8,6 @@ export const baseItemProperties = () => {
 };
 
 /*
- **************************************** REQUEST ITEMS ****************************************
- */
-
-export type PutRequestItem = {
-  PutRequest: {
-    Item: YumYumBase;
-  };
-};
-
-/*
  **************************************** MIDDY ERROR ****************************************
  */
 export interface MiddyError {
@@ -119,6 +109,20 @@ export enum OrderStatus {
   SERVED = "served",
 }
 
+export const createOrderHistoryItemFrom = (
+  order: IOrderItem
+): IOrderHistoryItem => {
+  return {
+    PK: `Order`,
+    SK: `History#${order.orderId}`,
+    orderId: order.orderId,
+    customerId: order.customerId,
+    selection: order.selection,
+    createdAt: order.createdAt,
+    totalSum: order.totalSum,
+  };
+};
+
 export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
   let customerId = order.customerId ?? nanoid();
   let baseOrder = baseItemProperties();
@@ -144,6 +148,14 @@ export interface IOrderItem extends YumYumBase {
   customerId: string;
   orderId: string;
   status: OrderStatus;
+  selection: ISelectionItem[];
+  totalSum: number;
+  createdAt: string;
+}
+
+export interface IOrderHistoryItem extends YumYumBase {
+  customerId: string;
+  orderId: string;
   selection: ISelectionItem[];
   totalSum: number;
   createdAt: string;
