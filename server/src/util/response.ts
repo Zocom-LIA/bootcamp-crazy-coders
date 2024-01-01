@@ -88,6 +88,13 @@ const createAdminExistsError = (): any => {
   };
 };
 
+const createMenuExistsError = (): any => {
+  return {
+    statusCode: HttpCode.BAD_REQUEST,
+    message: `Create menu failed. Menu already exists in database.`,
+  };
+};
+
 export {
   createResponse,
   failedResponse,
@@ -97,6 +104,7 @@ export {
   appTokenValidationError,
   appTokenExpiredError,
   createAdminExistsError,
+  createMenuExistsError,
   orderSumError,
   orderItemsNotFoundError,
 };

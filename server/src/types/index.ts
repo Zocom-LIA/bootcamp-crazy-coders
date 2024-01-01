@@ -114,7 +114,7 @@ export const createOrderHistoryItemFrom = (
 ): IOrderHistoryItem => {
   return {
     PK: `Order`,
-    SK: `History#${order.orderId}#${order.customerId}`,
+    SK: `History#${order.customerId}#${order.orderId}`,
     orderId: order.orderId,
     customerId: order.customerId,
     selection: order.selection,
@@ -128,7 +128,7 @@ export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
   let baseOrder = baseItemProperties();
   return {
     PK: `Order`,
-    SK: `InProgress#${baseOrder.id}#${customerId}`,
+    SK: `InProgress#${customerId}#${baseOrder.id}`,
     orderId: baseOrder.id,
     customerId: customerId,
     status: OrderStatus.QUEUED,
@@ -162,13 +162,13 @@ export interface IOrderHistoryItem extends YumYumBase {
 }
 
 /*
- ******************************************** RECIEPE ********************************************
+ ******************************************** RECEIPT ********************************************
  */
 
-export const createReciepeItemFrom = (order: IOrderItem): IReciepeItem => {
+export const createReceiptItemFrom = (order: IOrderItem): IReceiptItem => {
   return {
     PK: `Customer#${order.customerId}`,
-    SK: `Reciepe#${order.orderId}`,
+    SK: `Receipt#${order.orderId}`,
     orderId: order.orderId,
     customerId: order.customerId,
     selection: order.selection,
@@ -177,9 +177,9 @@ export const createReciepeItemFrom = (order: IOrderItem): IReciepeItem => {
   };
 };
 
-export const createReciepeResponseItemFrom = (
-  order: IReciepeItem
-): PartialReciepe => {
+export const createReceiptResponseItemFrom = (
+  order: IReceiptItem
+): PartialReceipt => {
   return {
     orderId: order.orderId,
     customerId: order.customerId,
@@ -189,7 +189,7 @@ export const createReciepeResponseItemFrom = (
   };
 };
 
-export interface IReciepeItem extends YumYumBase {
+export interface IReceiptItem extends YumYumBase {
   orderId: string;
   customerId: string;
   selection: ISelectionItem[];
@@ -197,7 +197,7 @@ export interface IReciepeItem extends YumYumBase {
   createdAt: string;
 }
 
-export type PartialReciepe = Omit<IReciepeItem, "PK" | "SK">;
+export type PartialReceipt = Omit<IReceiptItem, "PK" | "SK">;
 
 /*
  ******************************************** ADMIN PERSONAL ********************************************

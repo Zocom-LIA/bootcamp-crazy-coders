@@ -27,7 +27,7 @@ export const putRequestItem = (data: any): any => {
 export const deleteRequestItem = (data: any): any => {
   return {
     DeleteRequest: {
-      Item: data,
+      Key: data,
     },
   };
 };

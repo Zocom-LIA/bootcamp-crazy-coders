@@ -1,9 +1,14 @@
 import { Handler, middyfy } from "@lib/middywrapper.js";
-import { failedResponse, createResponse } from "@util/response.js";
+import {
+  failedResponse,
+  createResponse,
+  createMenuExistsError,
+} from "@util/response.js";
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
 import { createMenuItemFrom, createPriceListFrom } from "@yumtypes/index.js";
 import { createPutRequestParams } from "@params/index.js";
 import { execPutRequest } from "@database/services/index.js";
+import { AWSError } from "aws-sdk";
 
 let menu = {
   wontons: [
@@ -106,6 +111,9 @@ const table: Handler<void, void, void> = async (_) => {
       message: dbResponse.statusMessage,
     });
   } catch (error) {
+    if ((error as AWSError).name === "ConditionalCheckFailedException") {
+      return failedResponse(createMenuExistsError());
+    }
     return failedResponse(error);
   }
 };

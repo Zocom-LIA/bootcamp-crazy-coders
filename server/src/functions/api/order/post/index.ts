@@ -12,8 +12,8 @@ import {
   YumYumBase,
   createKeysOnlyItem,
   createOrderItemFrom,
-  createReciepeItemFrom,
-  createReciepeResponseItemFrom,
+  createReceiptItemFrom,
+  createReceiptResponseItemFrom,
 } from "@yumtypes/index.js";
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
 import {
@@ -25,7 +25,7 @@ import {
 } from "@src/params/index.js";
 import {
   exeBatchWrite,
-  exeGetMenuRequest,
+  execGetMenuRequest,
 } from "@src/database/services/index.js";
 import { objectLength } from "@src/util/functions.js";
 import { HttpError } from "http-errors";
@@ -36,48 +36,48 @@ const validateSumBeforePurchase = async (
 ): Promise<HttpError | undefined> => {
   let projectExpression = menuPricesProjectExpression(order.selection);
   let params = getMenuPricesParam(projectExpression);
-  let itemsList = await exeGetMenuRequest(params);
+  let itemsList = await execGetMenuRequest(params);
   if (order.selection.length !== objectLength(itemsList?.prices)) {
     return orderItemsNotFoundError();
   }
   let totalSum: number = 0;
   order.selection.forEach((item) => {
     let name = item.name.toLowerCase().replaceAll(" ", "");
-    let itemSum = itemsList?.prices[`${name}`] ?? 0 * item.count;
+    let itemSum = (itemsList?.prices[`${name}`] ?? 0) * item.count;
     totalSum += itemSum === item.totalPrice ? itemSum : 0;
   });
 
   return totalSum !== order.totalSum ? orderSumError() : undefined;
 };
 
-const deleteOrderAndReciepe = async (
+const deleteOrderAndReceipt = async (
   deleteOrderItem: YumYumBase,
-  deleteReciepeItem: YumYumBase
+  deleteReceiptItem: YumYumBase
 ) => {
   let params = batchRequestParams([
     deleteRequestItem(deleteOrderItem),
-    deleteRequestItem(deleteReciepeItem),
+    deleteRequestItem(deleteReceiptItem),
   ]);
   return exeBatchWrite(params);
 };
 
-const putOrderAndReciepe = async (order: ISchemaCreateOrder) => {
+const putOrderAndReceipt = async (order: ISchemaCreateOrder) => {
   let orderItem = createOrderItemFrom(order);
-  let reciepeItem = createReciepeItemFrom(orderItem);
+  let receiptItem = createReceiptItemFrom(orderItem);
   let params = batchRequestParams([
     putRequestItem(orderItem),
-    putRequestItem(reciepeItem),
+    putRequestItem(receiptItem),
   ]);
   let dbResponse = await exeBatchWrite(params);
   if (dbResponse.statusCode == HttpCode.OK) {
     return createResponse(
       HttpCode.OK,
-      createReciepeResponseItemFrom(reciepeItem)
+      createReceiptResponseItemFrom(receiptItem)
     );
   } else {
-    await deleteOrderAndReciepe(
+    await deleteOrderAndReceipt(
       createKeysOnlyItem(orderItem),
-      createKeysOnlyItem(reciepeItem)
+      createKeysOnlyItem(receiptItem)
     );
     return createResponse(dbResponse.statusCode, {
       message: dbResponse.statusMessage,
@@ -94,7 +94,7 @@ const postOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (
     if (validationError) {
       return failedResponse(validationError);
     }
-    return putOrderAndReciepe(order);
+    return putOrderAndReceipt(order);
   } catch (error) {
     return failedResponse(error);
   }
