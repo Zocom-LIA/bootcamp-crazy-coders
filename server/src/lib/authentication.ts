@@ -4,7 +4,7 @@ import { ValidationError } from "@util/validationError";
 const { verify, sign } = jsonwebtoken;
 
 export const generateToken = (payload: IPayload, secret: string): string => {
-  return sign(payload, secret, { expiresIn: "1h" });
+  return sign(payload, secret, { expiresIn: "8h" });
 };
 
 export const authenticate = (
