@@ -104,7 +104,7 @@ export type PartialMenu = Omit<IMenu, "PK" | "SK">;
 
 export enum OrderStatus {
   QUEUED = "queued",
-  PROCESSING = "processing",
+  ASSIGNED = "assigned",
   READY = "ready",
   SERVED = "served",
 }
@@ -151,6 +151,9 @@ export interface IOrderItem extends YumYumBase {
   selection: ISelectionItem[];
   totalSum: number;
   createdAt: string;
+  assignedTo?: string;
+  startTime?: string;
+  endTime?: string;
 }
 
 export interface IOrderHistoryItem extends YumYumBase {

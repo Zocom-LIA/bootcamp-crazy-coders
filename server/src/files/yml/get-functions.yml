@@ -22,3 +22,9 @@ getReceipt:
       - httpApi:
           path: '/api/receipt'
           method: GET
+getAdminOrdersQueued:
+    handler: src/functions/api/admin/orders/queued/index.handler
+    events:
+      - httpApi:
+          path: '/api/admin/orders/queued'
+          method: GET

@@ -1,12 +1,19 @@
 import { HttpResponse } from "aws-sdk";
 import dynamoDBClient from "../core/dbClient.js";
 import { DocumentClient, ItemList } from "aws-sdk/clients/dynamodb.js";
-import { PartialAdminItem, PartialMenu } from "@src/types/index.js";
+import { IOrderItem, PartialAdminItem, PartialMenu } from "@src/types/index.js";
 
 export const exeBatchWrite = async (
   params: DocumentClient.BatchWriteItemInput
 ): Promise<HttpResponse> => {
   let dbResponse = await dynamoDBClient.batchWrite(params).promise();
+  return dbResponse.$response.httpResponse;
+};
+
+export const execTransactWrite = async (
+  params: DocumentClient.TransactWriteItemsInput
+): Promise<HttpResponse> => {
+  const dbResponse = await dynamoDBClient.transactWrite(params).promise();
   return dbResponse.$response.httpResponse;
 };
 
@@ -41,4 +48,10 @@ export const execGetAdminRequest = async (
 ): Promise<PartialAdminItem> => {
   let { Item } = await dynamoDBClient.get(params).promise();
   return Item as PartialAdminItem;
+};
+
+export const execQueryTableForOrders = async (
+  params: AWS.DynamoDB.DocumentClient.QueryInput
+): Promise<IOrderItem[] | undefined> => {
+  return (await dynamoDBClient.query(params).promise()).Items as IOrderItem[];
 };
