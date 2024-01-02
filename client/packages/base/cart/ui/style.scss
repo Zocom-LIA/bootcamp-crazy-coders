@@ -1,0 +1,23 @@
+@use '@zocom/styles' as *;
+
+.cart {
+  position: relative;
+  width: 6.4rem;
+  height: 6.4rem;
+  background-color: $color-snow;
+  cursor: pointer;
+  @include center;
+
+  &__quantity {
+    position: absolute;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    color: $color-snow;
+    background-color: $color-alert;
+    top: 0;
+    right: 0;
+    transform: translate(+50%, -50%);
+    @include center;
+  }
+}

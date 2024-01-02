@@ -1,0 +1,22 @@
+@use '@zocom/styles' as *;
+
+.total {
+  @include row();
+
+  justify-content: space-between;
+  align-items: center;
+
+  &__title {
+    @include fontsizeRegular();
+    @include fontBold();
+  }
+
+  &__vat {
+    @include fontsizeSmall();
+  }
+
+  &__sum {
+    @include fontsizeLarge();
+    @include fontBold();
+  }
+}

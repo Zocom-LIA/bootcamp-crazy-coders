@@ -1,0 +1,64 @@
+@use '@zocom/styles' as *;
+
+.landing-page {
+  @include center;
+  background: url('assets/leaves.png') $color-mint;
+  padding: $padding-large;
+  gap: $gap-large;
+
+  &__header {
+    @include flexCenterPickDirection(space-between);
+    width: 100%;
+  }
+}
+
+.menu {
+  background-color: $color-clay;
+  border-radius: $radius-tier-2;
+  width: 100%;
+}
+
+.title {
+  @include fontsizeLarge;
+  color: $color-snow;
+  margin: $margin-large;
+  text-shadow: $shadow-titleText;
+}
+
+.dipTitle {
+  @include fontsizeMedium;
+  color: $color-snow;
+  margin: $margin-large;
+}
+
+.dipPrice {
+  @include fontsizeMedium;
+  color: $color-snow;
+  margin: $margin-large $margin-sml $margin-giant 0;
+  white-space: nowrap;
+}
+
+.dipItems {
+  @include fontsizeRegular;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: $gap-large;
+  margin: $margin;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: $color-snow;
+}
+.dipTitlePrice {
+  display: flex;
+}
+
+.dipDottedLine {
+  border: none;
+  border-bottom: 2px dotted $color-snow;
+  background-color: $color-clay;
+  height: 2px;
+  margin-right: $margin-sml;
+  margin-top: $margin-giant;
+}

@@ -1,0 +1,32 @@
+{
+	"customerId": "optional",
+	"totalSum": "92",
+	"selection":[
+		{
+			"name":"Karlstad",
+			"count":"3",
+			"totalPrice":"27"
+		},
+		{
+			"name":"Ho Chi Minh",
+			"count":"2",
+			"totalPrice":"18"
+		},
+		{
+			"name":"Paris",
+			"count":"1",
+			"totalPrice":"9"
+		},
+		{
+			"name":"Sweet Chili",
+			"count":"1",
+			"totalPrice":"19"
+		},
+		{
+			"name":"Guacamole",
+			"count":"1",
+			"totalPrice":"19"
+		}
+	]
+	
+}

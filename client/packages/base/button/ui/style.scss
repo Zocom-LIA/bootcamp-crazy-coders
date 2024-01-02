@@ -1,0 +1,26 @@
+@use '@zocom/styles' as *;
+
+.btn {
+  width: 35.8rem;
+  height: 7.7rem;
+  display: inline-block;
+
+  @include fontsizeLarge;
+  @include fontBold;
+
+  color: $color-snow;
+  text-align: center;
+  transition: all 0.2s ease-in;
+
+  &__primary {
+    background-color: $color-coal;
+  }
+  &__secondary {
+    border: 1px solid $color-snow;
+    background-color: transparent;
+  }
+
+  &:hover {
+    filter: brightness(1.4);
+  }
+}

@@ -1,0 +1,16 @@
+@use '@zocom/styles' as *;
+
+.receipt-page {
+  @include column;
+  gap: $gap-large;
+  align-items: stretch;
+
+  padding: $padding-large;
+  height: 100vh;
+
+  background-color: $color-clay;
+
+  &____logo {
+    width: 100%;
+  }
+}
