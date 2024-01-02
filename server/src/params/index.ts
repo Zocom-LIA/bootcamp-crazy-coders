@@ -167,8 +167,8 @@ export const queryAssignedOrdersParams = (
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
     KeyConditionExpression: "#pk = :pk AND begins_with(#sk, :sk)",
-    FilterExpression: "#st = :st AND #at = :at",
-    ProjectionExpression: "#ca,#sl,#cid,#oid,#at,#s",
+    FilterExpression: "#s = :s AND #at = :at",
+    ProjectionExpression: "#ca,#sl,#cid,#oid,#at,#s,#st",
     ExpressionAttributeNames: {
       "#pk": "PK",
       "#sk": "SK",
@@ -176,13 +176,14 @@ export const queryAssignedOrdersParams = (
       "#sl": "selection",
       "#cid": "customerId",
       "#oid": "orderId",
-      "#st": "status",
+      "#s": "status",
       "#at": "assignedTo",
+      "#st": "startTime",
     },
     ExpressionAttributeValues: {
       ":pk": `Order`,
       ":sk": `InProgress`,
-      ":st": `${OrderStatus.ASSIGNED}`,
+      ":s": `${OrderStatus.ASSIGNED}`,
       ":at": `${staffmember}`,
     },
   };
