@@ -190,6 +190,33 @@ export const queryAssignedOrdersParams = (
 };
 
 /*
+ ***************************************** UPDATE ORDER *****************************************
+ */
+
+export const updateOrderParams = (
+  customerId: string,
+  orderId: string,
+  status: string,
+  staffmember: string
+): DocumentClient.UpdateItemInput => {
+  return {
+    TableName: `${process.env["YUM_YUM_TABLE"]}`,
+    Key: {
+      PK: `Order`,
+      SK: `InProgress#${customerId}#${orderId}`,
+    },
+    ConditionExpression: "#at = :at",
+    UpdateExpression: "SET #st = :st",
+    ExpressionAttributeNames: { "#st": "status", "#at": "assigned_to" },
+    ExpressionAttributeValues: {
+      ":st": status,
+      ":at": staffmember,
+    },
+    ReturnValues: "ALL_NEW",
+  };
+};
+
+/*
  ***************************************** ADMIN LOGIN *****************************************
  */
 export const getAdminAccountParams = (

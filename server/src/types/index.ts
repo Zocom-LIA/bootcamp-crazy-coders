@@ -276,3 +276,8 @@ export interface ISchemaLoginAdmin {
   username: string;
   password: string;
 }
+
+export interface ISchemaUpdateOrder {
+  customerId: string;
+  status: string;
+}

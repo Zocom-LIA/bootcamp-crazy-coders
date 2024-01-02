@@ -81,6 +81,16 @@ const appTokenExpiredError = (): HttpError => {
   );
 };
 
+const pathParametersError = (): HttpError => {
+  return createHttpError(
+    HttpCode.BAD_REQUEST,
+    `Requiered id is missing from request`,
+    {
+      type: "BadRequest",
+    }
+  );
+};
+
 const createAdminExistsError = (): any => {
   return {
     statusCode: HttpCode.BAD_REQUEST,
@@ -107,4 +117,5 @@ export {
   createMenuExistsError,
   orderSumError,
   orderItemsNotFoundError,
+  pathParametersError,
 };

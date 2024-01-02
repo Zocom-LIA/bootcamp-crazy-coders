@@ -55,3 +55,10 @@ export const execQueryTableForOrders = async (
 ): Promise<IOrderItem[] | undefined> => {
   return (await dynamoDBClient.query(params).promise()).Items as IOrderItem[];
 };
+
+export const execUpdateOrderRequest = async (
+  params: DocumentClient.UpdateItemInput
+): Promise<IOrderItem | undefined> => {
+  let dbResponse = await dynamoDBClient.update(params).promise();
+  return dbResponse.Attributes as IOrderItem;
+};
