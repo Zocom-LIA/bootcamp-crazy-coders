@@ -147,14 +147,10 @@ export const queryQueueOrdersParams =
       TableName: `${process.env["YUM_YUM_TABLE"]}`,
       KeyConditionExpression: "#pk = :pk AND begins_with(#sk, :sk)",
       FilterExpression: "#st = :st",
-      ProjectionExpression: "#ca,#sl,#cid,#oid,#st",
+      //ProjectionExpression: "#ca,#sl,#cid,#oid,#st",
       ExpressionAttributeNames: {
         "#pk": "PK",
         "#sk": "SK",
-        "#ca": "createdAt",
-        "#sl": "selection",
-        "#cid": "customerId",
-        "#oid": "orderId",
         "#st": "status",
       },
       ExpressionAttributeValues: {
@@ -164,6 +160,33 @@ export const queryQueueOrdersParams =
       },
     };
   };
+
+export const queryAssignedOrdersParams = (
+  staffmember: string
+): AWS.DynamoDB.DocumentClient.QueryInput => {
+  return {
+    TableName: `${process.env["YUM_YUM_TABLE"]}`,
+    KeyConditionExpression: "#pk = :pk AND begins_with(#sk, :sk)",
+    FilterExpression: "#st = :st AND #at = :at",
+    ProjectionExpression: "#ca,#sl,#cid,#oid,#at,#s",
+    ExpressionAttributeNames: {
+      "#pk": "PK",
+      "#sk": "SK",
+      "#ca": "createdAt",
+      "#sl": "selection",
+      "#cid": "customerId",
+      "#oid": "orderId",
+      "#st": "status",
+      "#at": "assignedTo",
+    },
+    ExpressionAttributeValues: {
+      ":pk": `Order`,
+      ":sk": `InProgress`,
+      ":st": `${OrderStatus.ASSIGNED}`,
+      ":at": `${staffmember}`,
+    },
+  };
+};
 
 /*
  ***************************************** ADMIN LOGIN *****************************************

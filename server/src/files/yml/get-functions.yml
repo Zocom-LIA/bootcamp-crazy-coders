@@ -28,3 +28,9 @@ getAdminOrdersQueued:
       - httpApi:
           path: '/api/admin/orders/queued'
           method: GET
+getAdminOrdersAssigned:
+    handler: src/functions/api/admin/orders/assigned/index.handler
+    events:
+      - httpApi:
+          path: '/api/admin/orders/assigned'
+          method: GET

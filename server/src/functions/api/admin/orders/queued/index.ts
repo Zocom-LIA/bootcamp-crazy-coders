@@ -14,6 +14,7 @@ import middyAuthTokenObj from "@lib/middyAuthTokenObj.js";
 import { HttpCode } from "@util/httpCodes.js";
 import { HttpResponse } from "aws-sdk";
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
+import { sortOrderBydate } from "@src/util/functions";
 
 const markQueuedOrdersAsAssigned = async (
   orders: IOrderItem[],
@@ -60,6 +61,7 @@ const pickQueuedOrders: Handler<void, void, void> = async (event) => {
         message: dbResponse.statusMessage,
       });
     }
+    sortOrderBydate(queuedOrders);
     return createResponse(HttpCode.OK, queuedOrders);
   } catch (error) {
     return failedResponse(error);
