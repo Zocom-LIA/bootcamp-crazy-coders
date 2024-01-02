@@ -1,7 +1,6 @@
 @use '@zocom/styles' as *;
 
 .order {
-  width: 400px;
   @include column;
   align-items: stretch;
 
@@ -11,7 +10,7 @@
 
   box-shadow: $shadow-medium;
 
-  &--completed {
+  &--done {
     background-color: $color-light-mint;
     color: $color-clay;
   }

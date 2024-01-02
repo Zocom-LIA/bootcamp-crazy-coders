@@ -7,11 +7,11 @@ import { Button } from '@zocom/button';
 type Props = {
   id: string;
   items: Item[];
-  completed: boolean;
+  done: boolean;
 };
 
-export const Order = ({ id, items, completed }: Props) => {
-  const status = completed ? 'completed' : 'cooking';
+export const Order = ({ id, items, done }: Props) => {
+  const status = done ? 'done' : 'cooking';
 
   return (
     <article className={`order order--${status}`}>
@@ -46,8 +46,8 @@ export const Order = ({ id, items, completed }: Props) => {
         <p>Tillagningstid </p>
       </section>
 
-      <Button onClick={() => {}} type={completed ? 'success' : 'alert'}>
-        {completed ? 'Serverad' : 'Redo att serveras'}
+      <Button onClick={() => {}} type={done ? 'success' : 'alert'}>
+        {done ? 'Serverad' : 'Redo att serveras'}
       </Button>
     </article>
   );

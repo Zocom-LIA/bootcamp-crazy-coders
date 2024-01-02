@@ -2,11 +2,23 @@
 
 .orders-page {
   @include column;
+  align-items: flex-start;
 
-  padding: $padding-large;
-
-  width: 100vw;
-  height: 100vh;
+  padding: 0 $padding-large;
 
   background-color: $color-coal;
+
+  &__header {
+    @include row;
+    align-items: center;
+
+    gap: $gap-large;
+
+    margin: $margin-huge 0;
+
+    > h1 {
+      @include fontsizeHuge;
+      color: $color-snow;
+    }
+  }
 }

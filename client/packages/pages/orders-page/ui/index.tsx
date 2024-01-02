@@ -1,5 +1,6 @@
 import './style.scss';
-import { Order } from '@zocom/order';
+import { Orders } from '@zocom/orders';
+import Logo from '../assets/logo.svg';
 
 // Testdata
 const items = [
@@ -20,11 +21,19 @@ const items = [
   },
 ];
 
+const orders = [
+  { id: '4kjwsdf234k', done: false, items },
+  { id: '4kjwsdf234k', done: true, items },
+];
+
 export const OrdersPage = () => {
   return (
     <main className="orders-page">
-      <Order id="4kjwsdf234k" items={items} completed={true} />
-      <Order id="4kjwsdf234k" items={items} completed={false} />
+      <header className="orders-page__header">
+        <img src={Logo} alt="Logo for Yum Yum Gimmi Sum" />
+        <h1>Kitchen View</h1>
+      </header>
+      <Orders orders={orders} />
     </main>
   );
 };
