@@ -26,7 +26,7 @@ const updateOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (
   event
 ) => {
   try {
-    /*let order: ISchemaUpdateOrder = event.body;
+    let order: ISchemaUpdateOrder = event.body;
     let payload = (event as any).auth as IJwtPayload;
     let orderId = (event.pathParameters as any).id;
     let result = await markAssignedOrdersAsReady(
@@ -35,8 +35,7 @@ const updateOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (
       order.status,
       payload.username
     );
-    return createResponse(HttpCode.OK, result);*/
-    return createResponse(HttpCode.OK, "Almost finnished");
+    return createResponse(HttpCode.OK, result);
   } catch (error) {
     return failedResponse(error);
   }
