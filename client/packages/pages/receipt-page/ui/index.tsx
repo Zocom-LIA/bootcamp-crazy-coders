@@ -1,6 +1,8 @@
+import { Logo } from '@zocom/logo';
 import './style.scss';
 
 import { Receipt } from '@zocom/receipt';
+import { Button } from '@zocom/button';
 
 // Testdata
 const items = [
@@ -24,6 +26,9 @@ const items = [
 export const ReceiptPage = () => {
   return (
     <main className="receipt-page">
+      <section className="receipt-page__logo">
+        <Logo />
+      </section>
       <Receipt
         items={items}
         total={items.reduce((acc, item) => acc + item.total, 0)}
