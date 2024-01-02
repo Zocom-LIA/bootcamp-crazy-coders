@@ -1,7 +1,7 @@
 import { HttpResponse } from "aws-sdk";
 import dynamoDBClient from "../core/dbClient.js";
 import { DocumentClient, ItemList } from "aws-sdk/clients/dynamodb.js";
-import { PartialAdminItem } from "@src/types/index.js";
+import { PartialAdminItem, PartialMenu } from "@src/types/index.js";
 
 export const exeBatchWrite = async (
   params: DocumentClient.BatchWriteItemInput
@@ -17,13 +17,26 @@ export const execPutRequest = async (
   return dbResponse.$response.httpResponse;
 };
 
+export const execGetRequest = async (
+  params: DocumentClient.GetItemInput
+): Promise<DocumentClient.AttributeMap | undefined> => {
+  return dynamoDBClient.get(params).promise();
+};
+
 export const execQueryTable = async (
   params: AWS.DynamoDB.DocumentClient.QueryInput
 ): Promise<ItemList | undefined> => {
   return (await dynamoDBClient.query(params).promise()).Items;
 };
 
-export const exeGetAdminRequest = async (
+export const execGetMenuRequest = async (
+  params: DocumentClient.GetItemInput
+): Promise<PartialMenu | undefined> => {
+  let { Item } = await dynamoDBClient.get(params).promise();
+  return Item as PartialMenu;
+};
+
+export const execGetAdminRequest = async (
   params: DocumentClient.GetItemInput
 ): Promise<PartialAdminItem> => {
   let { Item } = await dynamoDBClient.get(params).promise();
