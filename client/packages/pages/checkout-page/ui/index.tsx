@@ -1,16 +1,12 @@
 import './style.scss';
-import { List, Separator } from '@zocom/list';
 import { Cart } from '@zocom/cart';
 import { Modal } from '@zocom/modal';
 import { ReceiptTotal } from '@zocom/receipt-total';
 import { Button } from '@zocom/button';
-import { QuantitySetter } from '@zocom/quantity-setter';
 import { ProductItem } from '@zocom/product-item';
 
-// Hämta cart
-// Loopa igenom varje item i cart.
-// Rendera det i ul listan.
-// Take my money btn ska skicka order till data basen
+// Hämta cart från redux?
+// Take my money btn ska skicka order till databasen
 
 const fakeCart = [
   {
