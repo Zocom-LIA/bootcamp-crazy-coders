@@ -43,8 +43,8 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
         TableName: `${process.env["YUM_YUM_TABLE"]}`,
         KeyConditionExpression: 'PK = :pk and begins_with(SK, :skPrefix)', // Using begins_with to match the prefix
         ExpressionAttributeValues: {
-          ':pk': 'Order',
-          ':skPrefix': `InProgress#optional#${orderId}`,
+          ':pk': 'Customer#optional',
+          ':skPrefix': `Receipt#${orderId}`,
         },
       };
   
