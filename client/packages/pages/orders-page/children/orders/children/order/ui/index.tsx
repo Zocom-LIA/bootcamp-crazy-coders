@@ -21,24 +21,24 @@ export const Order = ({ id, items, done }: Props) => {
 
       <section className="order__items">
         {items.map((item) => (
-          <Fragment key={item.product}>
+          <Fragment key={item.name}>
             <article className="order__item">
               <List>
-                <p className="order__product">{item.product}</p>
+                <p className="order__product">{item.name}</p>
 
                 <Separator />
 
-                <p className="order__item-quantity">{item.quantity} st</p>
+                <p className="order__item-quantity">{item.count} st</p>
               </List>
             </article>
 
-            <p className="order__item-total">{item.total} sek</p>
+            <p className="order__item-total">{item.totalPrice} sek</p>
           </Fragment>
         ))}
         <hr className="order__separator" />
 
         <h3 className="order__total">
-          {items.reduce((acc, item) => acc + item.total, 0)} sek
+          {items.reduce((acc, item) => acc + item.totalPrice, 0)} sek
         </h3>
       </section>
 

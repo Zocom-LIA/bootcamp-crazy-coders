@@ -1,16 +1,14 @@
 import './style.scss';
 import { Order } from '@zocom/order';
-import { Item } from '@zocom/types';
+import { OrderType } from '@zocom/types';
 
 type Props = {
-  orders: Array<{
-    id: string;
-    items: Item[];
-    done: boolean;
-  }>;
+  orders: OrderType[];
 };
 
 export const Orders = ({ orders }: Props) => {
+  console.log(orders);
+
   return (
     <section className="orders">
       <section className="orders__section">
@@ -21,9 +19,9 @@ export const Orders = ({ orders }: Props) => {
 
         <section className="orders__items">
           {orders
-            .filter((order) => !order.done)
+            .filter((order) => order.status === 'assigned')
             .map((order) => (
-              <Order id={order.id} items={order.items} done={order.done} />
+              <Order id={order.orderId} items={order.selection} done={true} />
             ))}
         </section>
       </section>
@@ -36,14 +34,9 @@ export const Orders = ({ orders }: Props) => {
 
         <section className="orders__items">
           {orders
-            .filter((order) => order.done)
+            .filter((order) => order.status !== 'assigned')
             .map((order) => (
-              <Order id={order.id} items={order.items} done={order.done} />
-            ))}
-          {orders
-            .filter((order) => order.done)
-            .map((order) => (
-              <Order id={order.id} items={order.items} done={order.done} />
+              <Order id={order.orderId} items={order.selection} done={true} />
             ))}
         </section>
       </section>
