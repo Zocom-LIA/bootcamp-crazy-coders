@@ -1,10 +1,13 @@
 import { Logo } from '@zocom/logo';
 import './style.scss';
+import { getReceiptData } from '..';
 
 import { Receipt } from '@zocom/receipt';
 import { Button } from '@zocom/button';
 
-// Testdata
+
+// Testdata'
+const testOrderId = "C_A_5vgteC3Y2AximP2WC";
 const items = [
   {
     product: 'Karlstad',
@@ -24,6 +27,8 @@ const items = [
 ];
 
 export const ReceiptPage = () => {
+  const { fetchReceipt } = getReceiptData();
+  const receipt = fetchReceipt(testOrderId);
   return (
     <main className="receipt-page">
       <section className="receipt-page__logo">
