@@ -5,7 +5,6 @@ import { getReceiptData } from '..';
 
 import { Receipt } from '@zocom/receipt';
 import { Button } from '@zocom/button';
-
 interface ReceiptItem {
   product: string;
   quantity: number;
@@ -47,26 +46,23 @@ export const ReceiptPage = () => {
         setReceipt(receiptData);
       } catch (error) {
         console.error('Error fetching receipt:', error);
-        // Handle the error as needed
       }
     };
 
     fetchData();
-  }, [testOrderId, fetchReceipt]);
+  }, []);
 
   if (!receipt) {
-    // Return loading or empty state if receipt is not available yet
     return <div>Loading...</div>;
   }
 
   if (receipt.Items.length < 1) {
-    // Handle the case where no receipt is found for the given orderId
     return <div>No receipt found</div>;
   }
 
   const receiptItem = receipt.Items[0];
 
-  // Map the receipt data to the desired format
+  // Map the receipt data
   const items: ReceiptItem[] = receiptItem.selection.map((item: SelectionItem) => ({
     product: item.name,
     quantity: item.count,
@@ -88,3 +84,4 @@ export const ReceiptPage = () => {
     </main>
   );
 };
+

@@ -3,7 +3,6 @@ import Logo from './assets/logo.png';
 import { ReceiptItem } from '@zocom/receipt-item';
 import { ReceiptTotal } from '@zocom/receipt-total';
 import { Item } from '@zocom/types';
-import { getRecieptData } from '..';
 
 type ReceiptProps = {
   orderId: string;
@@ -39,3 +38,4 @@ export const Receipt = ({ orderId, items, total }: ReceiptProps) => {
     </article>
   );
 };
+
