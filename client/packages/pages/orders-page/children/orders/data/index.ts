@@ -18,7 +18,7 @@ export const useData = () => {
           },
         });
 
-        const data = await response.json();
+        const data = (await response.json()) as OrdersRepsonse;
 
         return data;
       } catch (error) {
