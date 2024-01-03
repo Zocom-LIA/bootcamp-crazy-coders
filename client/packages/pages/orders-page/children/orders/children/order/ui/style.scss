@@ -1,0 +1,91 @@
+@use '@zocom/styles' as *;
+
+.order {
+  @include column;
+  align-items: stretch;
+
+  padding: $padding $padding-sml $padding-sml $padding-sml;
+
+  border-radius: $radius-tier-2;
+
+  box-shadow: $shadow-medium;
+
+  &--done {
+    background-color: $color-light-mint;
+    color: $color-clay;
+  }
+
+  &--cooking {
+    background-color: $color-bacon;
+    color: $color-coal;
+  }
+
+  &__id {
+    @include fontsizeMedium;
+    font-weight: 500; // fråga ang denna.
+    text-align: center;
+  }
+
+  &__product {
+    @include fontsizeRegular;
+    @include fontBold;
+  }
+
+  &__item-quantity {
+    @include fontsizeRegular;
+    @include fontBold;
+    text-transform: lowercase;
+  }
+
+  &__items {
+    align-self: stretch;
+
+    margin: $margin-large 0;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+    gap: $gap-nano $gap-large;
+  }
+
+  &__item {
+    @include row;
+  }
+
+  &__item-total {
+    @include fontsizeRegular;
+    @include fontBold;
+
+    text-transform: lowercase;
+    text-align: center;
+  }
+
+  &__separator {
+    grid-column: span 2;
+    background-color: #3531313d;
+    margin: $margin-nano 0;
+  }
+
+  &__total {
+    @include fontsizeMedium;
+    @include fontBold;
+    text-transform: lowercase;
+    grid-column: 2;
+  }
+
+  &__time {
+    @include center;
+
+    @include fontsizeRegular;
+    font-weight: 400; // fråga
+    text-transform: uppercase;
+
+    color: $color-coal;
+    background-color: $color-shade-24-dark;
+
+    border-radius: $radius-tier-2;
+
+    padding: $padding-sml 0;
+    margin-bottom: $margin-nano;
+  }
+}
