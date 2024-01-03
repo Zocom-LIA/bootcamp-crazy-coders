@@ -1,10 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import {
-    createOrderItemFrom,
-    createReceiptItemFrom,
-    createReceiptResponseItemFrom,
-  } from "@yumtypes/index.js";
 const dynamoDB = new DynamoDB.DocumentClient();
 
 interface LambdaEvent extends APIGatewayProxyEvent {
