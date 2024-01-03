@@ -58,6 +58,10 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       }
       return {
         statusCode: 200,
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:5173',
+            'Access-Control-Allow-Credentials': true,
+          },
         body: JSON.stringify(result),
       };
     } catch (error) {
