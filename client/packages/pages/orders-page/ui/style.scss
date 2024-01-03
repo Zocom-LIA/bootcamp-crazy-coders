@@ -4,8 +4,6 @@
   @include column;
   align-items: flex-start;
 
-  padding: 0 $padding-large;
-
   background-color: $color-coal;
 
   height: 100%;
@@ -15,9 +13,9 @@
     @include row;
     align-items: center;
 
-    gap: $gap-large;
+    margin: $margin-huge $margin-huge;
 
-    margin: $margin-huge 0;
+    gap: $gap-large;
 
     > h1 {
       @include fontsizeHuge;

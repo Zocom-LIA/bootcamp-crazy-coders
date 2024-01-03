@@ -1,13 +1,21 @@
 import './style.scss';
 import { Order } from '@zocom/order';
-import { OrderType } from '@zocom/types';
+import { OrdersRepsonse, useData } from '..';
+import { useEffect, useState } from 'react';
 
-type Props = {
-  orders: OrderType[];
-};
+export const Orders = () => {
+  const [orders, setOrders] = useState<OrdersRepsonse>([]);
 
-export const Orders = ({ orders }: Props) => {
-  console.log(orders);
+  const { fetchOrders } = useData();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const orders = await fetchOrders();
+      setOrders(orders);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <section className="orders">
