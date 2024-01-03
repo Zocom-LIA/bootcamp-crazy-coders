@@ -23,15 +23,14 @@
 
     gap: $gap-huge;
 
-    overflow-y: scroll;
+    overflow-y: auto;
 
     padding-right: $padding-large;
+    padding-bottom: $padding-large;
   }
 
   &__label {
     @include row;
-
-    padding-right: $padding-large;
 
     > h2 {
       @include fontsizeMedium;
