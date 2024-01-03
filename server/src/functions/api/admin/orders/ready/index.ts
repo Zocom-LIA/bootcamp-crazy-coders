@@ -4,19 +4,15 @@ import type { FromSchema } from "json-schema-to-ts";
 import { failedResponse, createResponse } from "@util/response.js";
 import { updateOrderParams } from "@params/index.js";
 import { execUpdateOrderRequest } from "@database/services/index.js";
-import {
-  IJwtPayload,
-  ISchemaUpdateOrder,
-  IOrderItem,
-} from "@yumtypes/index.js";
-import { HttpCode } from "@util/httpCodes.js";
+import { IJwtPayload, ISchemaUpdateOrder } from "@yumtypes/index.js";
 import middyAuthTokenObj from "@lib/middyAuthTokenObj.js";
+import { HttpResponse } from "aws-sdk";
 
 const markAssignedOrdersAsReady = async (
   customerId: string,
   orderId: string,
   staffmember: string
-): Promise<IOrderItem | undefined> => {
+): Promise<HttpResponse> => {
   let endTime = new Date().toISOString();
   let params = updateOrderParams(customerId, orderId, staffmember, endTime);
   return execUpdateOrderRequest(params);
@@ -28,17 +24,14 @@ const updateOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (
   try {
     let order: ISchemaUpdateOrder = event.body;
     let payload = (event as any).auth as IJwtPayload;
-    let updatedOrder = await markAssignedOrdersAsReady(
+    let response = await markAssignedOrdersAsReady(
       order.customerId,
       order.orderId,
       payload.username
     );
-    if (!updatedOrder) {
-      return createResponse(HttpCode.BAD_REQUEST, {
-        message: "Operation failed, no current order matched request.",
-      });
-    }
-    return createResponse(HttpCode.OK, updatedOrder);
+    return createResponse(response.statusCode, {
+      message: response.statusMessage,
+    });
   } catch (error) {
     return failedResponse(error);
   }

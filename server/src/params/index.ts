@@ -156,7 +156,7 @@ export const queryQueueOrdersParams =
       ExpressionAttributeValues: {
         ":pk": `Order`,
         ":sk": `InProgress`,
-        ":st": `${OrderStatus.QUEUED}`,
+        ":st": OrderStatus.QUEUED,
       },
     };
   };
@@ -167,8 +167,8 @@ export const queryAssignedOrdersParams = (
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
     KeyConditionExpression: "#pk = :pk AND begins_with(#sk, :sk)",
-    FilterExpression: "#s = :s AND #at = :at",
-    ProjectionExpression: "#ca,#sl,#cid,#oid,#at,#s,#st",
+    FilterExpression: "#at = :at",
+    ProjectionExpression: "#ca,#sl,#cid,#oid,#at,#s,#st,#et",
     ExpressionAttributeNames: {
       "#pk": "PK",
       "#sk": "SK",
@@ -179,12 +179,12 @@ export const queryAssignedOrdersParams = (
       "#s": "status",
       "#at": "assignedTo",
       "#st": "startTime",
+      "#et": "endTime",
     },
     ExpressionAttributeValues: {
       ":pk": `Order`,
       ":sk": `InProgress`,
-      ":s": `${OrderStatus.ASSIGNED}`,
-      ":at": `${staffmember}`,
+      ":at": staffmember,
     },
   };
 };
@@ -205,7 +205,7 @@ export const updateOrderParams = (
       PK: `Order`,
       SK: `InProgress#${customerId}#${orderId}`,
     },
-    ConditionExpression: "#at = :at",
+    ConditionExpression: "#at = :at AND #st = :pst",
     UpdateExpression: "SET #st = :st, #et = :et",
     ExpressionAttributeNames: {
       "#st": "status",
@@ -213,11 +213,12 @@ export const updateOrderParams = (
       "#et": "endTime",
     },
     ExpressionAttributeValues: {
-      ":st": `${OrderStatus.READY}`,
-      ":at": `${staffmember}`,
-      ":et": `${endTime}`,
+      ":pst": OrderStatus.ASSIGNED,
+      ":st": OrderStatus.READY,
+      ":at": staffmember,
+      ":et": endTime,
     },
-    ReturnValues: "ALL_NEW",
+    ReturnValues: "NONE",
   };
 };
 

@@ -13,7 +13,7 @@ export const exeBatchWrite = async (
 export const execTransactWrite = async (
   params: DocumentClient.TransactWriteItemsInput
 ): Promise<HttpResponse> => {
-  const dbResponse = await dynamoDBClient.transactWrite(params).promise();
+  let dbResponse = await dynamoDBClient.transactWrite(params).promise();
   return dbResponse.$response.httpResponse;
 };
 
@@ -58,7 +58,7 @@ export const execQueryTableForOrders = async (
 
 export const execUpdateOrderRequest = async (
   params: DocumentClient.UpdateItemInput
-): Promise<IOrderItem | undefined> => {
+): Promise<HttpResponse> => {
   let dbResponse = await dynamoDBClient.update(params).promise();
-  return dbResponse.Attributes as IOrderItem;
+  return dbResponse.$response.httpResponse;
 };
