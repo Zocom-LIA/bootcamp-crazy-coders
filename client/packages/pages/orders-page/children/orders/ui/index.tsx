@@ -33,6 +33,7 @@ export const Orders = () => {
                 id={order.orderId}
                 items={order.selection}
                 done={false}
+                startTime={order.startTime}
                 key={order.orderId}
               />
             ))}
@@ -53,6 +54,8 @@ export const Orders = () => {
                 id={order.orderId}
                 items={order.selection}
                 done={true}
+                startTime={order.startTime}
+                endTime={order.endTime}
                 key={order.orderId}
               />
             ))}

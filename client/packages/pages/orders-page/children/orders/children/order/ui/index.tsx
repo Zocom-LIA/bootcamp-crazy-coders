@@ -1,16 +1,28 @@
 import './style.scss';
+import dayjs from 'dayjs';
 import { Fragment } from 'react';
 import { Item } from '@zocom/types';
 import { List, Separator } from '@zocom/list';
 import { Button } from '@zocom/button';
+import { useData } from '..';
 
 type Props = {
   id: string;
   items: Item[];
   done: boolean;
+  startTime: string;
+  endTime?: string;
 };
 
-export const Order = ({ id, items, done }: Props) => {
+export const Order = ({
+  id,
+  items,
+  done,
+  startTime,
+  endTime = dayjs().toString(),
+}: Props) => {
+  const { timeDifference } = useData();
+
   const status = done ? 'done' : 'cooking';
 
   return (
@@ -43,7 +55,10 @@ export const Order = ({ id, items, done }: Props) => {
       </section>
 
       <section className="order__time">
-        <p>Tillagningstid </p>
+        <p>
+          {done ? 'Tillagningstid' : 'Väntat i'}{' '}
+          {timeDifference(startTime, endTime)}
+        </p>
       </section>
 
       <Button onClick={() => {}} type={done ? 'success' : 'alert'}>
