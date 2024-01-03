@@ -5,6 +5,7 @@ import { Modal } from '@zocom/modal';
 import { ReceiptTotal } from '@zocom/receipt-total';
 import { Button } from '@zocom/button';
 import { QuantitySetter } from '@zocom/quantity-setter';
+import { ProductItem } from '@zocom/product-item';
 
 // Hämta cart
 // Loopa igenom varje item i cart.
@@ -14,32 +15,32 @@ import { QuantitySetter } from '@zocom/quantity-setter';
 const fakeCart = [
   {
     quantity: 1,
-    item: 'Karlstad',
+    name: 'Karlstad',
     price: 9,
   },
   {
     quantity: 2,
-    item: 'BANGKOK',
+    name: 'BANGKOK',
     price: 9,
   },
   {
     quantity: 1,
-    item: 'Ho Chi Minh',
+    name: 'Ho Chi Minh',
     price: 9,
   },
   {
     quantity: 1,
-    item: 'PARIS',
+    name: 'PARIS',
     price: 9,
   },
   {
     quantity: 1,
-    item: 'Oaxaca',
+    name: 'Oaxaca',
     price: 9,
   },
   {
     quantity: 1,
-    item: 'SWEET CHILI DIP',
+    name: 'SWEET CHILI DIP',
     price: 19,
   },
 ];
@@ -53,19 +54,14 @@ export const CheckoutPage = () => {
       </section>
 
       <ul className="checkout-page__customer-cart">
-        {fakeCart.map((item) => {
-          return (
-            <li className="checkout-page__product-description" key={item.item}>
-              <List>
-                <p className="checkout-page__product-name">{item.item}</p>
-                <Separator />
-                <p className="checkout-page__price">{item.price} SEK</p>
-              </List>
-
-              <QuantitySetter quantity={item.quantity} />
-            </li>
-          );
-        })}
+        {fakeCart.map((item) => (
+          <ProductItem
+            name={item.name}
+            price={item.price}
+            quantity={item.quantity}
+            key={item.name}
+          />
+        ))}
       </ul>
 
       <section className="checkout-page__checkout">

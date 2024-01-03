@@ -21,21 +21,6 @@
     overflow: scroll;
   }
 
-  &__product-description {
-    @include column;
-    align-items: stretch;
-    gap: $gap-nano;
-  }
-
-  &__product-name {
-    @include fontsizeRegular();
-    @include fontBold();
-  }
-  &__price {
-    @include fontsizeRegular();
-    @include fontBold();
-  }
-
   &__checkout {
     @include column;
     align-self: stretch;
@@ -49,21 +34,5 @@
   &__quantity {
     @include fontsizeSmall();
     font-weight: 500;
-  }
-}
-
-.quantity-input {
-  @include flexCenterPickDirection(start);
-  gap: $gap-sml;
-  &__btn-increase,
-  &__btn-decrease {
-    width: 2.4rem;
-    height: 2.4rem;
-    border-radius: 50%;
-    background-color: $color-shade-24-dark;
-  }
-
-  &__btn-icon {
-    font-size: 2rem;
   }
 }

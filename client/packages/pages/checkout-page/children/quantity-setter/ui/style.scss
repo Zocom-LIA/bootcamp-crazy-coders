@@ -1,3 +1,5 @@
+@use '@zocom/styles' as *;
+
 .quantity-input {
   @include flexCenterPickDirection(start);
   gap: $gap-sml;
