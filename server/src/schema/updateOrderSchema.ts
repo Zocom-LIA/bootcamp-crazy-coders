@@ -1,12 +1,10 @@
-import { OrderStatus } from "@yumtypes/index.js";
-
 export const bodySchema = {
   type: "object",
   properties: {
     customerId: { type: "string", minLength: 1, maxLength: 50 },
-    status: { type: "string", enum: Object.values(OrderStatus) },
+    orderId: { type: "string", minLength: 1, maxLength: 50 },
   },
-  required: ["customerId", "status"],
+  required: ["customerId", "orderId"],
 } as const;
 
 export const schema = {

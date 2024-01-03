@@ -10,15 +10,15 @@ import {
   IOrderItem,
 } from "@yumtypes/index.js";
 import { HttpCode } from "@util/httpCodes.js";
-import middyPathParametersIdAndAuthTokenObj from "@lib/middyPathParametersIdAndAuthTokenObj.js";
+import middyAuthTokenObj from "@lib/middyAuthTokenObj.js";
 
 const markAssignedOrdersAsReady = async (
   customerId: string,
   orderId: string,
-  status: string,
   staffmember: string
 ): Promise<IOrderItem | undefined> => {
-  let params = updateOrderParams(customerId, orderId, status, staffmember);
+  let endTime = new Date().toISOString();
+  let params = updateOrderParams(customerId, orderId, staffmember, endTime);
   return execUpdateOrderRequest(params);
 };
 
@@ -28,22 +28,21 @@ const updateOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (
   try {
     let order: ISchemaUpdateOrder = event.body;
     let payload = (event as any).auth as IJwtPayload;
-    let orderId = (event.pathParameters as any).id;
-    let result = await markAssignedOrdersAsReady(
+    let updatedOrder = await markAssignedOrdersAsReady(
       order.customerId,
-      orderId,
-      order.status,
+      order.orderId,
       payload.username
     );
-    return createResponse(HttpCode.OK, result);
+    if (!updatedOrder) {
+      return createResponse(HttpCode.BAD_REQUEST, {
+        message: "Operation failed, no current order matched request.",
+      });
+    }
+    return createResponse(HttpCode.OK, updatedOrder);
   } catch (error) {
     return failedResponse(error);
   }
 };
 
-const handler = middyfy(
-  updateOrder,
-  schema,
-  middyPathParametersIdAndAuthTokenObj()
-);
+const handler = middyfy(updateOrder, schema, middyAuthTokenObj());
 export { handler };

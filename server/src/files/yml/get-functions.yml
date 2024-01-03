@@ -11,7 +11,7 @@ loginAdminAccount:
           path: '/api/admin/login'
           method: GET
 getAdminOrders:
-    handler: src/functions/api/admin/orders/index.handler
+    handler: src/functions/api/admin/orders/processing/index.handler
     events:
       - httpApi:
           path: '/api/admin/orders'
@@ -21,16 +21,4 @@ getReceipt:
     events:
       - httpApi:
           path: '/api/receipt'
-          method: GET
-getAdminOrdersQueued:
-    handler: src/functions/api/admin/orders/queued/index.handler
-    events:
-      - httpApi:
-          path: '/api/admin/orders/queued'
-          method: GET
-getAdminOrdersAssigned:
-    handler: src/functions/api/admin/orders/assigned/index.handler
-    events:
-      - httpApi:
-          path: '/api/admin/orders/assigned'
           method: GET

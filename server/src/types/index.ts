@@ -279,5 +279,5 @@ export interface ISchemaLoginAdmin {
 
 export interface ISchemaUpdateOrder {
   customerId: string;
-  status: string;
+  orderId: string;
 }

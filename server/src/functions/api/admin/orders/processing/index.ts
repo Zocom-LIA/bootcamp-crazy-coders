@@ -1,6 +1,7 @@
 import { Handler, middyfy } from "@lib/middywrapper.js";
 import { failedResponse, createResponse } from "@util/response.js";
 import {
+  queryAssignedOrdersParams,
   queryQueueOrdersParams,
   transactAssingOrderParams,
   transactWriteParams,
@@ -38,31 +39,33 @@ const getQueuedOrders = (): Promise<IOrderItem[] | undefined> => {
   return execQueryTableForOrders(params);
 };
 
+const getAssignedOrders = (
+  staffmember: string
+): Promise<IOrderItem[] | undefined> => {
+  const params = queryAssignedOrdersParams(staffmember);
+  return execQueryTableForOrders(params);
+};
+
 const pickQueuedOrders: Handler<void, void, void> = async (event) => {
   try {
     let payload = (event as any).auth as IJwtPayload;
     let queuedOrders = await getQueuedOrders();
-    if (queuedOrders == undefined) {
+    if (queuedOrders && queuedOrders.length) {
+      await markQueuedOrdersAsAssigned(queuedOrders, payload.username);
+    }
+    let allOrders = await getAssignedOrders(payload.username);
+    if (allOrders == undefined) {
       return createResponse(HttpCode.BAD_REQUEST, {
         message: "Operation failed unexpectedly",
       });
     }
-    if (queuedOrders.length == 0) {
+    if (!allOrders.length) {
       return createResponse(HttpCode.ACCEPTED, {
-        message: "No current orders in queue.",
+        message: "You have no current orders assigned",
       });
     }
-    let dbResponse = await markQueuedOrdersAsAssigned(
-      queuedOrders,
-      payload.username
-    );
-    if (dbResponse.statusCode !== HttpCode.OK) {
-      return createResponse(dbResponse.statusCode, {
-        message: dbResponse.statusMessage,
-      });
-    }
-    sortOrderBydate(queuedOrders);
-    return createResponse(HttpCode.OK, queuedOrders);
+    sortOrderBydate(allOrders);
+    return createResponse(HttpCode.OK, allOrders);
   } catch (error) {
     return failedResponse(error);
   }

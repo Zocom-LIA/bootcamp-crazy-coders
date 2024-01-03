@@ -196,8 +196,8 @@ export const queryAssignedOrdersParams = (
 export const updateOrderParams = (
   customerId: string,
   orderId: string,
-  status: string,
-  staffmember: string
+  staffmember: string,
+  endTime: string
 ): DocumentClient.UpdateItemInput => {
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
@@ -206,11 +206,16 @@ export const updateOrderParams = (
       SK: `InProgress#${customerId}#${orderId}`,
     },
     ConditionExpression: "#at = :at",
-    UpdateExpression: "SET #st = :st",
-    ExpressionAttributeNames: { "#st": "status", "#at": "assigned_to" },
+    UpdateExpression: "SET #st = :st, #et = :et",
+    ExpressionAttributeNames: {
+      "#st": "status",
+      "#at": "assignedTo",
+      "#et": "endTime",
+    },
     ExpressionAttributeValues: {
-      ":st": status,
-      ":at": staffmember,
+      ":st": `${OrderStatus.READY}`,
+      ":at": `${staffmember}`,
+      ":et": `${endTime}`,
     },
     ReturnValues: "ALL_NEW",
   };
