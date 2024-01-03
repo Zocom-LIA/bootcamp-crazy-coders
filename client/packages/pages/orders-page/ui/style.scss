@@ -8,6 +8,8 @@
 
   background-color: $color-coal;
 
+  max-height: 100%;
+
   &__header {
     @include row;
     align-items: center;

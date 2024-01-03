@@ -6,6 +6,8 @@
 
   gap: $gap-extra-huge;
 
+  overflow: hidden;
+
   &__section {
     @include column;
 
@@ -13,10 +15,6 @@
     justify-content: flex-start;
 
     flex: 1;
-
-    overflow-y: scroll;
-
-    height: 100%;
   }
 
   &__items {
@@ -24,10 +22,16 @@
     align-items: stretch;
 
     gap: $gap-huge;
+
+    overflow-y: scroll;
+
+    padding-right: $padding-large;
   }
 
   &__label {
     @include row;
+
+    padding-right: $padding-large;
 
     > h2 {
       @include fontsizeMedium;
