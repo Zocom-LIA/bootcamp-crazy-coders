@@ -21,7 +21,12 @@ export const Orders = ({ orders }: Props) => {
           {orders
             .filter((order) => order.status === 'assigned')
             .map((order) => (
-              <Order id={order.orderId} items={order.selection} done={true} />
+              <Order
+                id={order.orderId}
+                items={order.selection}
+                done={false}
+                key={order.orderId}
+              />
             ))}
         </section>
       </section>
@@ -36,7 +41,12 @@ export const Orders = ({ orders }: Props) => {
           {orders
             .filter((order) => order.status !== 'assigned')
             .map((order) => (
-              <Order id={order.orderId} items={order.selection} done={true} />
+              <Order
+                id={order.orderId}
+                items={order.selection}
+                done={true}
+                key={order.orderId}
+              />
             ))}
         </section>
       </section>
