@@ -16,3 +16,9 @@ getReceipt:
       - httpApi:
           path: '/api/receipt'
           method: GET
+getAllOngoingOrders:
+    handler: src/functions/api/order/ongoing/index.handler
+    events:
+      - httpApi:
+          path: '/api/orders/{id}'
+          method: GET
