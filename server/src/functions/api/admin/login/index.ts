@@ -9,13 +9,13 @@ import {
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
 import { ISchemaLoginAdmin, createPayload } from "@yumtypes/index.js";
 import { getAdminAccountParams } from "@params/index.js";
-import { exeGetAdminRequest } from "@src/database/services";
+import { execGetAdminRequest } from "@src/database/services";
 import { compare } from "bcrypt-ts";
 import { generateToken } from "@src/lib/authentication";
 
 const getAdmin = async (adminSchema: ISchemaLoginAdmin) => {
   const params = getAdminAccountParams(adminSchema);
-  return exeGetAdminRequest(params);
+  return execGetAdminRequest(params);
 };
 
 const login = async (adminSchema: ISchemaLoginAdmin) => {

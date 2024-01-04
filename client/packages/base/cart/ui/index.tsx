@@ -3,21 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import Logo from './assets/Cart.svg';
 
 type Props = {
-  quantity: number;
+  quantity?: number;
 };
 
-export const Cart = ({ quantity = 0 }: Props) => {
+export const Cart = ({ quantity }: Props) => {
   const navigate = useNavigate();
 
   function handleOnClick() {
-    navigate('/check-out');
+    navigate('/checkout');
   }
 
   return (
     <article className="cart" onClick={handleOnClick}>
-      <section className="cart__quantity">
-        <span>{quantity}</span>
-      </section>
+      {quantity !== undefined && (
+        <section className="cart__quantity">
+          <span>{quantity}</span>
+        </section>
+      )}
       <img src={Logo} alt="cart-img" />
     </article>
   );

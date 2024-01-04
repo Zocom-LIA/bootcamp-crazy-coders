@@ -8,17 +8,7 @@ export const baseItemProperties = () => {
 };
 
 /*
- **** REQUEST ITEMS ****
- */
-
-export type PutRequestItem = {
-  PutRequest: {
-    Item: YumYumBase;
-  };
-};
-
-/*
- **** MIDDY ERROR ****
+ **************************************** MIDDY ERROR ****************************************
  */
 export interface MiddyError {
   name: string;
@@ -37,7 +27,7 @@ export interface MiddyErrorObject {
 }
 
 /*
- **** YUM YUM TABLE ****
+ **************************************** YUM YUM TABLE ****************************************
  */
 
 export type YumYumBase = {
@@ -45,20 +35,49 @@ export type YumYumBase = {
   SK: string;
 };
 
+export const createKeysOnlyItem = (item: YumYumBase) => {
+  return {
+    PK: item.PK,
+    SK: item.SK,
+  };
+};
+
 /*
- **** MENU ****
+ ******************************************** MENU ********************************************
  */
 
-export const createMenuItemFrom = (menu: IMenuItem): IMenu => {
+export const createMenuItemFrom = (
+  menu: IMenuItem,
+  priceList: IPriceList
+): IMenu => {
   return {
-    PK: `YumYum`,
-    SK: `Menu`,
+    PK: `Menu`,
+    SK: `Original`,
     items: menu,
+    prices: priceList,
   };
+};
+
+export const createPriceListFrom = (menu: IMenuItem): IPriceList => {
+  let priceList: IPriceList = {};
+  menu.wontons.forEach((w) => {
+    priceList[w.name.toLowerCase().replaceAll(" ", "")] = w.price;
+  });
+  menu.dip.forEach((d) => {
+    priceList[`${d.name.toLowerCase().replaceAll(" ", "")}`] = d.price;
+  });
+  return priceList;
+};
+
+export type MenuItemBase = {
+  name: string;
+  desc: string;
+  price: number;
 };
 
 export interface IMenu extends YumYumBase {
   items: IMenuItem;
+  prices: IPriceList;
 }
 
 export interface IMenuItem {
@@ -66,59 +85,122 @@ export interface IMenuItem {
   dip: IDipItem[];
 }
 
-export type IWontonItem = {
-  id: string;
-  name: string;
-  desc: string;
-  ingredients: string[];
-  price: number;
-  cookingTime: number;
-};
+export interface IPriceList {
+  [key: string]: number;
+}
 
-export type IDipItem = {
-  id: string;
-  name: string;
-  desc: string;
-  price: number;
-};
+export interface IWontonItem extends MenuItemBase {
+  ingredients: string[];
+  cookingTime: number;
+}
+
+export interface IDipItem extends MenuItemBase {}
 
 export type PartialMenu = Omit<IMenu, "PK" | "SK">;
 
 /*
- **** ORDER ****
+ ******************************************** ORDER ********************************************
  */
-export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
-  let base = baseItemProperties();
+
+export enum OrderStatus {
+  QUEUED = "queued",
+  PROCESSING = "processing",
+  READY = "ready",
+  SERVED = "served",
+}
+
+export const createOrderHistoryItemFrom = (
+  order: IOrderItem
+): IOrderHistoryItem => {
   return {
-    PK: `Customer#${order.customerId}`,
-    SK: `Order#${base.id}Created#${base.createdAt}`,
-    GSI_PK_1: `Order`,
-    GSI_SK_1: `Ongoing#${base.id}#${order.customerId}`,
-    id: order.customerId,
+    PK: `Order`,
+    SK: `History#${order.customerId}#${order.orderId}`,
+    orderId: order.orderId,
+    customerId: order.customerId,
     selection: order.selection,
-    createdAt: base.createdAt,
+    createdAt: order.createdAt,
+    totalSum: order.totalSum,
+  };
+};
+
+export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
+  let customerId = order.customerId ?? nanoid();
+  let baseOrder = baseItemProperties();
+  return {
+    PK: `Order`,
+    SK: `InProgress#${customerId}#${baseOrder.id}`,
+    orderId: baseOrder.id,
+    customerId: customerId,
+    status: OrderStatus.QUEUED,
+    selection: order.selection,
+    createdAt: baseOrder.createdAt,
     totalSum: order.totalSum,
   };
 };
 
 export interface ISelectionItem {
   name: string;
-  type: string;
   count: number;
   totalPrice: number;
 }
 
 export interface IOrderItem extends YumYumBase {
-  GSI_PK_1: string;
-  GSI_SK_1: string;
-  id: string;
+  customerId: string;
+  orderId: string;
+  status: OrderStatus;
+  selection: ISelectionItem[];
+  totalSum: number;
+  createdAt: string;
+}
+
+export interface IOrderHistoryItem extends YumYumBase {
+  customerId: string;
+  orderId: string;
   selection: ISelectionItem[];
   totalSum: number;
   createdAt: string;
 }
 
 /*
- **** ADMIN PERSONAL ****
+ ******************************************** RECEIPT ********************************************
+ */
+
+export const createReceiptItemFrom = (order: IOrderItem): IReceiptItem => {
+  return {
+    PK: `Customer#${order.customerId}`,
+    SK: `Receipt#${order.orderId}`,
+    orderId: order.orderId,
+    customerId: order.customerId,
+    selection: order.selection,
+    createdAt: order.createdAt,
+    totalSum: order.totalSum,
+  };
+};
+
+export const createReceiptResponseItemFrom = (
+  order: IReceiptItem
+): PartialReceipt => {
+  return {
+    orderId: order.orderId,
+    customerId: order.customerId,
+    selection: order.selection,
+    createdAt: order.createdAt,
+    totalSum: order.totalSum,
+  };
+};
+
+export interface IReceiptItem extends YumYumBase {
+  orderId: string;
+  customerId: string;
+  selection: ISelectionItem[];
+  totalSum: number;
+  createdAt: string;
+}
+
+export type PartialReceipt = Omit<IReceiptItem, "PK" | "SK">;
+
+/*
+ ******************************************** ADMIN PERSONAL ********************************************
  */
 
 export const createAdminItemFrom = (
@@ -152,7 +234,7 @@ export interface IAdminItem extends YumYumBase {
 export type PartialAdminItem = Omit<IAdminItem, "PK" | "SK">;
 
 /*
- **** JWT TOKEN ****
+ ******************************************** JWT TOKEN ********************************************
  */
 
 export const createPayload = (id: string, username: string): IPayload => {
@@ -178,11 +260,11 @@ export interface IJwtToken {
 }
 
 /*
- **** SCHEMA ****
+ ******************************************** SCHEMA ********************************************
  */
 
 export interface ISchemaCreateOrder {
-  customerId: string;
+  customerId?: string;
   selection: ISelectionItem[];
   totalSum: number;
 }

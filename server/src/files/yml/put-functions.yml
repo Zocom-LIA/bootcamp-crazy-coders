@@ -1,0 +1,6 @@
+updadeOrder:
+    handler: src/functions/api/admin/put/index.handler
+    events:
+      - httpApi:
+          path: '/api/admin/order/updateOrder'
+          method: PUT
