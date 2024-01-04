@@ -1,24 +1,32 @@
 @use '@zocom/styles' as *;
 
 .btn {
-  width: 35.8rem;
-  height: 7.7rem;
-  display: inline-block;
-  border-radius: 4px;
-
-  @include fontsizeLarge;
+  @include fontsizeMedium;
   @include fontBold;
 
   color: $color-snow;
   text-align: center;
   transition: all 0.2s ease-in;
 
+  padding: $padding;
+
+  border-radius: $radius-tier-2;
+
   &__primary {
     background-color: $color-coal;
   }
+
   &__secondary {
     border: 1px solid $color-snow;
     background-color: transparent;
+  }
+
+  &__success {
+    background-color: $color-dark-mint;
+  }
+
+  &__alert {
+    background-color: $color-alert;
   }
 
   &:hover {
