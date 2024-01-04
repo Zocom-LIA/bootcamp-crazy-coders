@@ -141,6 +141,23 @@ export const getMenuParams = (): DocumentClient.GetItemInput => {
  ***************************************** QUERY ORDER *****************************************
  */
 
+export const getOrderParams = (
+  customerId: string,
+  orderId: string
+): DocumentClient.GetItemInput => {
+  return {
+    TableName: `${process.env["YUM_YUM_TABLE"]}`,
+    Key: {
+      PK: `Order`,
+      SK: `InProgress#${customerId}#${orderId}`,
+    },
+  };
+};
+
+/*
+ ***************************************** QUERY ORDER *****************************************
+ */
+
 export const queryQueueOrdersParams =
   (): AWS.DynamoDB.DocumentClient.QueryInput => {
     return {
@@ -193,29 +210,26 @@ export const queryAssignedOrdersParams = (
  ***************************************** UPDATE ORDER *****************************************
  */
 
-export const updateOrderParams = (
-  customerId: string,
-  orderId: string,
-  staffmember: string,
+export const updateOrderAsReadyParams = (
+  pk: string,
+  sk: string,
   endTime: string
 ): DocumentClient.UpdateItemInput => {
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
     Key: {
-      PK: `Order`,
-      SK: `InProgress#${customerId}#${orderId}`,
+      PK: pk,
+      SK: sk,
     },
-    ConditionExpression: "#at = :at AND #st = :pst",
+    ConditionExpression: "#st = :pst",
     UpdateExpression: "SET #st = :st, #et = :et",
     ExpressionAttributeNames: {
       "#st": "status",
-      "#at": "assignedTo",
       "#et": "endTime",
     },
     ExpressionAttributeValues: {
       ":pst": OrderStatus.ASSIGNED,
       ":st": OrderStatus.READY,
-      ":at": staffmember,
       ":et": endTime,
     },
     ReturnValues: "NONE",

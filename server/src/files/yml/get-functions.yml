@@ -5,7 +5,7 @@ getMenu:
           path: '/api/menu'
           method: GET
 getAdminOrders:
-    handler: src/functions/api/admin/orders/processing/index.handler
+    handler: src/functions/api/admin/orders/get/index.handler
     events:
       - httpApi:
           path: '/api/admin/orders'

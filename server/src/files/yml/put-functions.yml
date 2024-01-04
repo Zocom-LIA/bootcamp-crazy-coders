@@ -1,5 +1,5 @@
 updadeOrder:
-    handler: src/functions/api/admin/orders/ready/index.handler
+    handler: src/functions/api/admin/orders/update/index.handler
     events:
       - httpApi:
           path: '/api/admin/order'

@@ -106,11 +106,11 @@ export enum OrderStatus {
   QUEUED = "queued",
   ASSIGNED = "assigned",
   READY = "ready",
-  SERVED = "served",
 }
 
 export const createOrderHistoryItemFrom = (
-  order: IOrderItem
+  order: IOrderItem,
+  elapsedSeconds: number
 ): IOrderHistoryItem => {
   return {
     PK: `Order`,
@@ -120,6 +120,8 @@ export const createOrderHistoryItemFrom = (
     selection: order.selection,
     createdAt: order.createdAt,
     totalSum: order.totalSum,
+    assignedTo: order.assignedTo ?? "UnKnown",
+    elapsedTimeInSec: elapsedSeconds,
   };
 };
 
@@ -162,6 +164,8 @@ export interface IOrderHistoryItem extends YumYumBase {
   selection: ISelectionItem[];
   totalSum: number;
   createdAt: string;
+  assignedTo: string;
+  elapsedTimeInSec: number;
 }
 
 /*
@@ -280,4 +284,9 @@ export interface ISchemaLoginAdmin {
 export interface ISchemaUpdateOrder {
   customerId: string;
   orderId: string;
+}
+
+export interface PartialHttpResponse {
+  statusCode: number;
+  statusMessage: string;
 }
