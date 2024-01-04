@@ -206,6 +206,31 @@ export const queryAssignedOrdersParams = (
   };
 };
 
+export const queryCustomerOrdersParams = (
+  customerId: string
+): AWS.DynamoDB.DocumentClient.QueryInput => {
+  return {
+    TableName: `${process.env["YUM_YUM_TABLE"]}`,
+    KeyConditionExpression: "#pk = :pk AND begins_with(#sk, :sk)",
+    ProjectionExpression: "#ca,#sl,#cid,#oid,#s,#st,#et",
+    ExpressionAttributeNames: {
+      "#pk": "PK",
+      "#sk": "SK",
+      "#ca": "createdAt",
+      "#sl": "selection",
+      "#cid": "customerId",
+      "#oid": "orderId",
+      "#s": "status",
+      "#st": "startTime",
+      "#et": "endTime",
+    },
+    ExpressionAttributeValues: {
+      ":pk": `Order`,
+      ":sk": `InProgress#${customerId}`,
+    },
+  };
+};
+
 /*
  ***************************************** UPDATE ORDER *****************************************
  */

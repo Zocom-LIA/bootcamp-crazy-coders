@@ -10,6 +10,7 @@ const middyAppKeyObj = (): middy.MiddlewareObj<
     APIGatewayProxyEvent,
     APIGatewayProxyResult
   > = async (request) => {
+    request.event.pathParameters;
     const app_key = request.event.headers["x-api-key"];
     if (app_key !== process.env["APP_KEY"]) {
       throw appKeyValidationError();

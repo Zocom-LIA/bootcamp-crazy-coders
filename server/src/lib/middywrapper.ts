@@ -44,17 +44,23 @@ export type Handler<
 
 export const middyfy = (
   handler: Handler<never, never, never>,
-  requestSchema: Record<string, unknown> | null = null,
+  requestBodySchema: Record<string, unknown> | null = null,
   middleWareObj: middy.MiddlewareObj<
     APIGatewayProxyEvent,
     APIGatewayProxyResult
-  > | null = null
+  > | null = null,
+  requestPathParametersSchema: Record<string, unknown> | null = null
 ): MiddyfiedHandler<Event<never, never, never>, Result, Error, Context> => {
   const wrapper = middy(handler);
-  if (requestSchema) {
+  if (requestBodySchema) {
     wrapper.use(middyJsonBodyParser());
     wrapper.use(httpEventNormalizer());
-    wrapper.use(validator({ eventSchema: transpileSchema(requestSchema) }));
+    wrapper.use(validator({ eventSchema: transpileSchema(requestBodySchema) }));
+  } else if (requestPathParametersSchema) {
+    wrapper.use(httpEventNormalizer());
+    wrapper.use(
+      validator({ eventSchema: transpileSchema(requestPathParametersSchema) })
+    );
   } else {
     wrapper.use(httpEventNormalizer());
   }
