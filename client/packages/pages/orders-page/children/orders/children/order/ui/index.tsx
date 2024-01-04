@@ -12,6 +12,7 @@ type Props = {
   done: boolean;
   startTime: string;
   endTime?: string;
+  onClick: () => void;
 };
 
 export const Order = ({
@@ -20,6 +21,7 @@ export const Order = ({
   done,
   startTime,
   endTime = dayjs().toString(),
+  onClick,
 }: Props) => {
   const [refresh, setRefresh] = useState(false);
 
@@ -68,7 +70,7 @@ export const Order = ({
         </p>
       </section>
 
-      <Button onClick={() => {}} type={done ? 'success' : 'alert'}>
+      <Button onClick={() => onClick()} type={done ? 'success' : 'alert'}>
         {done ? 'Serverad' : 'Redo att serveras'}
       </Button>
     </article>

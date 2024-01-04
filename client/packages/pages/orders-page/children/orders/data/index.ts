@@ -1,30 +1,65 @@
+import { useEffect, useState } from 'react';
 import { OrderType } from '@zocom/types';
 
 export type OrdersRepsonse = OrderType[];
 
+const BASE_URL =
+  'https://uciquejkd6.execute-api.eu-north-1.amazonaws.com/api/admin';
+
+const TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlNGVkZWExLTEwZTMtNDc0ZS1hZTgyLWU2M2RlZjU2ZGUwYiIsInVzZXJuYW1lIjoiY2hpZWYtY29vayIsImlhdCI6MTcwNDM1NzM3NSwiZXhwIjoxNzA0Mzg2MTc1fQ.AuWJUuE12griF1MzzN4ovpQWHIdcPGcOo6gPkwI6Xig';
+
 export const useData = () => {
   return {
-    async fetchOrders(): Promise<OrdersRepsonse> {
+    useFetchOrders() {
+      const [orders, setOrders] = useState<OrdersRepsonse>([]);
+
+      const fetchOrders = async (): Promise<OrdersRepsonse> => {
+        try {
+          const URL = `${BASE_URL}/orders`;
+
+          const response = await fetch(URL, {
+            headers: {
+              Authorization: `Bearer ${TOKEN}`,
+            },
+          });
+
+          const data = await response.json();
+
+          return data;
+        } catch (error) {
+          console.log(error);
+
+          return [];
+        }
+      };
+
+      useEffect(() => {
+        const fetchData = async () => {
+          const orders = await fetchOrders();
+          setOrders(orders);
+        };
+
+        fetchData();
+      }, []);
+
+      return orders;
+    },
+
+    async updateOrder(orderId: string, customerId: string) {
       try {
-        const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlNGVkZWExLTEwZTMtNDc0ZS1hZTgyLWU2M2RlZjU2ZGUwYiIsInVzZXJuYW1lIjoiY2hpZWYtY29vayIsImlhdCI6MTcwNDI3MDQ0OSwiZXhwIjoxNzA0Mjk5MjQ5fQ.tEJqO25gBDNtRoPpY7BVhhEHGqP95mU-yk_bOpS7tlU        ';
+        const URL = `${BASE_URL}/order`;
 
-        const URL =
-          'https://uciquejkd6.execute-api.eu-north-1.amazonaws.com/api/admin/orders';
-
-        const response = await fetch(URL, {
+        await fetch(URL, {
+          method: 'PUT',
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${TOKEN}`,
           },
+          body: JSON.stringify({ orderId, customerId }),
         });
-
-        const data = (await response.json()) as OrdersRepsonse;
-
-        return data;
       } catch (error) {
         console.log(error);
-
-        return [];
       }
     },
   };

@@ -1,21 +1,11 @@
 import './style.scss';
 import { Order } from '@zocom/order';
-import { OrdersRepsonse, useData } from '..';
-import { useEffect, useState } from 'react';
+import { useData } from '..';
 
 export const Orders = () => {
-  const [orders, setOrders] = useState<OrdersRepsonse>([]);
+  const { useFetchOrders, updateOrder } = useData();
 
-  const { fetchOrders } = useData();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const orders = await fetchOrders();
-      setOrders(orders);
-    };
-
-    fetchData();
-  }, []);
+  const orders = useFetchOrders();
 
   return (
     <section className="orders">
@@ -35,6 +25,7 @@ export const Orders = () => {
                 done={false}
                 startTime={order.startTime}
                 key={order.orderId}
+                onClick={() => updateOrder(order.orderId, order.customerId)}
               />
             ))}
         </section>
@@ -57,6 +48,7 @@ export const Orders = () => {
                 startTime={order.startTime}
                 endTime={order.endTime}
                 key={order.orderId}
+                onClick={() => updateOrder(order.orderId, order.customerId)}
               />
             ))}
         </section>
