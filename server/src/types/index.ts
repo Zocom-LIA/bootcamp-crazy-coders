@@ -104,13 +104,13 @@ export type PartialMenu = Omit<IMenu, "PK" | "SK">;
 
 export enum OrderStatus {
   QUEUED = "queued",
-  PROCESSING = "processing",
+  ASSIGNED = "assigned",
   READY = "ready",
-  SERVED = "served",
 }
 
 export const createOrderHistoryItemFrom = (
-  order: IOrderItem
+  order: IOrderItem,
+  elapsedSeconds: number
 ): IOrderHistoryItem => {
   return {
     PK: `Order`,
@@ -120,6 +120,8 @@ export const createOrderHistoryItemFrom = (
     selection: order.selection,
     createdAt: order.createdAt,
     totalSum: order.totalSum,
+    assignedTo: order.assignedTo ?? "UnKnown",
+    elapsedTimeInSec: elapsedSeconds,
   };
 };
 
@@ -151,6 +153,9 @@ export interface IOrderItem extends YumYumBase {
   selection: ISelectionItem[];
   totalSum: number;
   createdAt: string;
+  assignedTo?: string;
+  startTime?: string;
+  endTime?: string;
 }
 
 export interface IOrderHistoryItem extends YumYumBase {
@@ -159,6 +164,8 @@ export interface IOrderHistoryItem extends YumYumBase {
   selection: ISelectionItem[];
   totalSum: number;
   createdAt: string;
+  assignedTo: string;
+  elapsedTimeInSec: number;
 }
 
 /*
@@ -272,4 +279,14 @@ export interface ISchemaCreateOrder {
 export interface ISchemaLoginAdmin {
   username: string;
   password: string;
+}
+
+export interface ISchemaUpdateOrder {
+  customerId: string;
+  orderId: string;
+}
+
+export interface PartialHttpResponse {
+  statusCode: number;
+  statusMessage: string;
 }
