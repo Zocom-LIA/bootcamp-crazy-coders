@@ -1,6 +1,6 @@
 import './style.scss';
 import dayjs from 'dayjs';
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Item } from '@zocom/types';
 import { List, Separator } from '@zocom/list';
 import { Button } from '@zocom/button';
@@ -23,15 +23,10 @@ export const Order = ({
   endTime = dayjs().toString(),
   onClick,
 }: Props) => {
-  const [refresh, setRefresh] = useState(false);
-
-  const { timeDifference } = useData();
+  const { useRefresher, timeDifference } = useData();
 
   if (!done) {
-    useEffect(() => {
-      const interval = setInterval(() => setRefresh(!refresh), 1000);
-      return () => clearInterval(interval);
-    }, [refresh]);
+    useRefresher(1000);
   }
 
   return (

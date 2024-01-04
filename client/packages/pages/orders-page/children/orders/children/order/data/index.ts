@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useState, useEffect } from 'react';
 
 export const useData = () => {
   return {
@@ -12,6 +13,15 @@ export const useData = () => {
         2,
         '0'
       )}`;
+    },
+
+    useRefresher(timeInMs: number) {
+      const [refresh, setRefresh] = useState(false);
+
+      useEffect(() => {
+        const interval = setInterval(() => setRefresh(!refresh), timeInMs);
+        return () => clearInterval(interval);
+      }, [refresh]);
     },
   };
 };
