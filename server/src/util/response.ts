@@ -6,10 +6,6 @@ const createResponse = (statusCode: number, response: any): any => {
     statusCode,
     headers: {
       ContentType: "application/json",
-      'Access-Control-Allow-Origin': 'http://localhost:5173',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, x-api-key',
-      'Access-Control-Allow-Credentials': true,
     },
     body: JSON.stringify(response),
   };
