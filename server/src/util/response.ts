@@ -47,6 +47,14 @@ const orderSumError = (): HttpError => {
   );
 };
 
+const orderItemsNotFoundError = (): HttpError => {
+  return createHttpError(
+    HttpCode.BAD_REQUEST,
+    `Unexpected item found during process of validating order. Please make sure selection names matches thoose inside current menu.`,
+    { type: "BadRequest" }
+  );
+};
+
 const middyValidationError = (message: string): any => {
   return createResponse(HttpCode.BAD_REQUEST, message);
 };
@@ -80,6 +88,13 @@ const createAdminExistsError = (): any => {
   };
 };
 
+const createMenuExistsError = (): any => {
+  return {
+    statusCode: HttpCode.BAD_REQUEST,
+    message: `Create menu failed. Menu already exists in database.`,
+  };
+};
+
 export {
   createResponse,
   failedResponse,
@@ -89,5 +104,7 @@ export {
   appTokenValidationError,
   appTokenExpiredError,
   createAdminExistsError,
+  createMenuExistsError,
   orderSumError,
+  orderItemsNotFoundError,
 };

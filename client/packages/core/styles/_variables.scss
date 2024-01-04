@@ -87,3 +87,9 @@ $tabletBreakpoint: 640px;
   flex-direction: row;
   gap: $gap;
 }
+
+@mixin flexCenterPickDirection($justifyContentDirection) {
+  display: flex;
+  align-items: center;
+  justify-content: $justifyContentDirection;
+}

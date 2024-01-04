@@ -10,3 +10,15 @@ loginAdminAccount:
       - httpApi:
           path: '/api/admin/login'
           method: GET
+getAdminOrders:
+    handler: src/functions/api/admin/orders/index.handler
+    events:
+      - httpApi:
+          path: '/api/admin/orders'
+          method: GET
+getReceipt:
+    handler: src/functions/api/receipt/get/index.handler
+    events:
+      - httpApi:
+          path: '/api/receipt'
+          method: GET
