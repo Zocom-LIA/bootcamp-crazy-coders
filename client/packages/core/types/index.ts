@@ -12,16 +12,30 @@ export enum StyleTypes {
 }
 
 export type MenuItem = {
-  id: string, 
-  title: string,
-  desc: string,
-  price: number,
-  category: string
-  ingredients?: [],
-} 
+  id: string;
+  title: string;
+  desc: string;
+  price: number;
+  category: string;
+  ingredients?: [];
+};
 
 export type Item = {
-  product: string;
-  quantity: number;
-  total: number;
+  name: string;
+  count: number;
+  totalPrice: number;
+};
+
+export type OrderType = {
+  orderId: string;
+  customerId: string;
+
+  assignedTo: string;
+  status: string;
+
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+
+  selection: Item[];
 };

@@ -17,6 +17,14 @@ body {
 
 $base: 1.6rem;
 
+@mixin fontsizeHuge {
+  font-size: calc($base * 2.5);
+  line-height: 120%;
+  font-family: 'Fira Sans';
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 @mixin fontsizeLarge {
   font-size: calc($base * 2);
   line-height: 120%;
