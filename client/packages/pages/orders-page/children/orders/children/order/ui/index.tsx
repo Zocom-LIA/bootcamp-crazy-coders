@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { Fragment } from 'react';
 import { Item } from '@zocom/types';
 import { List, Separator } from '@zocom/list';
-import { Button } from '@zocom/button';
+import { ConfirmButton } from '@zocom/confirm-button';
 import { useData } from '..';
 
 type Props = {
@@ -65,9 +65,9 @@ export const Order = ({
         </p>
       </section>
 
-      <Button onClick={() => onClick()} type={done ? 'success' : 'alert'}>
+      <ConfirmButton onConfirm={onClick} type={done ? 'success' : 'alert'}>
         {done ? 'Serverad' : 'Redo att serveras'}
-      </Button>
+      </ConfirmButton>
     </article>
   );
 };
