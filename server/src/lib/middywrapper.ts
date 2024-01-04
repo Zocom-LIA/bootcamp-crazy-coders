@@ -62,10 +62,8 @@ export const middyfy = (
     wrapper.use(middleWareObj);
   }
   wrapper.use(middyValidatorErrorObj());
-  wrapper
-    .use(cors())
-    .use(httpErrorHandler())
-    .use(
+  wrapper.use(cors()).use(httpErrorHandler());
+  /*.use(
       httpResponseSerializer({
         serializers: [
           {
@@ -79,7 +77,7 @@ export const middyfy = (
         ],
         defaultContentType: "application/json",
       })
-    );
+    );*/
 
   return wrapper;
 };

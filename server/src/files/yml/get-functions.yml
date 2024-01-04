@@ -4,14 +4,8 @@ getMenu:
       - httpApi:
           path: '/api/menu'
           method: GET
-loginAdminAccount:
-    handler: src/functions/api/admin/login/index.handler
-    events:
-      - httpApi:
-          path: '/api/admin/login'
-          method: GET
 getAdminOrders:
-    handler: src/functions/api/admin/orders/index.handler
+    handler: src/functions/api/admin/orders/get/index.handler
     events:
       - httpApi:
           path: '/api/admin/orders'

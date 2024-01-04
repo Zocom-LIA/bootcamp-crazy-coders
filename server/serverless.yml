@@ -17,6 +17,7 @@ package:
 functions:
   - ${file(src/files/yml/get-functions.yml)}
   - ${file(src/files/yml/post-functions.yml)}
+  - ${file(src/files/yml/put-functions.yml)}
 
 resources:
   - ${file(src/files/yml/Resources.yml)}
