@@ -27,7 +27,7 @@ export const execPutRequest = async (
 export const execGetRequest = async (
   params: DocumentClient.GetItemInput
 ): Promise<DocumentClient.AttributeMap | undefined> => {
-  return dynamoDBClient.get(params).promise();
+  return (await dynamoDBClient.get(params).promise()).Item;
 };
 
 export const execQueryTable = async (

@@ -138,7 +138,7 @@ export const getMenuParams = (): DocumentClient.GetItemInput => {
 };
 
 /*
- ***************************************** QUERY ORDER *****************************************
+ ***************************************** GET ORDER *****************************************
  */
 
 export const getOrderParams = (
