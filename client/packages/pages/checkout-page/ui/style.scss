@@ -2,7 +2,7 @@
 
 .checkout-page {
   height: 100vh;
-  width: 100%;
+  // width: 100%;
   background-color: $color-ash;
   padding: $padding-large;
   @include column;
@@ -24,6 +24,7 @@
   &__checkout {
     @include column;
     align-self: stretch;
+    align-items: stretch;
     margin-top: auto;
   }
   &__amount {
