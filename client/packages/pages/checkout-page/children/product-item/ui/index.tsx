@@ -1,15 +1,22 @@
-import { React } from 'react';
 import { QuantitySetter } from '@zocom/quantity-setter';
 import { List, Separator } from '@zocom/list';
 import './style.scss';
 
 type Props = {
-  name: string | undefined;
+  name: string;
   price: number;
   quantity: number;
+  handleIncreaseQty: () => void;
+  handleDecreaseQty: () => void;
 };
 
-export const ProductItem = ({ name, price, quantity }: Props) => {
+export const ProductItem = ({
+  name,
+  price,
+  quantity,
+  handleIncreaseQty,
+  handleDecreaseQty,
+}: Props) => {
   return (
     <li className="product-item">
       <List>
@@ -18,7 +25,11 @@ export const ProductItem = ({ name, price, quantity }: Props) => {
         <p className="product-item__price">{price} SEK</p>
       </List>
 
-      <QuantitySetter quantity={quantity} />
+      <QuantitySetter
+        handleIncreaseQty={handleIncreaseQty}
+        handleDecreaseQty={handleDecreaseQty}
+        quantity={quantity}
+      />
     </li>
   );
 };

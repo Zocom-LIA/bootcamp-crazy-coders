@@ -1,75 +1,132 @@
 import './style.scss';
 import { Cart } from '@zocom/cart';
-import { Modal } from '@zocom/modal';
 import { ReceiptTotal } from '@zocom/receipt-total';
 import { Button } from '@zocom/button';
 import { ProductItem } from '@zocom/product-item';
+import { postOrder } from '..';
+import { useState } from 'react';
 
+// import { useState } from 'react';
 // Hämta cart från redux?
 // Take my money btn ska skicka order till databasen
 
-const fakeCart = [
+type Cart = {
+  count: number;
+  name: string;
+  totalPrice: number;
+}[];
+
+type Order = {
+  customerId?: string;
+  totalSum: number;
+  selection: Cart;
+};
+
+const fakeCart: Cart = [
   {
-    quantity: 1,
+    count: 1,
     name: 'Karlstad',
-    price: 9,
+    totalPrice: 9,
   },
   {
-    quantity: 2,
-    name: 'BANGKOK',
-    price: 9,
-  },
-  {
-    quantity: 1,
-    name: 'Ho Chi Minh',
-    price: 9,
-  },
-  {
-    quantity: 1,
-    name: 'PARIS',
-    price: 9,
-  },
-  {
-    quantity: 1,
-    name: 'Oaxaca',
-    price: 9,
-  },
-  {
-    quantity: 1,
-    name: 'SWEET CHILI DIP',
-    price: 19,
+    count: 1,
+    name: 'Bangkok',
+    totalPrice: 9,
   },
 ];
 
 export const CheckoutPage = () => {
+  const [customerCart, setCustomerCart] = useState<Cart>(fakeCart);
+
+  function totalSum() {
+    const total = customerCart.reduce((acc, item) => acc + item.totalPrice, 0);
+    return total;
+  }
+
+  function handleIncreaseQty(name: string) {
+    setCustomerCart((currentCart) => {
+      const updatedCart: Cart = currentCart.map((product) => {
+        if (product.name === name) {
+          return {
+            ...product,
+            count: product.count + 1,
+            totalPrice: product.totalPrice + 9, //! SKA ÄNDRAS
+          };
+        }
+        return product;
+      });
+
+      return updatedCart;
+    });
+  }
+
+  function handleDecreaseQty(name: string) {
+    setCustomerCart((currentCart) => {
+      const updatedCart = currentCart.map((product) => {
+        if (product.name === name) {
+          return {
+            ...product,
+            count: product.count > 1 ? product.count - 1 : product.count,
+            totalPrice:
+              product.count > 1 ? product.totalPrice - 9 : product.totalPrice, //! SKA ÄNDRAS
+          };
+        }
+        return product;
+      });
+
+      return updatedCart;
+    });
+  }
+
+  const testOrder: Order = {
+    totalSum: totalSum(),
+    selection: customerCart,
+  };
+
+  async function createOrder() {
+    const customerId = localStorage.getItem('customerId');
+
+    if (!customerId) {
+      const order: Order = await postOrder(testOrder);
+      if (order.customerId) {
+        localStorage.setItem('customerId', order?.customerId);
+      }
+    } else {
+      const existingCustomer: Order = {
+        customerId,
+        ...testOrder,
+      };
+      postOrder(existingCustomer);
+    }
+  }
+
   return (
-    // <Modal>
     <main className="checkout-page">
       <section className="checkout-page__cart">
         <Cart bgColor="transparent" />
       </section>
 
       <ul className="checkout-page__customer-cart">
-        {fakeCart.map((item) => (
+        {customerCart.map((item) => (
           <ProductItem
             name={item.name}
-            price={item.price}
-            quantity={item.quantity}
+            price={item.totalPrice}
+            quantity={item.count}
             key={item.name}
+            handleIncreaseQty={() => handleIncreaseQty(item.name)}
+            handleDecreaseQty={() => handleDecreaseQty(item.name)}
           />
         ))}
       </ul>
 
       <section className="checkout-page__checkout">
         <section className="checkout-page__amount">
-          <ReceiptTotal total={199} />
+          <ReceiptTotal total={totalSum()} />
         </section>
-
-        <Button onClick={() => console.log('first')} type="primary">
+        <Button onClick={() => createOrder()} type="primary">
           Take my Money
         </Button>
       </section>
     </main>
-    // </Modal>
   );
 };
