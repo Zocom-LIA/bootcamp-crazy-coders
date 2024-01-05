@@ -39,3 +39,6 @@ export type OrderType = {
 
   selection: Item[];
 };
+export interface ShoppingCartState {
+  cart: Item[];
+}
