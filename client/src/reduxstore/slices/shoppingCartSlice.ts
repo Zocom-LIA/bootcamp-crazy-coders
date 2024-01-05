@@ -35,8 +35,16 @@ const shoppingCartSlice = createSlice({
                 }
             }
         },
+        increaseQuantity(state, action: PayloadAction<string>) {
+            const itemName = action.payload;
+            const itemIndex = state.shoppingCartItems.findIndex(item => item.name === itemName);
+      
+            if (itemIndex !== -1) {
+                state.shoppingCartItems[itemIndex].quantity++;
+            }
+        }
     }
 }); 
 
 export default shoppingCartSlice.reducer;
-export const { addToShoppingCart, decreaseQuantity } = shoppingCartSlice.actions;
+export const { addToShoppingCart, decreaseQuantity, increaseQuantity } = shoppingCartSlice.actions;

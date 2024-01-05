@@ -5,7 +5,7 @@ import { ReceiptTotal } from '@zocom/receipt-total';
 import { Button } from '@zocom/button';
 import { ProductItem } from '@zocom/product-item';
 import { postOrder } from '..';
-import { addToShoppingCart } from '../../../../src/reduxstore/slices/shoppingCartSlice';
+import { addToShoppingCart, increaseQuantity, decreaseQuantity } from '../../../../src/reduxstore/slices/shoppingCartSlice';
 import { RootState } from '../../../../src/reduxstore/store';
 
 type OrderItem = {
@@ -42,11 +42,11 @@ export const CheckoutPage = () => {
   }
 
   function handleIncreaseQty(name: string) {
-    dispatch(addToShoppingCart({ name, price: 9 })); // Adjust with your actual data structure
+    dispatch(increaseQuantity(name));
   }
 
   function handleDecreaseQty(name: string) {
-    // Implement logic to decrease quantity in the Redux store (similar to increase)
+    dispatch(decreaseQuantity(name));
   }
 
   const orderItems: OrderItem[] = shoppingCartItems.map((item) => ({
