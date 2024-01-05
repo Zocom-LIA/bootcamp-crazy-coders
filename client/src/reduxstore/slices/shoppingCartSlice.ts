@@ -16,12 +16,21 @@ const shoppingCartSlice = createSlice({
     name: 'shoppingCart',
     initialState,
     reducers: {
-        addToShoppingCart(state, action: PayloadAction<{ name: string; price: number; }>) {
-            state.shoppingCartItems.push({
-                quantity: 1,
-                ...action.payload
-            });
-        },
+        addToShoppingCart(state, action: PayloadAction<{ name: string; price: number }>) {
+            const { name, price } = action.payload;
+            const existingItemIndex = state.shoppingCartItems.findIndex(item => item.name === name);
+            if (existingItemIndex !== -1) {
+                // Item already exists, increase quantity
+                state.shoppingCartItems[existingItemIndex].quantity++;
+              } else {
+                // Item doesn't exist, add a new item
+                state.shoppingCartItems.push({
+                  name,
+                  price,
+                  quantity: 1,
+                });
+              }
+            },
         decreaseQuantity(state, action: PayloadAction<string>) {
             const itemName = action.payload;
             const itemIndex = state.shoppingCartItems.findIndex(item => item.name === itemName);
