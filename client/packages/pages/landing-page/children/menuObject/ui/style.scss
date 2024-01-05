@@ -1,13 +1,17 @@
 @use '@zocom/styles' as *;
 .menuContainer{
     cursor: pointer;
+
+    &:hover {
+        background-color: $color-shade-12-light;
+    }
 }
 .menuItem{
     @include fontsizeMedium;
     font-family: 'Fira Sans';
     display: flex;
     color: $color-snow;
-    margin: $margin-large;
+    padding: $padding-large
 }
 
 .wontonTitle{
