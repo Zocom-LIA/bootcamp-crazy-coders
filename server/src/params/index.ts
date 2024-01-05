@@ -212,7 +212,7 @@ export const queryCustomerOrdersParams = (
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
     KeyConditionExpression: "#pk = :pk AND begins_with(#sk, :sk)",
-    ProjectionExpression: "#ca,#sl,#cid,#oid,#s,#st,#et",
+    ProjectionExpression: "#ca,#sl,#cid,#oid,#s,#st,#et,#ts",
     ExpressionAttributeNames: {
       "#pk": "PK",
       "#sk": "SK",
@@ -223,10 +223,39 @@ export const queryCustomerOrdersParams = (
       "#s": "status",
       "#st": "startTime",
       "#et": "endTime",
+      "#ts": "totalSum",
     },
     ExpressionAttributeValues: {
       ":pk": `Order`,
       ":sk": `InProgress#${customerId}`,
+    },
+  };
+};
+
+/*
+ ***************************************** QUERY ORDER HISTORY *****************************************
+ */
+
+export const queryCustomerHistoryOrdersParams = (
+  customerId: string
+): AWS.DynamoDB.DocumentClient.QueryInput => {
+  return {
+    TableName: `${process.env["YUM_YUM_TABLE"]}`,
+    KeyConditionExpression: "#pk = :pk AND begins_with(#sk, :sk)",
+    ProjectionExpression: "#ca,#sl,#cid,#oid,#ts,#ets",
+    ExpressionAttributeNames: {
+      "#pk": "PK",
+      "#sk": "SK",
+      "#ca": "createdAt",
+      "#sl": "selection",
+      "#cid": "customerId",
+      "#oid": "orderId",
+      "#ts": "totalSum",
+      "#ets": "elapsedTimeInSec",
+    },
+    ExpressionAttributeValues: {
+      ":pk": `Order`,
+      ":sk": `History#${customerId}`,
     },
   };
 };
