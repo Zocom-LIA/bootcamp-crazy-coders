@@ -5,7 +5,11 @@ import { ReceiptTotal } from '@zocom/receipt-total';
 import { Button } from '@zocom/button';
 import { ProductItem } from '@zocom/product-item';
 import { postOrder } from '..';
-import { addToShoppingCart, increaseQuantity, decreaseQuantity, emptyCart} from '../../../../src/reduxstore/slices/shoppingCartSlice';
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  emptyCart,
+} from '../../../../src/reduxstore/slices/shoppingCartSlice';
 import { RootState } from '../../../../src/reduxstore/store';
 
 type OrderItem = {
@@ -20,29 +24,17 @@ type Order = {
   selection: OrderItem[];
 };
 
-const fakeCart: OrderItem[] = [
-  {
-    count: 1,
-    name: 'Karlstad',
-    totalPrice: 9,
-  },
-  {
-    count: 1,
-    name: 'Bangkok',
-    totalPrice: 9,
-  },
-];
-
 export const CheckoutPage = () => {
   const dispatch = useDispatch();
-  const shoppingCartItems = useSelector((state: RootState) => state.shoppingCart.shoppingCartItems);
+  const shoppingCartItems = useSelector(
+    (state: RootState) => state.shoppingCart.shoppingCartItems
+  );
 
   function totalSum() {
-    return shoppingCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  }
-
-  function totalQuantity() {
-    return shoppingCartItems.reduce((acc, item) => acc + item.quantity, 0);
+    return shoppingCartItems.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
   }
 
   function handleIncreaseQty(name: string) {
@@ -69,6 +61,7 @@ export const CheckoutPage = () => {
 
     if (!customerId) {
       const order: Order = await postOrder(testOrder);
+      dispatch(emptyCart());
       if (order.customerId) {
         localStorage.setItem('customerId', order?.customerId);
       }
@@ -78,6 +71,7 @@ export const CheckoutPage = () => {
         ...testOrder,
       };
       postOrder(existingCustomer);
+      dispatch(emptyCart());
     }
   }
 
@@ -87,18 +81,22 @@ export const CheckoutPage = () => {
         <Cart bgColor="transparent" />
       </section>
 
-      <ul className="checkout-page__customer-cart">
-        {orderItems.map((item) => (
-          <ProductItem
-            name={item.name}
-            price={item.totalPrice}
-            quantity={item.count}
-            key={item.name}
-            handleIncreaseQty={() => handleIncreaseQty(item.name)}
-            handleDecreaseQty={() => handleDecreaseQty(item.name)}
-          />
-        ))}
-      </ul>
+      {orderItems.length > 0 ? (
+        <ul className="checkout-page__customer-cart">
+          {orderItems.map((item) => (
+            <ProductItem
+              name={item.name}
+              price={item.totalPrice}
+              quantity={item.count}
+              key={item.name}
+              handleIncreaseQty={() => handleIncreaseQty(item.name)}
+              handleDecreaseQty={() => handleDecreaseQty(item.name)}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p>Your cart is empty</p>
+      )}
 
       <section className="checkout-page__checkout">
         <section className="checkout-page__amount">
