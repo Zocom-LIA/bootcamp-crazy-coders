@@ -54,9 +54,9 @@ export const LandingPage = () => {
     
   }, [shoppingCartItems]);
 
-  const handleAddToCart = (menuItem: MenuItem) => {
+  const handleAddToCart = (foodItem: MenuItem | DipItem ) => {
     console.log("click");
-    dispatch(addToShoppingCart(menuItem));
+    dispatch(addToShoppingCart(foodItem));
   };
 
   function totalQuantity() {

@@ -1,4 +1,7 @@
 @use '@zocom/styles' as *;
+.dipContainer{
+    cursor: pointer;
+}
 
 .dipLabel{
     background-color: $color-shade-24-light;

@@ -3,6 +3,7 @@ interface ShoppingCartItem {
     name: string;
     price: number;
     quantity: number; 
+    type: 'menuItem' | 'dipItem';
 }
 interface ShoppingCartState {
     shoppingCartItems: ShoppingCartItem[];
@@ -28,6 +29,7 @@ const shoppingCartSlice = createSlice({
                   name,
                   price,
                   quantity: 1,
+                  type: (action.payload as any).type,
                 });
               }
             },
