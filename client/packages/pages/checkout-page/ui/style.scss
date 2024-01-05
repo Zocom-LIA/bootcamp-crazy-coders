@@ -1,10 +1,39 @@
 @use '@zocom/styles' as *;
 
 .checkout-page {
-  @include column;
-  
-  width: 100vw;
   height: 100vh;
-
+  // width: 100%;
   background-color: $color-ash;
+  padding: $padding-large;
+  @include column;
+  gap: $gap-large;
+
+  &__cart {
+    @include flexCenterPickDirection(flex-end);
+    align-self: end;
+  }
+
+  &__customer-cart {
+    @include column;
+    align-items: normal;
+    align-self: stretch;
+    gap: $baseline;
+    overflow-y: scroll; 
+  }
+
+  &__checkout {
+    @include column;
+    align-self: stretch;
+    align-items: stretch;
+    margin-top: auto;
+  }
+  &__amount {
+    background-color: $color-shade-24-dark;
+    padding: $baseline;
+    align-self: stretch;
+  }
+  &__quantity {
+    @include fontsizeSmall();
+    font-weight: 500;
+  }
 }

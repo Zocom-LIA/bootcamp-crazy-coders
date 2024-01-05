@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { LandingPage } from '@zocom/landing-page';
 import { ReceiptPage } from '@zocom/receipt-page';
 import { CheckoutPage } from '@zocom/checkout-page';
-import { OrderPage } from '@zocom/order-page';
+import { OrdersPage } from '@zocom/orders-page';
 import { AdminPage } from '@zocom/admin-page';
 import { AppLayout } from '@zocom/applayout';
 
@@ -23,10 +23,6 @@ const router = createBrowserRouter([
         element: <CheckoutPage />,
       },
       {
-        path: '/order',
-        element: <OrderPage />,
-      },
-      {
         path: '/admin',
         element: <AdminPage />,
       },
@@ -35,6 +31,14 @@ const router = createBrowserRouter([
         element: <p>Page Not Found</p>,
       },
     ],
+  },
+  {
+    path: '/orders',
+    element: <OrdersPage />,
+  },
+  {
+    path: '*',
+    element: <p>Page Not Found</p>,
   },
 ]);
 

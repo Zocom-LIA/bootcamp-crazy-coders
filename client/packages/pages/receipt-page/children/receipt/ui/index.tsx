@@ -38,3 +38,4 @@ export const Receipt = ({ orderId, items, total }: ReceiptProps) => {
     </article>
   );
 };
+
