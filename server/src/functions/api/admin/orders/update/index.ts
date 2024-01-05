@@ -25,6 +25,7 @@ import {
 import middyAuthTokenObj from "@lib/middyAuthTokenObj.js";
 import { HttpResponse } from "aws-sdk";
 import { HttpCode } from "@util/httpCodes";
+import { calculateSecPassedBetweenDates } from "@util/functions";
 
 const markAssignedOrdersAsReady = async (
   pk: string,
@@ -38,10 +39,10 @@ const markAssignedOrdersAsReady = async (
 const moveReadyOrderToServedHistory = async (
   order: IOrderItem
 ): Promise<HttpResponse> => {
-  let elapsedMilliSec =
-    new Date(order.startTime ?? "2024-01-01T00:00:00.000Z").getTime() -
-    new Date(order.startTime ?? "2024-01-01T00:00:00.000Z").getTime();
-  let elapsedTimeInSec = Math.floor(elapsedMilliSec / 1000);
+  let elapsedTimeInSec = calculateSecPassedBetweenDates(
+    order.startTime,
+    order.endTime
+  );
   let deleteItem = createKeysOnlyItem(order);
   let orderHistoryItem = createOrderHistoryItemFrom(order, elapsedTimeInSec);
   let params = batchRequestParams([
