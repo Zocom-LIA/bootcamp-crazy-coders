@@ -59,11 +59,15 @@ export const LandingPage = () => {
     dispatch(addToShoppingCart(menuItem));
   };
 
+  function totalQuantity() {
+    return shoppingCartItems.reduce((acc, item) => acc + item.quantity, 0);
+  }
+
   return (
     <main className="landing-page">
       <section className="landing-page__header">
         <Logo />
-        <Cart quantity={0} />
+        <Cart quantity={totalQuantity()} />
       </section>
 
       <section className="menu">
