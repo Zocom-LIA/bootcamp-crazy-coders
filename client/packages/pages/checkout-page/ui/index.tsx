@@ -38,7 +38,7 @@ export const CheckoutPage = () => {
   const shoppingCartItems = useSelector((state: RootState) => state.shoppingCart.shoppingCartItems);
 
   function totalSum() {
-    return shoppingCartItems.reduce((acc, item) => acc + item.price, 0);
+    return shoppingCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   }
 
   function handleIncreaseQty(name: string) {
