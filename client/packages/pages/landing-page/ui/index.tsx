@@ -1,6 +1,5 @@
 import './style.scss';
 
-/* Import dependencies */
 import { useEffect, useState } from 'react';
 import { MenuObject } from '@zocom/menu-object';
 import { DipObject } from '@zocom/dip-object';
@@ -33,8 +32,9 @@ export const LandingPage = () => {
   useEffect(() => {
     async function handleFetchMenu() {
       const data = await fetchMenu();
-      const menuObjects = data.wontons;
-      const dipSauces = data.dip;
+      const menuObjects = data.record.wontons;
+      const dipSauces = data.record.dip;
+      console.log(data);  
       setMenu(menuObjects ? menuObjects : null);
       setDip(dipSauces ? dipSauces : null);
       setDipPrice(dipSauces[0].price);
