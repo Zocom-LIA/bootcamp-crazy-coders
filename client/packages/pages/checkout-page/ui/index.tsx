@@ -105,7 +105,7 @@ export const CheckoutPage = () => {
           <ReceiptTotal total={totalSum()} />
         </section>
         <Button onClick={() => createOrder()} type="primary">
-          Take my Money
+          Take my Money!
         </Button>
       </section>
     </main>
