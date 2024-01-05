@@ -33,8 +33,8 @@ export const LandingPage = () => {
   useEffect(() => {
     async function handleFetchMenu() {
       const data = await fetchMenu();
-      const menuObjects = data.record.wontons;
-      const dipSauces = data.record.dip;
+      const menuObjects = data.wontons;
+      const dipSauces = data.dip;
       setMenu(menuObjects ? menuObjects : null);
       setDip(dipSauces ? dipSauces : null);
       setDipPrice(dipSauces[0].price);

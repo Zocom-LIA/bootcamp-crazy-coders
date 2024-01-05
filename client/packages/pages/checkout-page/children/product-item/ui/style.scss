@@ -1,0 +1,16 @@
+@use '@zocom/styles' as *;
+
+.product-item {
+  @include column;
+  align-items: stretch;
+  gap: $gap-nano;
+
+  &__name {
+    @include fontsizeRegular();
+    @include fontBold();
+  }
+  &__price {
+    @include fontsizeRegular();
+    @include fontBold();
+  }
+}

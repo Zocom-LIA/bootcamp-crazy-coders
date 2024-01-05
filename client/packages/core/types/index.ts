@@ -34,6 +34,7 @@ export type OrderType = {
   status: string;
 
   startTime: string;
+  endTime: string;
   createdAt: string;
 
   selection: Item[];

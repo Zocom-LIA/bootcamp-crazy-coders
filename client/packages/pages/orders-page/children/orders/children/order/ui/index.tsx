@@ -1,20 +1,36 @@
 import './style.scss';
+import dayjs from 'dayjs';
 import { Fragment } from 'react';
 import { Item } from '@zocom/types';
 import { List, Separator } from '@zocom/list';
-import { Button } from '@zocom/button';
+import { ConfirmButton } from '@zocom/confirm-button';
+import { useData } from '..';
 
 type Props = {
   id: string;
   items: Item[];
   done: boolean;
+  startTime: string;
+  endTime?: string;
+  onClick: () => void;
 };
 
-export const Order = ({ id, items, done }: Props) => {
-  const status = done ? 'done' : 'cooking';
+export const Order = ({
+  id,
+  items,
+  done,
+  startTime,
+  endTime = dayjs().toString(),
+  onClick,
+}: Props) => {
+  const { useRefresher, timeDifference } = useData();
+
+  if (!done) {
+    useRefresher(1000);
+  }
 
   return (
-    <article className={`order order--${status}`}>
+    <article className={`order order--${done ? 'done' : 'ongoing'}`}>
       <header>
         <h2 className="order__id">#{id}</h2>
       </header>
@@ -43,12 +59,15 @@ export const Order = ({ id, items, done }: Props) => {
       </section>
 
       <section className="order__time">
-        <p>Tillagningstid </p>
+        <p>
+          {done ? 'Tillagningstid' : 'Väntat i'}{' '}
+          {timeDifference(startTime, endTime)}
+        </p>
       </section>
 
-      <Button onClick={() => {}} type={done ? 'success' : 'alert'}>
+      <ConfirmButton onConfirm={onClick} type={done ? 'success' : 'alert'}>
         {done ? 'Serverad' : 'Redo att serveras'}
-      </Button>
+      </ConfirmButton>
     </article>
   );
 };

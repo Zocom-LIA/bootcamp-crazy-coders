@@ -4,7 +4,9 @@
   @include row;
   align-self: stretch;
 
-  gap: $gap-extra-huge;
+  gap: $gap-nano;
+
+  overflow: hidden;
 
   &__section {
     @include column;
@@ -14,9 +16,9 @@
 
     flex: 1;
 
-    overflow-y: scroll;
+    overflow-y: auto;
 
-    height: 100%;
+    padding: 0 $padding-huge;
   }
 
   &__items {
@@ -24,10 +26,19 @@
     align-items: stretch;
 
     gap: $gap-huge;
+
+    padding-bottom: $padding-large;
   }
 
   &__label {
     @include row;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1;
+
+    background-color: $color-coal;
 
     > h2 {
       @include fontsizeMedium;

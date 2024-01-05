@@ -1,13 +1,11 @@
 import './style.scss';
 import { Order } from '@zocom/order';
-import { OrderType } from '@zocom/types';
+import { useData } from '..';
 
-type Props = {
-  orders: OrderType[];
-};
+export const Orders = () => {
+  const { useFetchOrders, updateOrder } = useData();
 
-export const Orders = ({ orders }: Props) => {
-  console.log(orders);
+  const orders = useFetchOrders();
 
   return (
     <section className="orders">
@@ -21,7 +19,14 @@ export const Orders = ({ orders }: Props) => {
           {orders
             .filter((order) => order.status === 'assigned')
             .map((order) => (
-              <Order id={order.orderId} items={order.selection} done={true} />
+              <Order
+                id={order.orderId}
+                items={order.selection}
+                done={false}
+                startTime={order.startTime}
+                key={order.orderId}
+                onClick={() => updateOrder(order.orderId, order.customerId)}
+              />
             ))}
         </section>
       </section>
@@ -36,7 +41,15 @@ export const Orders = ({ orders }: Props) => {
           {orders
             .filter((order) => order.status !== 'assigned')
             .map((order) => (
-              <Order id={order.orderId} items={order.selection} done={true} />
+              <Order
+                id={order.orderId}
+                items={order.selection}
+                done={true}
+                startTime={order.startTime}
+                endTime={order.endTime}
+                key={order.orderId}
+                onClick={() => updateOrder(order.orderId, order.customerId)}
+              />
             ))}
         </section>
       </section>
