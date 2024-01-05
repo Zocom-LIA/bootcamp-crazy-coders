@@ -12,7 +12,7 @@ export const ReceiptTotal = ({
   return (
     <article className="total">
       <section>
-        <h3 className="total__title">Total</h3>
+        <h3 className="total__title">Totalt</h3>
         <p className="total__vat">inkl 20% moms</p>
       </section>
 

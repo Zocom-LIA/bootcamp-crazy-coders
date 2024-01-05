@@ -2,7 +2,10 @@
 @forward 'variables';
 @forward 'typography';
 
-// .App {
-//   height: 100vh;
-//   width: 100vw;
-// }
+.App {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+}
