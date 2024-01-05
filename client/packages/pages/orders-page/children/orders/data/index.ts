@@ -7,7 +7,7 @@ const BASE_URL =
   'https://uciquejkd6.execute-api.eu-north-1.amazonaws.com/api/admin';
 
 const TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlNGVkZWExLTEwZTMtNDc0ZS1hZTgyLWU2M2RlZjU2ZGUwYiIsInVzZXJuYW1lIjoiY2hpZWYtY29vayIsImlhdCI6MTcwNDM1NzM3NSwiZXhwIjoxNzA0Mzg2MTc1fQ.AuWJUuE12griF1MzzN4ovpQWHIdcPGcOo6gPkwI6Xig';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlNGVkZWExLTEwZTMtNDc0ZS1hZTgyLWU2M2RlZjU2ZGUwYiIsInVzZXJuYW1lIjoiY2hpZWYtY29vayIsImlhdCI6MTcwNDQ0NDIyMSwiZXhwIjoxNzA0NDczMDIxfQ.FFgIMaWJfetEpumEVwi5rZkgyoz2FfaOOoAIJ0LXzqI';
 
 export const useData = () => {
   return {
