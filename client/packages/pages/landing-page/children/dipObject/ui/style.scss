@@ -1,9 +1,16 @@
 @use '@zocom/styles' as *;
 
-.dipLabel{
+.dipContainer {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-coal;
+}
+
+  .dipLabel {
     background-color: $color-shade-24-light;
     padding: $padding-sml;
     border-radius: $radius-tier-2;
     gap: $gap-large;
+  }
 }
-
