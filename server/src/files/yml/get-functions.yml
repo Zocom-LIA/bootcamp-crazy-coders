@@ -22,3 +22,9 @@ getAllOngoingOrders:
       - httpApi:
           path: '/api/orders/{id}'
           method: GET
+getAllHistoryOrders:
+    handler: src/functions/api/order/history/index.handler
+    events:
+      - httpApi:
+          path: '/api/orders/history/{id}'
+          method: GET

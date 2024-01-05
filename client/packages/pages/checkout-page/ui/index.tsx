@@ -6,9 +6,9 @@ import { Button } from '@zocom/button';
 import { ProductItem } from '@zocom/product-item';
 import { postOrder } from '..';
 import {
-  addToShoppingCart,
   increaseQuantity,
   decreaseQuantity,
+  emptyCart,
 } from '../../../../src/reduxstore/slices/shoppingCartSlice';
 import { RootState } from '../../../../src/reduxstore/store';
 
@@ -24,19 +24,6 @@ type Order = {
   selection: OrderItem[];
 };
 
-const fakeCart: OrderItem[] = [
-  {
-    count: 1,
-    name: 'Karlstad',
-    totalPrice: 9,
-  },
-  {
-    count: 1,
-    name: 'Bangkok',
-    totalPrice: 9,
-  },
-];
-
 export const CheckoutPage = () => {
   const dispatch = useDispatch();
   const shoppingCartItems = useSelector(
@@ -48,10 +35,6 @@ export const CheckoutPage = () => {
       (acc, item) => acc + item.price * item.quantity,
       0
     );
-  }
-
-  function totalQuantity() {
-    return shoppingCartItems.reduce((acc, item) => acc + item.quantity, 0);
   }
 
   function handleIncreaseQty(name: string) {
@@ -78,6 +61,7 @@ export const CheckoutPage = () => {
 
     if (!customerId) {
       const order: Order = await postOrder(testOrder);
+      dispatch(emptyCart());
       if (order.customerId) {
         localStorage.setItem('customerId', order?.customerId);
       }
@@ -87,6 +71,7 @@ export const CheckoutPage = () => {
         ...testOrder,
       };
       postOrder(existingCustomer);
+      dispatch(emptyCart());
     }
   }
 
