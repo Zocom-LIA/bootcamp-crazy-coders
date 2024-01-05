@@ -1,5 +1,7 @@
 @use '@zocom/styles' as *;
-
+.menuContainer{
+    cursor: pointer;
+}
 .menuItem{
     @include fontsizeMedium;
     font-family: 'Fira Sans';

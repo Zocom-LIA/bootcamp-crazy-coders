@@ -1,6 +1,9 @@
 import './style.scss';
 
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToShoppingCart } from '../../../../src/reduxstore/slices/shoppingCartSlice'
+import { RootState } from '../../../../src/reduxstore/store';
 import { MenuObject } from '@zocom/menu-object';
 import { DipObject } from '@zocom/dip-object';
 import { getMenuData } from '..';
@@ -29,6 +32,9 @@ export const LandingPage = () => {
   const [dipPrice, setDipPrice] = useState(0);
   const { fetchMenu } = getMenuData();
 
+  const dispatch = useDispatch();
+  const shoppingCartItems = useSelector((state: RootState) => state.shoppingCart.shoppingCartItems);
+
   useEffect(() => {
     async function handleFetchMenu() {
       const data = await fetchMenu();
@@ -41,6 +47,12 @@ export const LandingPage = () => {
     }
     handleFetchMenu();
   }, []);
+
+  const handleAddToCart = (menuItem: MenuItem) => {
+    console.log("click");
+    dispatch(addToShoppingCart(menuItem));
+    console.log(shoppingCartItems);
+  };
 
   return (
     <main className="landing-page">
@@ -60,6 +72,7 @@ export const LandingPage = () => {
               desc={menuItem.description}
               cookingTime={menuItem.cookingTime}
               ingredients={menuItem.ingredients}
+              onClick={() => handleAddToCart(menuItem)}
             />
           ))}
         <section className="dipTitlePrice">

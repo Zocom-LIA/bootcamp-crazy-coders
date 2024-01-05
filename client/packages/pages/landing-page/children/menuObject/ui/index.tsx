@@ -7,13 +7,14 @@ type props = {
     ingredients: string[],
     price: number,
     cookingTime: number
+    onClick?: () => void;
 } 
 
 export const MenuObject = ({
-    key, name, desc, ingredients, price, cookingTime} : props) => { 
+    key, name, desc, ingredients, price, cookingTime, onClick} : props) => { 
     
     return (
-        <article className='menuContainer'>
+        <article className='menuContainer' onClick={onClick}>
             <section className='menuItem'>
                 <h3 className='wontonTitle'>{name}</h3>
                 <hr className='dottedLine'/>
