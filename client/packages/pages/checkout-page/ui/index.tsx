@@ -1,28 +1,26 @@
 import './style.scss';
 import { Cart } from '@zocom/cart';
+import { useSelector, useDispatch } from 'react-redux';
 import { ReceiptTotal } from '@zocom/receipt-total';
 import { Button } from '@zocom/button';
 import { ProductItem } from '@zocom/product-item';
 import { postOrder } from '..';
-import { useState } from 'react';
+import { addToShoppingCart } from '../../../../src/reduxstore/slices/shoppingCartSlice';
+import { RootState } from '../../../../src/reduxstore/store';
 
-// import { useState } from 'react';
-// Hämta cart från redux?
-// Take my money btn ska skicka order till databasen
-
-type Cart = {
+type OrderItem = {
   count: number;
   name: string;
   totalPrice: number;
-}[];
+};
 
 type Order = {
   customerId?: string;
   totalSum: number;
-  selection: Cart;
+  selection: OrderItem[];
 };
 
-const fakeCart: Cart = [
+const fakeCart: OrderItem[] = [
   {
     count: 1,
     name: 'Karlstad',
@@ -36,51 +34,30 @@ const fakeCart: Cart = [
 ];
 
 export const CheckoutPage = () => {
-  const [customerCart, setCustomerCart] = useState<Cart>(fakeCart);
+  const dispatch = useDispatch();
+  const shoppingCartItems = useSelector((state: RootState) => state.shoppingCart.shoppingCartItems);
 
   function totalSum() {
-    const total = customerCart.reduce((acc, item) => acc + item.totalPrice, 0);
-    return total;
+    return shoppingCartItems.reduce((acc, item) => acc + item.price, 0);
   }
 
   function handleIncreaseQty(name: string) {
-    setCustomerCart((currentCart) => {
-      const updatedCart: Cart = currentCart.map((product) => {
-        if (product.name === name) {
-          return {
-            ...product,
-            count: product.count + 1,
-            totalPrice: product.totalPrice + 9, //! SKA ÄNDRAS
-          };
-        }
-        return product;
-      });
-
-      return updatedCart;
-    });
+    dispatch(addToShoppingCart({ name, price: 9 })); // Adjust with your actual data structure
   }
 
   function handleDecreaseQty(name: string) {
-    setCustomerCart((currentCart) => {
-      const updatedCart = currentCart.map((product) => {
-        if (product.name === name) {
-          return {
-            ...product,
-            count: product.count > 1 ? product.count - 1 : product.count,
-            totalPrice:
-              product.count > 1 ? product.totalPrice - 9 : product.totalPrice, //! SKA ÄNDRAS
-          };
-        }
-        return product;
-      });
-
-      return updatedCart;
-    });
+    // Implement logic to decrease quantity in the Redux store (similar to increase)
   }
+
+  const orderItems: OrderItem[] = shoppingCartItems.map((item) => ({
+    count: item.quantity, // Assuming you have a quantity property in your item structure
+    name: item.name,
+    totalPrice: item.price * item.quantity,
+  }));
 
   const testOrder: Order = {
     totalSum: totalSum(),
-    selection: customerCart,
+    selection: orderItems,
   };
 
   async function createOrder() {
@@ -107,7 +84,7 @@ export const CheckoutPage = () => {
       </section>
 
       <ul className="checkout-page__customer-cart">
-        {customerCart.map((item) => (
+        {orderItems.map((item) => (
           <ProductItem
             name={item.name}
             price={item.totalPrice}

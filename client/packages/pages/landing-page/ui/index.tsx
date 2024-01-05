@@ -11,12 +11,14 @@ import { Cart } from '@zocom/cart';
 import { Logo } from '@zocom/logo';
 
 type MenuItem = {
+  id: string;
   key: string;
   name: string;
   description: string;
   price: number;
   cookingTime: number;
   ingredients: string[];
+  quantity: number;
 };
 
 type DipItem = {
@@ -48,10 +50,13 @@ export const LandingPage = () => {
     handleFetchMenu();
   }, []);
 
+  useEffect(() => {
+    
+  }, [shoppingCartItems]);
+
   const handleAddToCart = (menuItem: MenuItem) => {
     console.log("click");
     dispatch(addToShoppingCart(menuItem));
-    console.log(shoppingCartItems);
   };
 
   return (
