@@ -1,0 +1,17 @@
+@use '@zocom/styles' as *;
+
+.quantity-input {
+  @include flexCenterPickDirection(start);
+  gap: $gap-sml;
+  &__btn-increase,
+  &__btn-decrease {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background-color: $color-shade-24-dark;
+  }
+
+  &__btn-icon {
+    font-size: 2rem;
+  }
+}

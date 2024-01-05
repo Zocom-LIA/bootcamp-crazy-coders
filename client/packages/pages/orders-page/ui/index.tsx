@@ -1,6 +1,6 @@
 import './style.scss';
 import { Orders } from '@zocom/orders';
-import Logo from '../assets/logo.svg';
+import Logo from './assets/logo.svg';
 
 export const OrdersPage = () => {
   return (

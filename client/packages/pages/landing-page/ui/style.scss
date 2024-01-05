@@ -1,10 +1,11 @@
 @use '@zocom/styles' as *;
 
 .landing-page {
-  @include center;
   background: url('assets/leaves.png') $color-mint;
   padding: $padding-large;
   gap: $gap-large;
+
+  height: 100%;
 
   &__header {
     @include flexCenterPickDirection(space-between);
