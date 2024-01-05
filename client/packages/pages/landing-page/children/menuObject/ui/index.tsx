@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToShoppingCart } from '../../../../../../src/reduxstore/slices//shoppingCartSlice'
 
 type props = {
-    key: string,
+    id: string,
     name: string,
     desc: string,
     ingredients: string[],
@@ -13,7 +13,7 @@ type props = {
 } 
 
 export const MenuObject = ({
-    key, name, desc, ingredients, price, cookingTime, onClick} : props) => { 
+    id, name, desc, ingredients, price, cookingTime, onClick} : props) => { 
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
