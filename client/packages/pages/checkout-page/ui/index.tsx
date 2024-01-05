@@ -5,7 +5,7 @@ import { ReceiptTotal } from '@zocom/receipt-total';
 import { Button } from '@zocom/button';
 import { ProductItem } from '@zocom/product-item';
 import { postOrder } from '..';
-import { addToShoppingCart, increaseQuantity, decreaseQuantity } from '../../../../src/reduxstore/slices/shoppingCartSlice';
+import { addToShoppingCart, increaseQuantity, decreaseQuantity, emptyCart} from '../../../../src/reduxstore/slices/shoppingCartSlice';
 import { RootState } from '../../../../src/reduxstore/store';
 
 type OrderItem = {

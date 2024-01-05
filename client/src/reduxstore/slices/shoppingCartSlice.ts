@@ -53,9 +53,14 @@ const shoppingCartSlice = createSlice({
             if (itemIndex !== -1) {
                 state.shoppingCartItems[itemIndex].quantity++;
             }
-        }
+        },
+        emptyCart(state) {
+            // Reset the shoppingCartItems array to an empty array
+            state.shoppingCartItems = [];
+          },
+
     }
 }); 
 
 export default shoppingCartSlice.reducer;
-export const { addToShoppingCart, decreaseQuantity, increaseQuantity } = shoppingCartSlice.actions;
+export const { addToShoppingCart, decreaseQuantity, increaseQuantity, emptyCart } = shoppingCartSlice.actions;
