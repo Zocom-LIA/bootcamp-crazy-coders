@@ -18,12 +18,12 @@ const orderById: Handler<void, FromSchema<typeof pathSchema>, void> = async (
   try {
     let orderId = event.pathParameters.id;
     let order = await getCustomerOrder(orderId);
-    if (!orders) {
+    if (!order || !order.length) {
       return createResponse(HttpCode.BAD_REQUEST, {
-        message: "Failed to fetch orders",
+        message: "Failed to fetch order",
       });
     }
-    return createResponse(HttpCode.OK, orders);
+    return createResponse(HttpCode.OK, order[0]);
   } catch (error) {
     return failedResponse(error);
   }
