@@ -1,0 +1,51 @@
+@use '@zocom/styles' as *;
+.login {
+    display: flex;
+    justify-content: center;
+    width:100%;
+    height: 100%;
+
+    &__form {
+        width: 80%;
+        height:fit-content;
+        padding-top: $padding-large;
+        padding-bottom: $padding-large;
+        border-radius: $radius-tier-1;
+        background-color: white;
+        box-shadow: inset 0 -2em 2em rgba(129, 129, 129, 0.3),
+                0 0 0 2px rgb(241, 238, 238),
+                0.2em 0.2em 1em rgba(206, 204, 204, 0.6);
+
+        &__section {
+            padding-left: $padding-sml;
+            padding-right: $padding-sml;
+            &__header {
+                @include fontsizeLarge();
+                    text-align: center;
+                    margin-bottom: $margin-large;
+                    text-shadow: $shadow-titleText;
+               }
+            &__field {
+                @include fontsizeRegular();
+                > label{
+                    margin-bottom: $margin-nano;
+                }
+                > input{
+                    padding: $padding-nano;
+               }
+                display: flex;
+                flex-direction: column;
+                margin-bottom: $margin-sml;
+            }
+            &__button {
+                margin-top: $margin-large;
+                text-align: end;
+                > button{
+                    @include fontsizeMedium();
+                    padding: $padding-sml;
+                    text-shadow: $shadow-titleText;
+               }
+            }
+        }
+    }
+}

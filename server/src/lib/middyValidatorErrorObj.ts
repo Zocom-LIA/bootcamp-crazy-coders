@@ -24,6 +24,10 @@ const middyValidatorErrorObj = (): middy.MiddlewareObj<
         }
       });
       request.response = middyValidationError(message);
+    } else {
+      request.response = middyValidationError(
+        request.error?.message ?? "Unexpected error"
+      );
     }
     Promise.resolve();
   };

@@ -28,3 +28,9 @@ getAllHistoryOrders:
       - httpApi:
           path: '/api/orders/history/{id}'
           method: GET
+getValidationOfToken:
+    handler: src/functions/api/admin/validate/index.handler
+    events:
+      - httpApi:
+          path: '/api/admin/validation'
+          method: GET
