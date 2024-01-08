@@ -1,0 +1,52 @@
+@use '@zocom/styles' as *;
+.dialog {
+    border-radius: $radius-tier-1;
+    border: 1px solid $color-shade-24-light;
+    padding: $padding-nano;
+    text-align: center;
+    -webkit-animation: linear;
+    -webkit-animation-name: op;
+    -webkit-animation-duration: 0.3s;
+    animation: linear;
+    animation-name: op;
+    animation-duration: 0.3s;
+    ::backdrop{
+        background: rgba(0, 0, 0, 0.3);
+    }
+    > h3{
+        @include fontsizeSmall();
+        padding: $padding-large;
+    }
+    &__section{
+        @include fontsizeRegular();
+        color: $primaryTextColor;
+        > button{
+            padding: $padding-sml $margin-large $margin-sml $margin-large;
+            border-radius: $radius-tier-1;
+        }
+        &__positive{
+            border: 1px solid $color-alert-success;
+            color: $color-alert-success;
+        }
+        &__negative{
+            border: 1px solid $color-alert;
+            color: $color-alert;
+        }
+    }
+   
+}
+
+@keyframes op {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+
+}
