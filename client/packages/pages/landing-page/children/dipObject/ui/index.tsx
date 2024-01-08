@@ -3,14 +3,14 @@
 import { addToShoppingCart } from '../../../../../../src/reduxstore/slices//shoppingCartSlice'
 
 type props = {
-    key: string,
+    id: string,
     name: string,
     desc: string,  
     price: number
 } 
 
 export const DipObject = ({
-    key, name, desc, price} : props) => { 
+    id, name, desc, price} : props) => { 
 
     const dispatch = useDispatch();
 
