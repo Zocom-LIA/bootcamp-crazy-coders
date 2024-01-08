@@ -1,12 +1,12 @@
-import { Handler, middyfy } from "@lib/middywrapper.js";
-import { bodySchema, schema } from "@schema/orderSchema.js";
-import type { FromSchema } from "json-schema-to-ts";
+import { Handler, middyfy } from '@lib/middywrapper.js';
+import { bodySchema, schema } from '@schema/orderSchema.js';
+import type { FromSchema } from 'json-schema-to-ts';
 import {
   failedResponse,
   createResponse,
   orderSumError,
   orderItemsNotFoundError,
-} from "@util/response.js";
+} from '@util/response.js';
 import {
   ISchemaCreateOrder,
   YumYumBase,
@@ -14,22 +14,23 @@ import {
   createOrderItemFrom,
   createReceiptItemFrom,
   createReceiptResponseItemFrom,
-} from "@yumtypes/index.js";
-import middyAppKeyObj from "@lib/middyAppKeyObj.js";
+} from '@yumtypes/index.js';
+import middyAppKeyObj from '@lib/middyAppKeyObj.js';
 import {
   batchRequestParams,
   deleteRequestItem,
   getMenuPricesParam,
   menuPricesProjectExpression,
   putRequestItem,
-} from "@src/params/index.js";
+} from '@src/params/index.js';
 import {
   exeBatchWrite,
   execGetMenuRequest,
-} from "@src/database/services/index.js";
-import { objectLength } from "@src/util/functions.js";
-import { HttpError } from "http-errors";
-import { HttpCode } from "@src/util/httpCodes";
+} from '@src/database/services/index.js';
+import { objectLength } from '@src/util/functions.js';
+import { HttpError } from 'http-errors';
+import { HttpCode } from '@src/util/httpCodes';
+import { sendRefreshToClients } from '@src/util/ws.ts';
 
 const validateSumBeforePurchase = async (
   order: ISchemaCreateOrder
@@ -42,7 +43,7 @@ const validateSumBeforePurchase = async (
   }
   let totalSum: number = 0;
   order.selection.forEach((item) => {
-    let name = item.name.toLowerCase().replaceAll(" ", "");
+    let name = item.name.toLowerCase().replaceAll(' ', '');
     let itemSum = (itemsList?.prices[`${name}`] ?? 0) * item.count;
     totalSum += itemSum === item.totalPrice ? itemSum : 0;
   });
@@ -94,6 +95,8 @@ const postOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (
     if (validationError) {
       return failedResponse(validationError);
     }
+
+    await sendRefreshToClients();
     return putOrderAndReceipt(order);
   } catch (error) {
     return failedResponse(error);
