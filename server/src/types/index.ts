@@ -174,8 +174,8 @@ export interface IOrderHistoryItem extends YumYumBase {
 
 export const createReceiptItemFrom = (order: IOrderItem): IReceiptItem => {
   return {
-    PK: `Customer#${order.customerId}`,
-    SK: `Receipt#${order.orderId}`,
+    PK: `Reciept`,
+    SK: `${order.orderId}`,
     orderId: order.orderId,
     customerId: order.customerId,
     selection: order.selection,
