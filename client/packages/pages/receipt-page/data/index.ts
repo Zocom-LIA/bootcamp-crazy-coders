@@ -7,6 +7,7 @@ export const getReceiptData = () => {
         }/receipt?orderId=${orderId}`;
         const response = await fetch(URL);
         const jsonData = await response.json();
+        console.log(jsonData);
         return jsonData;
       } catch (error) {
         console.log(error);

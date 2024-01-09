@@ -21,9 +21,9 @@ export type MenuItem = {
 };
 
 export type Item = {
-  name: string;
-  count: number;
-  totalPrice: number;
+  product: string;
+  quantity: number;
+  total: number;
 };
 
 export type OrderType = {

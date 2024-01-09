@@ -1,5 +1,6 @@
 type Order = {
   customerId?: string;
+  orderId?: string;
   totalSum: number;
   selection: Cart;
 };
@@ -11,9 +12,8 @@ type Cart = {
 }[];
 
 export const postOrder = async (order: Order) => {
-  console.log(order);
   try {
-    const response = await fetch(import.meta.env.VITE_API_ENDPOINT_POST_ORDER, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,6 +22,7 @@ export const postOrder = async (order: Order) => {
       body: JSON.stringify(order),
     });
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
