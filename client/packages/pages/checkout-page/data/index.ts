@@ -13,7 +13,7 @@ type Cart = {
 export const postOrder = async (order: Order) => {
   console.log(order);
   try {
-    const response = await fetch(import.meta.env.VITE_API_ENDPOINT_POST_ORDER, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
