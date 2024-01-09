@@ -1,4 +1,4 @@
-import { nanoid } from "nanoid";
+import { nanoid } from 'nanoid';
 
 export const baseItemProperties = () => {
   return {
@@ -61,10 +61,10 @@ export const createMenuItemFrom = (
 export const createPriceListFrom = (menu: IMenuItem): IPriceList => {
   let priceList: IPriceList = {};
   menu.wontons.forEach((w) => {
-    priceList[w.name.toLowerCase().replaceAll(" ", "")] = w.price;
+    priceList[w.name.toLowerCase().replaceAll(' ', '')] = w.price;
   });
   menu.dip.forEach((d) => {
-    priceList[`${d.name.toLowerCase().replaceAll(" ", "")}`] = d.price;
+    priceList[`${d.name.toLowerCase().replaceAll(' ', '')}`] = d.price;
   });
   return priceList;
 };
@@ -96,16 +96,16 @@ export interface IWontonItem extends MenuItemBase {
 
 export interface IDipItem extends MenuItemBase {}
 
-export type PartialMenu = Omit<IMenu, "PK" | "SK">;
+export type PartialMenu = Omit<IMenu, 'PK' | 'SK'>;
 
 /*
  ******************************************** ORDER ********************************************
  */
 
 export enum OrderStatus {
-  QUEUED = "queued",
-  ASSIGNED = "assigned",
-  READY = "ready",
+  QUEUED = 'queued',
+  ASSIGNED = 'assigned',
+  READY = 'ready',
 }
 
 export const createOrderHistoryItemFrom = (
@@ -120,7 +120,7 @@ export const createOrderHistoryItemFrom = (
     selection: order.selection,
     createdAt: order.createdAt,
     totalSum: order.totalSum,
-    assignedTo: order.assignedTo ?? "UnKnown",
+    assignedTo: order.assignedTo ?? 'UnKnown',
     elapsedTimeInSec: elapsedSeconds,
   };
 };
@@ -174,8 +174,8 @@ export interface IOrderHistoryItem extends YumYumBase {
 
 export const createReceiptItemFrom = (order: IOrderItem): IReceiptItem => {
   return {
-    PK: `Customer#${order.customerId}`,
-    SK: `Receipt#${order.orderId}`,
+    PK: `Receipt`,
+    SK: order.orderId,
     orderId: order.orderId,
     customerId: order.customerId,
     selection: order.selection,
@@ -204,7 +204,7 @@ export interface IReceiptItem extends YumYumBase {
   createdAt: string;
 }
 
-export type PartialReceipt = Omit<IReceiptItem, "PK" | "SK">;
+export type PartialReceipt = Omit<IReceiptItem, 'PK' | 'SK'>;
 
 /*
  ******************************************** ADMIN PERSONAL ********************************************
@@ -238,7 +238,7 @@ export interface IAdminItem extends YumYumBase {
   createdAccountAt: string;
 }
 
-export type PartialAdminItem = Omit<IAdminItem, "PK" | "SK">;
+export type PartialAdminItem = Omit<IAdminItem, 'PK' | 'SK'>;
 
 /*
  ******************************************** JWT TOKEN ********************************************

@@ -25,8 +25,8 @@ export const Receipt = ({ orderId, items, total }: ReceiptProps) => {
       <section className="receipt__items">
         <ol>
           {items.map((item) => (
-            <li>
-              <ReceiptItem key={item.product} item={item} />
+            <li key={item.product}>
+              <ReceiptItem item={item} />
             </li>
           ))}
         </ol>
@@ -38,4 +38,3 @@ export const Receipt = ({ orderId, items, total }: ReceiptProps) => {
     </article>
   );
 };
-
