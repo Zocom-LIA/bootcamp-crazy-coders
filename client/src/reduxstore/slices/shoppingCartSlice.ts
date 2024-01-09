@@ -5,18 +5,40 @@ interface ShoppingCartItem {
   quantity: number;
   type: 'menuItem' | 'dipItem';
 }
+
+type OrderItem = {
+  count: number;
+  name: string;
+  totalPrice: number;
+};
+
+interface Order {
+  orderId: string;
+  customerId: string;
+  selection: OrderItem[];
+  createdAt: Date;
+  totalSum: number;
+}
 interface ShoppingCartState {
   shoppingCartItems: ShoppingCartItem[];
+  orders: Order[];
+  customerId: string | null;
 }
 
 const initialState: ShoppingCartState = {
   shoppingCartItems: [],
+  orders: [],
+  customerId: localStorage.getItem('customerId') || null,
 };
 
 const shoppingCartSlice = createSlice({
   name: 'shoppingCart',
   initialState,
   reducers: {
+    addNewOrderToCustomerOrderHistory(state, action: PayloadAction<Order>) {
+      const order = action.payload;
+      state.orders.push(order);
+    },
     addToShoppingCart(
       state,
       action: PayloadAction<{ name: string; price: number }>
@@ -76,4 +98,5 @@ export const {
   decreaseQuantity,
   increaseQuantity,
   emptyCart,
+  addNewOrderToCustomerOrderHistory,
 } = shoppingCartSlice.actions;

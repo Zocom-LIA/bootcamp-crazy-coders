@@ -5,7 +5,7 @@ import { CheckoutPage } from '@zocom/checkout-page';
 import { OrdersPage } from '@zocom/orders-page';
 import { AdminPage } from '@zocom/admin-page';
 import { AppLayout } from '@zocom/applayout';
-
+import { CustomerOrder } from '@zocom/customer-order';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: <AdminPage />,
+      },
+      {
+        path: '/order/:id',
+        element: <CustomerOrder />,
       },
       {
         path: '*',

@@ -33,7 +33,7 @@ interface SelectionItem {
   totalPrice: number;
 }
 
-const testOrderId = "C_A_5vgteC3Y2AximP2WC";
+const testOrderId = 'C_A_5vgteC3Y2AximP2WC';
 
 export const ReceiptPage = () => {
   const { fetchReceipt } = getReceiptData();
@@ -63,11 +63,13 @@ export const ReceiptPage = () => {
   const receiptItem = receipt.Items[0];
 
   // Map the receipt data
-  const items: ReceiptItem[] = receiptItem.selection.map((item: SelectionItem) => ({
-    product: item.name,
-    quantity: item.count,
-    total: item.totalPrice,
-  }));
+  const items: ReceiptItem[] = receiptItem.selection.map(
+    (item: SelectionItem) => ({
+      product: item.name,
+      quantity: item.count,
+      total: item.totalPrice,
+    })
+  );
 
   console.log(receiptItem);
 
@@ -84,4 +86,3 @@ export const ReceiptPage = () => {
     </main>
   );
 };
-
