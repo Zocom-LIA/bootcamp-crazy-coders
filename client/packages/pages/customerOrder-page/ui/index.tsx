@@ -8,7 +8,7 @@ import { useData as useHookData } from '@zocom/refresh-fetch-hook';
 
 function randomETA() {
   const eta = [5, 10, 15, 20, 25];
-  const index = Math.trunc(Math.random() * 3);
+  const index = Math.trunc(Math.random() * eta.length);
   return eta[index];
 }
 
