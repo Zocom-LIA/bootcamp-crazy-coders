@@ -5,6 +5,7 @@ import { CheckoutPage } from "@zocom/checkout-page";
 import { OrdersPage } from "@zocom/orders-page";
 import { AdminPage } from "@zocom/admin-page";
 import { AppLayout } from "@zocom/applayout";
+import { ProtectedRoute } from "@zocom/protected-route";
 
 const router = createBrowserRouter([
   {
@@ -29,12 +30,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin",
-    element: <AdminPage />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/orders",
+        element: <OrdersPage />,
+      },
+    ],
   },
   {
-    path: "/orders",
-    element: <OrdersPage />,
+    path: "/admin",
+    element: <AdminPage />,
   },
   {
     path: "*",

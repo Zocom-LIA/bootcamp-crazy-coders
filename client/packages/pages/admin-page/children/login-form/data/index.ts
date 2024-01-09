@@ -1,5 +1,11 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { ServerResponse } from "@zocom/types";
+import { FormEvent, useState } from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import {
+  setCurrentToken,
+  parseAWSResponseMessage,
+  mergeState,
+} from "@zocom/helper-functions";
 
 /*
  ****************************************** TYPES ********************************************************************
@@ -16,60 +22,10 @@ type LoginCredentials = {
   password?: String;
 };
 
-type ServerResponse = {
-  status: number;
-  message: string;
-};
-
 const initialState = {
   loading: false,
   showAlertDialog: false,
   serverResponse: null,
-};
-
-/*
- ****************************************** HELPER ********************************************************************
- */
-
-const mergeState = <T extends object>(prevState: T, merge: Partial<T>): T => {
-  return { ...prevState, ...merge };
-};
-
-const parseAWSResponseMessage = (data: any): string => {
-  console.info(data);
-  if (typeof data === 'string') {
-    return data;
-  }
-  try {
-    let { message } = data as ServerResponse;
-    return message;
-  } catch (error) {
-    return 'Unexpected response from server';
-  }
-};
-
-/*
- ****************************************** LOCAL STORAGE ********************************************************************
- */
-
-const getCurrentToken = (): string | null => {
-  return localStorage.getItem('AccessToken');
-};
-
-const setCurrentToken = (token: string | null): boolean => {
-  if (!token) {
-    return false;
-  }
-  try {
-    localStorage.setItem('AccessToken', token);
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
-
-const removeCurrentToken = () => {
-  localStorage.removeItem('AccessToken');
 };
 
 /*
@@ -80,10 +36,10 @@ const loginRequest = async (
   credentials: LoginCredentials
 ): Promise<ServerResponse> => {
   return fetch(`${import.meta.env.VITE_API_URL}/admin/login`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': `${import.meta.env.VITE_API_KEY}`,
+      "Content-Type": "application/json",
+      "x-api-key": `${import.meta.env.VITE_API_KEY}`,
     },
     body: JSON.stringify(credentials),
   })
@@ -94,8 +50,8 @@ const loginRequest = async (
         return {
           status: hasToken ? 200 : 400,
           message: hasToken
-            ? 'Successfully logged in, move on to orders.'
-            : 'Tokenvalidation failed',
+            ? "Successfully logged in, move on to orders."
+            : "Tokenvalidation failed",
         };
       } else {
         let message = parseAWSResponseMessage(data);
@@ -108,25 +64,9 @@ const loginRequest = async (
     .catch((_) => {
       return {
         status: 500,
-        message: 'Unexpected error, please try again',
+        message: "Unexpected error, please try again",
       };
     });
-};
-
-const validTokenRequest = async (token: string): Promise<ServerResponse> => {
-  return fetch(`${import.meta.env.VITE_API_URL}/admin/validation`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(async (response) => {
-    let data = await response.json();
-    let message = parseAWSResponseMessage(data);
-    return {
-      status: response.status,
-      message: message,
-    };
-  });
 };
 
 /*
@@ -138,28 +78,8 @@ export const useData = () => {
   const [state, setState] = useState<ILoggedInState>(initialState);
 
   const navigateAdminToOrders = () => {
-    navigate('/orders');
+    navigate("/orders");
   };
-
-  useEffect(() => {
-    const apiValidToken = async () => {
-      let token = getCurrentToken();
-      if (token) {
-        removeCurrentToken();
-        validTokenRequest(token)
-          .then((response) => {
-            if (response.status === 200) {
-              setCurrentToken(token);
-              navigateAdminToOrders();
-            }
-          })
-          .catch((error) => {
-            console.info(error);
-          });
-      }
-    };
-    apiValidToken();
-  }, []);
 
   const apiLogin = (credentials: LoginCredentials) => {
     loginRequest(credentials)
