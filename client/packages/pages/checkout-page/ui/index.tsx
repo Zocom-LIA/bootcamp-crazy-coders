@@ -81,9 +81,7 @@ export const CheckoutPage = () => {
           })
         );
         dispatch(emptyCart());
-        navigate(`/order/${orderId}`, {
-          state: { customerId, orderId, totalSum, selection, createdAt },
-        });
+        navigate(`/order/${orderId}`);
       }
     } else {
       const existingCustomerNewOrder: Order = {
@@ -95,9 +93,7 @@ export const CheckoutPage = () => {
         const order = await postOrder(existingCustomerNewOrder);
         dispatch(addNewOrderToCustomerOrderHistory(order));
         dispatch(emptyCart());
-        navigate(`/order/${order.orderId}`, {
-          state: order,
-        });
+        navigate(`/order/${order.orderId}`);
       }
     }
   }
