@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 console.log(app);
 console.log(messaging);
-const token = await getToken(messaging, {vapidKey: "BGOLvEEgih8BT-iYo8BNdU8ffHwtWyg7tPTUFtAWv8TNAmBU806vRvnrtRPkx1w0xc1OHprl3CltzRTUThg-row"});
+const token = await getToken(messaging, {vapidKey: import.meta.env.VITE_VAPIDKEY});
     onMessage(messaging, (payload) => {
       console.log('Message received:', payload);
        //Handle the message as needed
@@ -27,7 +27,6 @@ const token = await getToken(messaging, {vapidKey: "BGOLvEEgih8BT-iYo8BNdU8ffHwt
 export const postOrder = async (order: Order) => {
   const askForNotificationPermission = async () => {
     try {
-      //const token = await getToken(messaging);
       console.log("TOKEN: ", token);
       const response = await fetch(import.meta.env.VITE_API_ENDPOINT_POST_ORDER, {
         method: 'POST',
@@ -35,7 +34,7 @@ export const postOrder = async (order: Order) => {
           'Content-Type': 'application/json',
           'x-api-key': `${import.meta.env.VITE_API_KEY}`,
         },
-        body: JSON.stringify({ order, token }), // Include the order and token in the request body
+        body: JSON.stringify( {order, token} ), // Include the order and token in the request body
       });
 
       const data = await response.json();
