@@ -61,7 +61,7 @@ export const execQueryTableForOrders = async (
 export const execUpdateOrderRequest = async (
   params: DocumentClient.UpdateItemInput
 ): Promise<HttpResponse> => {
-  const serviceAccount = require('server/yygs-crazy-coders-firebase-adminsdk-aeb0w-a52ef8684f.json');
+  const serviceAccount = require('yygs-crazy-coders-firebase-adminsdk-aeb0w-a52ef8684f.json');
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
