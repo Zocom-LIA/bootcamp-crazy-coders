@@ -4,10 +4,9 @@ import { List, Separator } from '@zocom/list';
 
 type ReceiptItemProps = {
   item: Item;
-  currency?: string;
 };
 
-export const ReceiptItem = ({ item, currency = 'sek' }: ReceiptItemProps) => {
+export const ReceiptItem = ({ item }: ReceiptItemProps) => {
   return (
     <article className="receipt-item">
       <List>
@@ -15,9 +14,7 @@ export const ReceiptItem = ({ item, currency = 'sek' }: ReceiptItemProps) => {
 
         <Separator />
 
-        <p className="receipt-item__total">
-          {item.total} {currency}
-        </p>
+        <p className="receipt-item__total">{item.total} sek</p>
       </List>
 
       <p className="receipt-item__quantity">{item.quantity} stycken</p>

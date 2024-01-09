@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Logo } from '@zocom/logo';
 import './style.scss';
+import { useState, useEffect } from 'react';
 import { getReceiptData } from '..';
-
+import { Logo } from '@zocom/logo';
 import { Receipt } from '@zocom/receipt';
 import { Button } from '@zocom/button';
+import { useNavigate, useParams } from 'react-router-dom';
+
 interface ReceiptItem {
   product: string;
   quantity: number;
@@ -33,16 +34,17 @@ interface SelectionItem {
   totalPrice: number;
 }
 
-const testOrderId = "C_A_5vgteC3Y2AximP2WC";
-
 export const ReceiptPage = () => {
   const { fetchReceipt } = getReceiptData();
   const [receipt, setReceipt] = useState<IReceiptData | null>(null);
 
+  const navigate = useNavigate();
+  const { orderId } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const receiptData: IReceiptData = await fetchReceipt(testOrderId);
+        const receiptData: IReceiptData = await fetchReceipt(orderId || '');
         setReceipt(receiptData);
       } catch (error) {
         console.error('Error fetching receipt:', error);
@@ -63,13 +65,13 @@ export const ReceiptPage = () => {
   const receiptItem = receipt.Items[0];
 
   // Map the receipt data
-  const items: ReceiptItem[] = receiptItem.selection.map((item: SelectionItem) => ({
-    product: item.name,
-    quantity: item.count,
-    total: item.totalPrice,
-  }));
-
-  console.log(receiptItem);
+  const items: ReceiptItem[] = receiptItem.selection.map(
+    (item: SelectionItem) => ({
+      product: item.name,
+      quantity: item.count,
+      total: item.totalPrice,
+    })
+  );
 
   return (
     <main className="receipt-page">
@@ -81,7 +83,10 @@ export const ReceiptPage = () => {
         total={items.reduce((acc, item) => acc + item.total, 0)}
         orderId={receiptItem.orderId}
       />
+
+      <Button onClick={() => navigate('/')} type="primary">
+        Gör en ny beställning
+      </Button>
     </main>
   );
 };
-

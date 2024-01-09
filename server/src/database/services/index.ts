@@ -1,7 +1,7 @@
-import { HttpResponse } from "aws-sdk";
-import dynamoDBClient from "../core/dbClient.js";
-import { DocumentClient, ItemList } from "aws-sdk/clients/dynamodb.js";
-import { IOrderItem, PartialAdminItem, PartialMenu } from "@src/types/index.js";
+import { HttpResponse } from 'aws-sdk';
+import dynamoDBClient from '../core/dbClient.js';
+import { DocumentClient, ItemList } from 'aws-sdk/clients/dynamodb.js';
+import { IOrderItem, PartialAdminItem, PartialMenu } from '@src/types/index.js';
 import * as admin from 'firebase-admin';
 import { XMLHttpRequest } from "aws-sdk/lib/http_response.js";
 
@@ -33,9 +33,15 @@ export const execGetRequest = async (
 };
 
 export const execQueryTable = async (
-  params: AWS.DynamoDB.DocumentClient.QueryInput
+  params: DocumentClient.QueryInput
 ): Promise<ItemList | undefined> => {
   return (await dynamoDBClient.query(params).promise()).Items;
+};
+
+export const execDeleteRequest = async (
+  params: DocumentClient.DeleteItemInput
+): Promise<DocumentClient.AttributeMap | undefined> => {
+  return await dynamoDBClient.delete(params).promise();
 };
 
 export const execGetMenuRequest = async (

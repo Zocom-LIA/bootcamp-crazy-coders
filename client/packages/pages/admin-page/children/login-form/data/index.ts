@@ -1,5 +1,5 @@
-import { FormEvent, useEffect, useState } from "react";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { FormEvent, useEffect, useState } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /*
  ****************************************** TYPES ********************************************************************
@@ -37,14 +37,14 @@ const mergeState = <T extends object>(prevState: T, merge: Partial<T>): T => {
 
 const parseAWSResponseMessage = (data: any): string => {
   console.info(data);
-  if (typeof data === "string") {
+  if (typeof data === 'string') {
     return data;
   }
   try {
     let { message } = data as ServerResponse;
     return message;
   } catch (error) {
-    return "Unexpected response from server";
+    return 'Unexpected response from server';
   }
 };
 
@@ -53,7 +53,7 @@ const parseAWSResponseMessage = (data: any): string => {
  */
 
 const getCurrentToken = (): string | null => {
-  return localStorage.getItem(import.meta.env.VITE_ACCESSTOKEN_PATH);
+  return localStorage.getItem('AccessToken');
 };
 
 const setCurrentToken = (token: string | null): boolean => {
@@ -61,7 +61,7 @@ const setCurrentToken = (token: string | null): boolean => {
     return false;
   }
   try {
-    localStorage.setItem(import.meta.env.VITE_ACCESSTOKEN_PATH, token);
+    localStorage.setItem('AccessToken', token);
     return true;
   } catch (error) {
     return false;
@@ -69,7 +69,7 @@ const setCurrentToken = (token: string | null): boolean => {
 };
 
 const removeCurrentToken = () => {
-  localStorage.removeItem(import.meta.env.VITE_ACCESSTOKEN_PATH);
+  localStorage.removeItem('AccessToken');
 };
 
 /*
@@ -79,11 +79,11 @@ const removeCurrentToken = () => {
 const loginRequest = async (
   credentials: LoginCredentials
 ): Promise<ServerResponse> => {
-  return fetch(import.meta.env.VITE_API_ENDPOINT_LOGIN, {
-    method: "POST",
+  return fetch(`${import.meta.env.VITE_API_URL}/admin/login`, {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
-      "x-api-key": `${import.meta.env.VITE_API_KEY}`,
+      'Content-Type': 'application/json',
+      'x-api-key': `${import.meta.env.VITE_API_KEY}`,
     },
     body: JSON.stringify(credentials),
   })
@@ -94,8 +94,8 @@ const loginRequest = async (
         return {
           status: hasToken ? 200 : 400,
           message: hasToken
-            ? "Successfully logged in, move on to orders."
-            : "Tokenvalidation failed",
+            ? 'Successfully logged in, move on to orders.'
+            : 'Tokenvalidation failed',
         };
       } else {
         let message = parseAWSResponseMessage(data);
@@ -108,14 +108,14 @@ const loginRequest = async (
     .catch((_) => {
       return {
         status: 500,
-        message: "Unexpected error, please try again",
+        message: 'Unexpected error, please try again',
       };
     });
 };
 
 const validTokenRequest = async (token: string): Promise<ServerResponse> => {
-  return fetch(import.meta.env.VITE_API_ENDPOINT_VERIFY_TOKEN, {
-    method: "GET",
+  return fetch(`${import.meta.env.VITE_API_URL}/admin/validation`, {
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -138,7 +138,7 @@ export const useData = () => {
   const [state, setState] = useState<ILoggedInState>(initialState);
 
   const navigateAdminToOrders = () => {
-    navigate("/orders");
+    navigate('/orders');
   };
 
   useEffect(() => {

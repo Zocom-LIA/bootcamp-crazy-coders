@@ -1,0 +1,4 @@
+{
+  "name": "@zocom/fetch-hook",
+  "main": "./index.ts"
+}

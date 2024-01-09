@@ -55,8 +55,8 @@ const orderItemsNotFoundError = (): HttpError => {
   );
 };
 
-const middyValidationError = (message: string): any => {
-  return createResponse(HttpCode.BAD_REQUEST, message);
+const middyValidationError = (statusCode: number, message: string): any => {
+  return createResponse(statusCode, message);
 };
 
 const adminNotFoundError = (): HttpError => {
