@@ -1,19 +1,19 @@
-import { Handler, middyfy } from "@lib/middywrapper.js";
-import { bodySchema, schema } from "@schema/updateOrderSchema.js";
-import type { FromSchema } from "json-schema-to-ts";
-import { failedResponse, createResponse } from "@util/response.js";
+import { Handler, middyfy } from '@lib/middywrapper.js';
+import { bodySchema, schema } from '@schema/updateOrderSchema.js';
+import type { FromSchema } from 'json-schema-to-ts';
+import { failedResponse, createResponse } from '@util/response.js';
 import {
   batchRequestParams,
   deleteRequestItem,
   getOrderParams,
   putRequestItem,
   updateOrderAsReadyParams,
-} from "@params/index.js";
+} from '@params/index.js';
 import {
   exeBatchWrite,
   execGetRequest,
   execUpdateOrderRequest,
-} from "@database/services/index.js";
+} from '@database/services/index.js';
 import {
   IOrderItem,
   ISchemaUpdateOrder,
@@ -21,11 +21,12 @@ import {
   PartialHttpResponse,
   createKeysOnlyItem,
   createOrderHistoryItemFrom,
-} from "@yumtypes/index.js";
-import middyAuthTokenObj from "@lib/middyAuthTokenObj.js";
-import { HttpResponse } from "aws-sdk";
-import { HttpCode } from "@util/httpCodes";
-import { calculateSecPassedBetweenDates } from "@util/functions";
+} from '@yumtypes/index.js';
+import middyAuthTokenObj from '@lib/middyAuthTokenObj.js';
+import { HttpResponse } from 'aws-sdk';
+import { HttpCode } from '@util/httpCodes';
+import { calculateSecPassedBetweenDates } from '@util/functions';
+import { sendRefreshToClients } from '@src/util/ws.ts';
 
 const markAssignedOrdersAsReady = async (
   pk: string,
@@ -88,6 +89,7 @@ const updateOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (
     let orderSchema: ISchemaUpdateOrder = event.body;
     let order = (await getCurrentOrder(orderSchema)) as IOrderItem;
     let response = await moveOrderToNextStep(order);
+    await sendRefreshToClients();
     return createResponse(response.statusCode, {
       message: response.statusMessage,
     });
