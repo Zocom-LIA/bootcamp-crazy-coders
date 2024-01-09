@@ -8,5 +8,14 @@ environment:
   YUM_YUM_TABLE: ${env:YUM_YUM_TABLE}
   APP_KEY: ${env:APP_KEY}
   YUM_YUM_GSI_1: ${env:YUM_YUM_GSI_1}
+  WS_TABLE: ${env:WS_TABLE}
+  APIG_ENDPOINT:
+    Fn::Join:
+      - ''
+      - - Ref: WebsocketsApi
+        - .execute-api.
+        - Ref: AWS::Region
+        - .amazonaws.com/
+        - ${sls:stage}
 httpApi:
-    cors: true
+  cors: true
