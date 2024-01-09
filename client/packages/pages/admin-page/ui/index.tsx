@@ -1,6 +1,6 @@
-import "./style.scss";
-import Logo from "./assets/logo.svg";
-import { LoginForm } from "@zocom/login-form";
+import './style.scss';
+import Logo from './assets/logo.svg';
+import { LoginForm } from '@zocom/login-form';
 export const AdminPage = () => {
   return (
     <main className="admin-page">

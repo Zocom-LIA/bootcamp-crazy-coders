@@ -33,10 +33,7 @@ export function CustomerOrder() {
           <img src={foodBox} alt="takeaway box logo" />
         </figure>
 
-        <h3 className="customer-order__info-food">
-          {/* {selection.map((item) => `Dina ${item.name} tillagas`)} */}
-          Din beställning tillagas
-        </h3>
+        <h3 className="customer-order__info-food">Din beställning tillagas</h3>
 
         <h4 className="customer-order__info-eta">ETA 5 min</h4>
         <p className="customer-order__info-orderId">#{orderId}</p>
