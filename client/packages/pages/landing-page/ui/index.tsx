@@ -34,18 +34,26 @@ export const LandingPage = () => {
   const { fetchMenu } = getMenuData();
 
   const dispatch = useDispatch();
-  const shoppingCartItems = useSelector((state: RootState) => state.shoppingCart.shoppingCartItems);
+  const shoppingCartItems = useSelector(
+    (state: RootState) => state.shoppingCart.shoppingCartItems
+  );
 
   useEffect(() => {
     async function handleFetchMenu() {
       const data = await fetchMenu();
-      const menuObjects: MenuItem[] = data.record.wontons;
-      const dipSauces: DipItem[] = data.record.dip;
-  
+      const menuObjects: MenuItem[] = data.wontons;
+      const dipSauces: DipItem[] = data.dip;
+
       // Set unique IDs using nanoid
-      const menuWithIds: MenuItem[] = menuObjects.map((menuItem) => ({ ...menuItem, id: nanoid() }));
-      const dipWithIds: DipItem[] = dipSauces.map((dipItem) => ({ ...dipItem, id: nanoid() }));
-  
+      const menuWithIds: MenuItem[] = menuObjects.map((menuItem) => ({
+        ...menuItem,
+        id: nanoid(),
+      }));
+      const dipWithIds: DipItem[] = dipSauces.map((dipItem) => ({
+        ...dipItem,
+        id: nanoid(),
+      }));
+
       setMenu(menuWithIds || []);
       setDip(dipWithIds || []);
       setDipPrice(dipWithIds[0]?.price || 0);

@@ -1,5 +1,6 @@
 import './style.scss';
 import dayjs from 'dayjs';
+import { motion } from 'framer-motion';
 import { Fragment } from 'react';
 import { Item } from '@zocom/types';
 import { List, Separator } from '@zocom/list';
@@ -20,7 +21,7 @@ export const Order = ({
   items,
   done,
   startTime,
-  endTime = dayjs().toString(),
+  endTime = dayjs().toISOString(),
   onClick,
 }: Props) => {
   const { useRefresher, timeDifference } = useData();
@@ -30,7 +31,17 @@ export const Order = ({
   }
 
   return (
-    <article className={`order order--${done ? 'done' : 'ongoing'}`}>
+    <motion.article
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{
+        opacity: 0,
+        height: 0,
+        padding: 0,
+      }}
+      style={{ overflow: 'hidden' }}
+      className={`order order--${done ? 'done' : 'ongoing'}`}
+    >
       <header>
         <h2 className="order__id">#{id}</h2>
       </header>
@@ -68,6 +79,6 @@ export const Order = ({
       <ConfirmButton onConfirm={onClick} type={done ? 'success' : 'alert'}>
         {done ? 'Serverad' : 'Redo att serveras'}
       </ConfirmButton>
-    </article>
+    </motion.article>
   );
 };
