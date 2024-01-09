@@ -2,13 +2,13 @@ import { Handler, middyfy } from "@lib/middywrapper.js";
 import { pathSchema, schema } from "@schema/pathParameterIdSchema";
 import type { FromSchema } from "json-schema-to-ts";
 import { failedResponse, createResponse } from "@util/response.js";
-import { queryCustomerOrdersParams } from "@params/index.js";
+import { queryCustomerOrderParams } from "@params/index.js";
 import middyAppKeyObj from "@lib/middyAppKeyObj.js";
 import { execQueryTable } from "@database/services";
 import { HttpCode } from "@util/httpCodes";
 
 const getCustomerOrder = async (orderId: string) => {
-  const params = queryCustomerOrdersParams(orderId);
+  const params = queryCustomerOrderParams(orderId);
   return execQueryTable(params);
 };
 
