@@ -156,6 +156,7 @@ export interface IOrderItem extends YumYumBase {
   assignedTo?: string;
   startTime?: string;
   endTime?: string;
+  token: string
 }
 
 export interface IOrderHistoryItem extends YumYumBase {

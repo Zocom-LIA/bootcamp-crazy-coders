@@ -1,6 +1,7 @@
 import { Handler, middyfy } from "@lib/middywrapper.js";
 import { bodySchema, schema } from "@schema/updateOrderSchema.js";
 import type { FromSchema } from "json-schema-to-ts";
+import * as admin from 'firebase-admin';
 import { failedResponse, createResponse } from "@util/response.js";
 import {
   batchRequestParams,
