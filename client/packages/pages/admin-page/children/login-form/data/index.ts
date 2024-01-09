@@ -84,13 +84,17 @@ export const useData = () => {
   const apiLogin = (credentials: LoginCredentials) => {
     loginRequest(credentials)
       .then((response) => {
-        setState((prevState) => {
-          return mergeState(prevState, {
-            loading: false,
-            showAlertDialog: true,
-            serverResponse: response,
+        if (response.status === 200) {
+          navigateAdminToOrders();
+        } else {
+          setState((prevState) => {
+            return mergeState(prevState, {
+              loading: false,
+              showAlertDialog: true,
+              serverResponse: response,
+            });
           });
-        });
+        }
       })
       .catch((error: any) => {
         setState((prevState) => {
