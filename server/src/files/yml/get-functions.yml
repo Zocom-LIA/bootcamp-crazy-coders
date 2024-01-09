@@ -34,3 +34,9 @@ getValidationOfToken:
       - httpApi:
           path: '/api/admin/validation'
           method: GET
+getCustomerOrder:
+    handler: src/functions/api/order/get/index.handler
+    events:
+      - httpApi:
+          path: '/api/order/{id}'
+          method: GET
