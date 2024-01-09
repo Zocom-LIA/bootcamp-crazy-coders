@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Logo } from '@zocom/logo';
 import './style.scss';
+import { useState, useEffect } from 'react';
 import { getReceiptData } from '..';
-
+import { Logo } from '@zocom/logo';
 import { Receipt } from '@zocom/receipt';
 import { Button } from '@zocom/button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 interface ReceiptItem {
   product: string;
   quantity: number;
@@ -37,12 +37,14 @@ interface SelectionItem {
 export const ReceiptPage = () => {
   const { fetchReceipt } = getReceiptData();
   const [receipt, setReceipt] = useState<IReceiptData | null>(null);
+
+  const navigate = useNavigate();
   const { orderId } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const receiptData: IReceiptData = await fetchReceipt(orderId!);
+        const receiptData: IReceiptData = await fetchReceipt(orderId || '');
         setReceipt(receiptData);
       } catch (error) {
         console.error('Error fetching receipt:', error);
@@ -71,8 +73,6 @@ export const ReceiptPage = () => {
     })
   );
 
-  console.log(receiptItem);
-
   return (
     <main className="receipt-page">
       <section className="receipt-page__logo">
@@ -83,7 +83,10 @@ export const ReceiptPage = () => {
         total={items.reduce((acc, item) => acc + item.total, 0)}
         orderId={receiptItem.orderId}
       />
-      <Button type="primary">Gör en ny beställning</Button>
+
+      <Button onClick={() => navigate('/')} type="primary">
+        Gör en ny beställning
+      </Button>
     </main>
   );
 };

@@ -15,16 +15,12 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: '/receipt',
+        path: '/receipt/:orderId',
         element: <ReceiptPage />,
       },
       {
         path: '/checkout',
         element: <CheckoutPage />,
-      },
-      {
-        path: '/admin',
-        element: <AdminPage />,
       },
       {
         path: '/order/:id',

@@ -13,7 +13,7 @@ export function CustomerOrder() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { orderId } = state;
-  console.log(orderId);
+
   function navigateToMenu() {
     navigate('/');
   }
