@@ -1,0 +1,31 @@
+@use '@zocom/styles' as *;
+
+.customer-order {
+  height: 100vh;
+  @include column;
+  background-color: $color-clay;
+  padding: $padding-large;
+
+  &__logo {
+    @include flexCenterPickDirection(flex-end);
+    align-self: start;
+  }
+  &__info {
+    @include column;
+    gap: $baseline;
+    color: $color-snow;
+    text-align: center;
+    overflow-y: scroll;
+
+    &-food {
+      @include fontsizeLarge;
+    }
+    &-eta {
+      @include fontsizeMedium;
+      font-weight: 500;
+    }
+    &-orderId {
+      @include fontsizeRegular;
+    }
+  }
+}
