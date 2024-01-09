@@ -68,15 +68,18 @@ export const execUpdateOrderRequest = async (
   params: DocumentClient.UpdateItemInput
 ): Promise<HttpResponse> => {
   const serviceAccount = require('yygs-crazy-coders-firebase-adminsdk-aeb0w-a52ef8684f.json');
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-  
+  if (admin.apps.length === 0) {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
+    });
+  }
+
   const messaging = admin.messaging();
 
   try {
     const dbResponse: DocumentClient.UpdateItemOutput = await dynamoDBClient.update(params).promise();
     const fcmToken = dbResponse.Attributes?.token;
+    console.log("topken in BE: ", fcmToken)
 
     // Send FCM notification
     const userId = 'user123'; // Replace with the actual user ID or token
@@ -85,10 +88,11 @@ export const execUpdateOrderRequest = async (
         title: 'YYGS - Your Order Ready for Pickup',
         body: 'Have a nice meal!',
       },
-      token: fcmToken,
+      token: "eBKzFioqovTGrWpnymsKFN:APA91bF8UH4RduxsF4IneIg7l4bpdr7M2XFpktEtoZ0kzgN-Ayvaf9ZLMDUbbMnspAa6IZCL2rKyO8_pZz32lm0TOk1xohvVsvs9_Ttgo_qQxXjikar8EPjJR1tJiKIvBh6jkikl0gLq",
     };
 
-    await messaging.send(message);
+    const messageId = await messaging.send(message);
+    console.log(`Message sent successfully with ID: ${messageId}`);
 
     // Return a more complete response
     const successResponse: HttpResponse = {
