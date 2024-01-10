@@ -2,11 +2,11 @@ import './style.scss';
 import { AnimatePresence } from 'framer-motion';
 import { Order } from '@zocom/order';
 import { useData } from '..';
-import { useData as uesHookData } from '@zocom/refresh-fetch-hook';
+import { useData as useHookData } from '@zocom/refresh-fetch-hook';
 
 export const Orders = () => {
   const { useFetchOrders, updateOrder } = useData();
-  const { useRefreshFetch } = uesHookData();
+  const { useRefreshFetch } = useHookData();
 
   const orders = useRefreshFetch(useFetchOrders);
 
