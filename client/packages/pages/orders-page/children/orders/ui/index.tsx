@@ -8,7 +8,7 @@ export const Orders = () => {
   const { useFetchOrders, updateOrder } = useData();
   const { useRefreshFetch } = useHookData();
 
-  const orders = useRefreshFetch(useFetchOrders);
+  const orders = useRefreshFetch(useFetchOrders());
 
   const ordersExist = Array.isArray(orders);
 

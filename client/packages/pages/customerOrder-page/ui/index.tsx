@@ -18,7 +18,7 @@ export function CustomerOrderPage() {
   const { useRefreshFetch } = useHookData();
   const { orderId } = useParams<{ orderId: string }>();
 
-  const order = useRefreshFetch(() => useFetchOrder(orderId));
+  const order = useRefreshFetch(useFetchOrder(orderId as string));
 
   function navigateToMenu() {
     navigate('/');
@@ -27,7 +27,6 @@ export function CustomerOrderPage() {
   function navigateToCustomerReceipt(id: string) {
     navigate(`/receipt/${id}`);
   }
-  console.log(order);
 
   if (!order?.status) return <p>loading...</p>;
 
