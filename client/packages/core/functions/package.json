@@ -1,0 +1,4 @@
+{
+    "name": "@zocom/helper-functions",
+    "main": "./index.ts"
+  }

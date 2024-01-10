@@ -1,14 +1,14 @@
 export enum SizeTypes {
-  'REGULAR' = 'regular',
-  'SMALL' = 'small',
-  'MEDIUM' = 'medium',
-  'LARGE' = 'large',
+  "REGULAR" = "regular",
+  "SMALL" = "small",
+  "MEDIUM" = "medium",
+  "LARGE" = "large",
 }
 
 export enum StyleTypes {
-  'DEFAULT' = 'default',
-  'DARK' = 'dark',
-  'LIGHT' = 'light',
+  "DEFAULT" = "default",
+  "DARK" = "dark",
+  "LIGHT" = "light",
 }
 
 export type MenuItem = {
@@ -38,4 +38,9 @@ export type OrderType = {
   createdAt: string;
 
   selection: Item[];
+};
+
+export type ServerResponse = {
+  status: number;
+  message: string;
 };
