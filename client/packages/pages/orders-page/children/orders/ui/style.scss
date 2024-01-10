@@ -4,7 +4,7 @@
   @include row;
   align-self: stretch;
 
-  gap: $gap-nano;
+  gap: calc($gap-huge * 2);
 
   overflow: hidden;
 }
