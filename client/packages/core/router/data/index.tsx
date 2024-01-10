@@ -1,47 +1,53 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { LandingPage } from '@zocom/landing-page';
-import { ReceiptPage } from '@zocom/receipt-page';
-import { CheckoutPage } from '@zocom/checkout-page';
-import { OrdersPage } from '@zocom/orders-page';
-import { AdminPage } from '@zocom/admin-page';
-import { AppLayout } from '@zocom/applayout';
-import { CustomerOrder } from '@zocom/customer-order';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { LandingPage } from "@zocom/landing-page";
+import { ReceiptPage } from "@zocom/receipt-page";
+import { CheckoutPage } from "@zocom/checkout-page";
+import { OrdersPage } from "@zocom/orders-page";
+import { AdminPage } from "@zocom/admin-page";
+import { AppLayout } from "@zocom/applayout";
+import { ProtectedRoute } from "@zocom/protected-route";
+import { CustomerOrder } from "@zocom/customer-order";
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <LandingPage />,
       },
       {
-        path: '/receipt/:orderId',
+        path: "/receipt/:orderId",
         element: <ReceiptPage />,
       },
       {
-        path: '/checkout',
+        path: "/checkout",
         element: <CheckoutPage />,
       },
       {
-        path: '/order/:id',
+        path: "/order/:id",
         element: <CustomerOrder />,
       },
       {
-        path: '*',
+        path: "*",
         element: <p>Page Not Found</p>,
       },
     ],
   },
   {
-    path: '/admin',
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/orders",
+        element: <OrdersPage />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
     element: <AdminPage />,
   },
   {
-    path: '/orders',
-    element: <OrdersPage />,
-  },
-  {
-    path: '*',
+    path: "*",
     element: <p>Page Not Found</p>,
   },
 ]);

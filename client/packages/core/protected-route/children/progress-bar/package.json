@@ -1,0 +1,4 @@
+{
+  "name": "@zocom/progress-bar",
+  "main": "./index.ts"
+}
