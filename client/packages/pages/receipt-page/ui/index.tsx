@@ -65,9 +65,15 @@ export const ReceiptPage = () => {
         orderId={receiptItem.orderId}
       />
 
-      <Button onClick={() => navigate('/')} type="primary">
-        Gör en ny beställning
-      </Button>
+      <section className="receipt-page__buttons">
+        <Button onClick={() => navigate(`/order/${orderId}`)} type="secondary">
+          orderstatus
+        </Button>
+
+        <Button onClick={() => navigate('/')} type="primary">
+          Gör en ny beställning
+        </Button>
+      </section>
     </main>
   );
 };
