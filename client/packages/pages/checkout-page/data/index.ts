@@ -18,7 +18,7 @@ type Cart = {
 const initializeFirebase = async () => {
   const app = initializeApp(firebaseConfig);
   const messaging = getMessaging(app);
-  
+
   console.log(app);
   if (Notification.permission === 'granted') {
     // The permission is currently granted. You can clear it by revoking it.
@@ -29,19 +29,21 @@ const initializeFirebase = async () => {
     // The permission is not granted.
     console.log('Notification permission is not granted.');
   }
-  const token = await getToken(messaging, { vapidKey: import.meta.env.VITE_VAPIDKEY });
+  const token = await getToken(messaging, {
+    vapidKey: import.meta.env.VITE_VAPIDKEY,
+  });
 
   // Set up the message handler
   onMessage(messaging, (payload) => {
     console.log('Message received:', payload);
 
-      // Check if the Notification API is supported
-      if ('Notification' in window && Notification.permission === 'granted') {
-        // Display a notification
-        const notification = payload.notification;
-        if (notification && notification.title) {
-          const { title, body } = notification;
-          const notificationOptions: NotificationOptions = {
+    // Check if the Notification API is supported
+    if ('Notification' in window && Notification.permission === 'granted') {
+      // Display a notification
+      const notification = payload.notification;
+      if (notification && notification.title) {
+        const { title, body } = notification;
+        const notificationOptions: NotificationOptions = {
           body,
         };
       } else {
@@ -57,7 +59,7 @@ export const postOrder = async (order: Order) => {
   try {
     const token = await initializeFirebase();
 
-    const response = await fetch(import.meta.env.VITE_API_ENDPOINT_POST_ORDER, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
