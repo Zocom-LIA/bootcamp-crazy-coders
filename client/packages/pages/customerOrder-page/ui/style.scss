@@ -6,6 +6,8 @@
   background-color: $color-clay;
   padding: $padding-large;
 
+  transition: background-color 1s;
+
   &__logo {
     @include flexCenterPickDirection(flex-end);
     align-self: start;
@@ -15,7 +17,7 @@
     gap: $baseline;
     color: $color-snow;
     text-align: center;
-    overflow-y: scroll;
+    overflow-y: hidden;
 
     &-food {
       @include fontsizeLarge;
