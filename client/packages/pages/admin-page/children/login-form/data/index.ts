@@ -11,6 +11,8 @@ import {
  ****************************************** TYPES ********************************************************************
  */
 
+//username: "chief-cook",
+//password: "chief-cook-99",
 interface ILoggedInState {
   loading: boolean;
   showAlertDialog: boolean;
