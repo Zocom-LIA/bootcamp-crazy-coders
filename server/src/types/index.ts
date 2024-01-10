@@ -137,6 +137,7 @@ export const createOrderItemFrom = (order: ISchemaCreateOrder): IOrderItem => {
     selection: order.selection,
     createdAt: baseOrder.createdAt,
     totalSum: order.totalSum,
+    token: order.token,
   };
 };
 
@@ -156,6 +157,7 @@ export interface IOrderItem extends YumYumBase {
   assignedTo?: string;
   startTime?: string;
   endTime?: string;
+  token: string
 }
 
 export interface IOrderHistoryItem extends YumYumBase {
@@ -274,6 +276,7 @@ export interface ISchemaCreateOrder {
   customerId?: string;
   selection: ISelectionItem[];
   totalSum: number;
+  token: string;
 }
 
 export interface ISchemaLoginAdmin {

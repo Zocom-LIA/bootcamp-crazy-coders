@@ -30,11 +30,13 @@ import { sendRefreshToClients } from '@src/util/ws.ts';
 
 const markAssignedOrdersAsReady = async (
   pk: string,
-  sk: string
+  sk: string,
+  token: string
 ): Promise<HttpResponse> => {
   let endTime = new Date().toISOString();
-  let params = updateOrderAsReadyParams(pk, sk, endTime);
-  return execUpdateOrderRequest(params);
+  let params = updateOrderAsReadyParams(pk, sk, endTime, token);
+  console.log("MarkAssignedOrderAsReady: ",token);
+  return execUpdateOrderRequest(params,token );
 };
 
 const moveReadyOrderToServedHistory = async (
@@ -66,7 +68,8 @@ const moveOrderToNextStep = async (
 
   switch (order.status) {
     case OrderStatus.ASSIGNED:
-      return markAssignedOrdersAsReady(order.PK, order.SK);
+      console.log("switch-moveOrderToNextStep: ", order.token);
+      return markAssignedOrdersAsReady(order.PK, order.SK, order.token);
     case OrderStatus.READY:
       return moveReadyOrderToServedHistory(order);
     default:
