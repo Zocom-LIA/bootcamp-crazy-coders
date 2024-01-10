@@ -88,7 +88,7 @@ export const execUpdateOrderRequest = async (
         title: 'YYGS - Your Order Ready for Pickup',
         body: 'Have a nice meal!',
       },
-      token: "eBKzFioqovTGrWpnymsKFN:APA91bF8UH4RduxsF4IneIg7l4bpdr7M2XFpktEtoZ0kzgN-Ayvaf9ZLMDUbbMnspAa6IZCL2rKyO8_pZz32lm0TOk1xohvVsvs9_Ttgo_qQxXjikar8EPjJR1tJiKIvBh6jkikl0gLq",
+      token: "flOQV6cV4ZGjihhwWBdhmr:APA91bEqwMaCTy4sY-CN7gIlGCIKQf6uwiZLyHEmLf4dTBqFcym_9A8FbLOCAu0JEYJbIusTxifRqkzV5r9JawdRSjBAebpQdlTW-DIdRLmkKGvz4c1aLxqjaP22fisJk3Ci3jZ4AB-K",
     };
 
     const messageId = await messaging.send(message);

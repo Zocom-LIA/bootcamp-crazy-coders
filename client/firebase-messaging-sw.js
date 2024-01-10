@@ -9,18 +9,20 @@ const firebaseConfig = {
   messagingSenderId: "184821646486",
   appId: "1:184821646486:web:1857f37b26098c72352eb7"
 };
+if (firebase.messaging.isSupported()) {
+    const app = firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging(app);
+    messaging.onBackgroundMessage((payload) => {
+        console.log('Background message received:', payload);
+      
+        const notificationTitle = payload.data.title;
+        const notificationOptions = {
+          body: payload.data.body,
+        };
+        console.log('Showing notification:', notificationTitle, notificationOptions);
+        return self.registration.showNotification(notificationTitle, notificationOptions);
+      });
+  }else{
+    console.log("Messaging not supported");
+  }
 
-const app = firebase.initializeApp(firebaseConfig);
-const messaging = firebase.messaging(app);
-
-messaging.onBackgroundMessage((payload) => {
-    console.log('Background message received:', payload);
-  
-    const notificationTitle = payload.data.title;
-    const notificationOptions = {
-      body: payload.data.body,
-    };
-    Notification.onBackgroundMessage
-  
-    self.registration.showNotification(notificationTitle, notificationOptions);
-  });
