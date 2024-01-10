@@ -1,6 +1,6 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import foodBox from './assets/boxtop.svg';
 import './style.scss';
+import foodBox from './assets/boxtop.svg';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@zocom/button';
 import { Logo } from '@zocom/logo';
 import { useData } from '..';
@@ -50,7 +50,7 @@ export function CustomerOrderPage() {
             : 'Din beställning är klar!'}
         </h3>
 
-        {order?.status === 'queued' && (
+        {order?.status !== 'ready' && (
           <h4 className="customer-order__info-eta">ETA {randomETA()} min</h4>
         )}
 
@@ -64,7 +64,7 @@ export function CustomerOrderPage() {
 
         <Button
           type="secondary"
-          onClick={() => navigateToCustomerReceipt(orderId)}
+          onClick={() => navigateToCustomerReceipt(orderId as string)}
         >
           se kvitto
         </Button>
