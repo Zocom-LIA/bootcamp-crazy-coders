@@ -5,7 +5,8 @@ import { CheckoutPage } from '@zocom/checkout-page';
 import { OrdersPage } from '@zocom/orders-page';
 import { AdminPage } from '@zocom/admin-page';
 import { AppLayout } from '@zocom/applayout';
-import { CustomerOrder } from '@zocom/customer-order';
+import { ProtectedRoute } from '@zocom/protected-route';
+import { CustomerOrderPage } from '@zocom/customerOrder-page';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -23,8 +24,8 @@ const router = createBrowserRouter([
         element: <CheckoutPage />,
       },
       {
-        path: '/order/:id',
-        element: <CustomerOrder />,
+        path: '/order/:orderId',
+        element: <CustomerOrderPage />,
       },
       {
         path: '*',
@@ -33,12 +34,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/admin',
-    element: <AdminPage />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/orders',
+        element: <OrdersPage />,
+      },
+    ],
   },
   {
-    path: '/orders',
-    element: <OrdersPage />,
+    path: '/admin',
+    element: <AdminPage />,
   },
   {
     path: '*',

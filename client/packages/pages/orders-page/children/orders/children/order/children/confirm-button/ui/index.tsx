@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from '@zocom/button';
 import { useData } from '..';
 
@@ -16,6 +17,7 @@ export const ConfirmButton = ({ children, onConfirm, type }: Props) => {
   const { useStateRestorer } = useData();
 
   const [state, setState] = useStateRestorer(State.NORMAL, 3000);
+  const [confirmed, setConfirmed] = useState(false);
 
   return (
     <>
@@ -24,7 +26,14 @@ export const ConfirmButton = ({ children, onConfirm, type }: Props) => {
           {children}
         </Button>
       ) : (
-        <Button onClick={onConfirm} type="primary">
+        <Button
+          onClick={() => {
+            setConfirmed(true);
+            onConfirm();
+          }}
+          type="primary"
+          disabled={confirmed}
+        >
           Bekräfta
         </Button>
       )}

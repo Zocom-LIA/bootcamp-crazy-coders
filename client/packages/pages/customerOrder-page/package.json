@@ -1,0 +1,4 @@
+{
+  "name": "@zocom/customerOrder-page",
+  "main": "./index.ts"
+}

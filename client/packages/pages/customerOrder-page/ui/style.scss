@@ -29,3 +29,10 @@
     }
   }
 }
+.customer-order.done {
+  background-color: $color-dark-mint;
+
+  .customer-order__info-food {
+    margin-bottom: $gap-huge;
+  }
+}
