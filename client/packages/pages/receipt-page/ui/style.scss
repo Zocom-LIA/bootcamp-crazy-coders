@@ -14,7 +14,9 @@
     width: 100%;
   }
 
-  > button {
+  &__buttons {
+    @include column;
+    align-items: stretch;
     margin-top: auto;
   }
 }
