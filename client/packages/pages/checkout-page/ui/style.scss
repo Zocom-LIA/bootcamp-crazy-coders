@@ -8,8 +8,14 @@
   gap: $gap-large;
 
   &__cart {
-    @include flexCenterPickDirection(flex-end);
+    width: 100%;
+    @include flexCenterPickDirection(space-between);
     align-self: end;
+    &_arrow-back {
+      @include fontsizeMedium;
+      align-self: center;
+      cursor: pointer;
+    }
   }
 
   &__customer-cart {
@@ -17,7 +23,7 @@
     align-items: normal;
     align-self: stretch;
     gap: $baseline;
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
 
   &__checkout {

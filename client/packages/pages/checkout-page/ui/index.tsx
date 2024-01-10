@@ -13,7 +13,7 @@ import {
 } from '../../../../src/reduxstore/slices/shoppingCartSlice';
 import { RootState } from '../../../../src/reduxstore/store';
 import { useNavigate } from 'react-router-dom';
-
+import { IoIosArrowBack } from 'react-icons/io';
 type OrderItem = {
   count: number;
   name: string;
@@ -101,6 +101,10 @@ export const CheckoutPage = () => {
   return (
     <main className="checkout-page">
       <section className="checkout-page__cart">
+        <IoIosArrowBack
+          className="checkout-page__cart_arrow-back"
+          onClick={() => navigate('/')}
+        />
         <Cart bgColor="transparent" />
       </section>
 
@@ -125,7 +129,11 @@ export const CheckoutPage = () => {
         <section className="checkout-page__amount">
           <ReceiptTotal total={totalSum()} />
         </section>
-        <Button onClick={() => createOrder()} type="primary">
+        <Button
+          disabled={orderItems.length > 0 ? false : true}
+          onClick={() => createOrder()}
+          type="primary"
+        >
           Take my Money!
         </Button>
       </section>
