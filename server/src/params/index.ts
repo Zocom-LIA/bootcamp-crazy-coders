@@ -295,7 +295,8 @@ export const queryCustomerHistoryOrdersParams = (
 export const updateOrderAsReadyParams = (
   pk: string,
   sk: string,
-  endTime: string
+  endTime: string,
+  token: string
 ): DocumentClient.UpdateItemInput => {
   return {
     TableName: `${process.env["YUM_YUM_TABLE"]}`,
