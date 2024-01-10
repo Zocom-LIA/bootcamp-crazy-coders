@@ -4,13 +4,13 @@ import { ReceiptItem } from '@zocom/receipt-item';
 import { ReceiptTotal } from '@zocom/receipt-total';
 import { Item } from '@zocom/types';
 
-type ReceiptProps = {
+type Props = {
   orderId: string;
   items: Item[];
   total: number;
 };
 
-export const Receipt = ({ orderId, items, total }: ReceiptProps) => {
+export const Receipt = ({ orderId, items, total }: Props) => {
   return (
     <article className="receipt">
       <header className="receipt__header">
@@ -25,7 +25,7 @@ export const Receipt = ({ orderId, items, total }: ReceiptProps) => {
       <section className="receipt__items">
         <ol>
           {items.map((item) => (
-            <li key={item.product}>
+            <li key={item.name}>
               <ReceiptItem item={item} />
             </li>
           ))}

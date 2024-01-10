@@ -1,14 +1,14 @@
 export enum SizeTypes {
-  "REGULAR" = "regular",
-  "SMALL" = "small",
-  "MEDIUM" = "medium",
-  "LARGE" = "large",
+  'REGULAR' = 'regular',
+  'SMALL' = 'small',
+  'MEDIUM' = 'medium',
+  'LARGE' = 'large',
 }
 
 export enum StyleTypes {
-  "DEFAULT" = "default",
-  "DARK" = "dark",
-  "LIGHT" = "light",
+  'DEFAULT' = 'default',
+  'DARK' = 'dark',
+  'LIGHT' = 'light',
 }
 
 export type MenuItem = {
@@ -21,9 +21,9 @@ export type MenuItem = {
 };
 
 export type Item = {
-  product: string;
-  quantity: number;
-  total: number;
+  name: string;
+  count: number;
+  totalPrice: number;
 };
 
 export type OrderType = {

@@ -5,12 +5,7 @@ import { Logo } from '@zocom/logo';
 import { Receipt } from '@zocom/receipt';
 import { Button } from '@zocom/button';
 import { useNavigate, useParams } from 'react-router-dom';
-
-interface ReceiptItem {
-  product: string;
-  quantity: number;
-  total: number;
-}
+import { Item } from '@zocom/types';
 
 interface IReceiptData {
   Items: [
@@ -19,19 +14,13 @@ interface IReceiptData {
       orderId: string;
       createdAt: string;
       SK: string;
-      selection: SelectionItem[];
+      selection: Item[];
       PK: string;
       customerId: string;
     }
   ];
   Count: number;
   ScannedCount: number;
-}
-
-interface SelectionItem {
-  name: string;
-  count: number;
-  totalPrice: number;
 }
 
 export const ReceiptPage = () => {
@@ -63,15 +52,7 @@ export const ReceiptPage = () => {
   }
 
   const receiptItem = receipt.Items[0];
-
-  // Map the receipt data
-  const items: ReceiptItem[] = receiptItem.selection.map(
-    (item: SelectionItem) => ({
-      product: item.name,
-      quantity: item.count,
-      total: item.totalPrice,
-    })
-  );
+  const items = receiptItem.selection;
 
   return (
     <main className="receipt-page">
@@ -80,7 +61,7 @@ export const ReceiptPage = () => {
       </section>
       <Receipt
         items={items}
-        total={items.reduce((acc, item) => acc + item.total, 0)}
+        total={receiptItem.totalSum}
         orderId={receiptItem.orderId}
       />
 
