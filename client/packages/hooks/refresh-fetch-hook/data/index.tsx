@@ -3,8 +3,8 @@ import useWebSocket from 'react-use-websocket';
 
 export const useData = () => {
   return {
-    useRefreshFetch<T>(fetcher: () => [T, () => void]) {
-      const [data, refetch] = fetcher();
+    useRefreshFetch<T>(fetcher: [T, () => void]) {
+      const [data, refetch] = fetcher;
       const [refresh, setRefresh] = useState(false);
 
       useWebSocket(import.meta.env.VITE_WS_URL, {
