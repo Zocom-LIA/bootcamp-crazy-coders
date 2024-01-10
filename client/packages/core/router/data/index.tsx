@@ -1,34 +1,34 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LandingPage } from "@zocom/landing-page";
-import { ReceiptPage } from "@zocom/receipt-page";
-import { CheckoutPage } from "@zocom/checkout-page";
-import { OrdersPage } from "@zocom/orders-page";
-import { AdminPage } from "@zocom/admin-page";
-import { AppLayout } from "@zocom/applayout";
-import { ProtectedRoute } from "@zocom/protected-route";
-import { CustomerOrder } from "@zocom/customer-order";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { LandingPage } from '@zocom/landing-page';
+import { ReceiptPage } from '@zocom/receipt-page';
+import { CheckoutPage } from '@zocom/checkout-page';
+import { OrdersPage } from '@zocom/orders-page';
+import { AdminPage } from '@zocom/admin-page';
+import { AppLayout } from '@zocom/applayout';
+import { ProtectedRoute } from '@zocom/protected-route';
+import { CustomerOrderPage } from '@zocom/customerOrder-page';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <LandingPage />,
       },
       {
-        path: "/receipt/:orderId",
+        path: '/receipt/:orderId',
         element: <ReceiptPage />,
       },
       {
-        path: "/checkout",
+        path: '/checkout',
         element: <CheckoutPage />,
       },
       {
-        path: "/order/:id",
-        element: <CustomerOrder />,
+        path: '/order/:orderId',
+        element: <CustomerOrderPage />,
       },
       {
-        path: "*",
+        path: '*',
         element: <p>Page Not Found</p>,
       },
     ],
@@ -37,17 +37,17 @@ const router = createBrowserRouter([
     element: <ProtectedRoute />,
     children: [
       {
-        path: "/orders",
+        path: '/orders',
         element: <OrdersPage />,
       },
     ],
   },
   {
-    path: "/admin",
+    path: '/admin',
     element: <AdminPage />,
   },
   {
-    path: "*",
+    path: '*',
     element: <p>Page Not Found</p>,
   },
 ]);
