@@ -61,5 +61,5 @@ Backenden skall byggas i AWS med serverlessteknik. API:et skall säkras med en _
 
 - Som _kund_ vill jag få en ETA baserat på hur många och hur stora beställningar som är före mig i kön, så att jag kan avgöra om jag hinner köpa tuggummi på närliggande affären så länge
 - Som _kund_ vill jag få en notis från min telefons OS ( Notification API ) så att jag inte behöver hålla stenkoll på hemsidan konstant.
-- Som _kund_ vill jag kunna göra en beställning antingen som *guest* eller inloggad *customer*.
-- Som _kund_ av typ inloggad *customer* vill jag kunna se min orderhistorik
+- Som _kund_ vill jag kunna göra en beställning antingen som _guest_ eller inloggad _customer_.
+- Som _kund_ av typ inloggad _customer_ vill jag kunna se min orderhistorik
