@@ -2,22 +2,22 @@ import './style.scss';
 import { Item } from '@zocom/types';
 import { List, Separator } from '@zocom/list';
 
-type ReceiptItemProps = {
+type Props = {
   item: Item;
 };
 
-export const ReceiptItem = ({ item }: ReceiptItemProps) => {
+export const ReceiptItem = ({ item }: Props) => {
   return (
     <article className="receipt-item">
       <List>
-        <p className="receipt-item__product">{item.product}</p>
+        <p className="receipt-item__product">{item.name}</p>
 
         <Separator />
 
-        <p className="receipt-item__total">{item.total} sek</p>
+        <p className="receipt-item__total">{item.totalPrice} sek</p>
       </List>
 
-      <p className="receipt-item__quantity">{item.quantity} stycken</p>
+      <p className="receipt-item__quantity">{item.count} stycken</p>
     </article>
   );
 };

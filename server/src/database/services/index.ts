@@ -2,6 +2,8 @@ import { HttpResponse } from 'aws-sdk';
 import dynamoDBClient from '../core/dbClient.js';
 import { DocumentClient, ItemList } from 'aws-sdk/clients/dynamodb.js';
 import { IOrderItem, PartialAdminItem, PartialMenu } from '@src/types/index.js';
+import * as admin from 'firebase-admin';
+import { XMLHttpRequest } from "aws-sdk/lib/http_response.js";
 
 export const exeBatchWrite = async (
   params: DocumentClient.BatchWriteItemInput
@@ -63,8 +65,60 @@ export const execQueryTableForOrders = async (
 };
 
 export const execUpdateOrderRequest = async (
-  params: DocumentClient.UpdateItemInput
+  params: DocumentClient.UpdateItemInput, token:string
 ): Promise<HttpResponse> => {
-  let dbResponse = await dynamoDBClient.update(params).promise();
-  return dbResponse.$response.httpResponse;
+  const serviceAccount = require('yygs-crazy-coders-firebase-adminsdk-aeb0w-a52ef8684f.json');
+  if (admin.apps.length === 0) {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
+    });
+  }
+
+  const messaging = admin.messaging();
+
+  try {
+    const dbResponse: DocumentClient.UpdateItemOutput = await dynamoDBClient.update(params).promise();
+  
+    console.log("token in BE: ", token)
+
+    // Send FCM notification
+    const userId = 'user123'; // Replace with the actual user ID or token
+    const message: admin.messaging.Message = {
+      data: {
+        title: 'YYGS - Your Order Ready for Pickup',
+        body: 'Have a nice meal!',
+      },
+      token: token,
+    };
+
+    const messageId = await messaging.send(message);
+    console.log(`Message sent successfully with ID: ${messageId}`);
+
+    // Return a more complete response
+    const successResponse: HttpResponse = {
+      statusCode: 200,
+      headers: {},  // Add your headers if necessary
+      statusMessage: 'OK',
+      createUnbufferedStream: () => { return {} as XMLHttpRequest },  // Adjust this line based on your requirements
+      streaming: false,  // Modify based on your requirements
+      body: JSON.stringify({ message: 'Order updated successfully' }),
+    };
+
+    return successResponse;
+  } catch (error) {
+    // Handle errors
+    console.error('Error updating order:', error);
+
+    // Return an error response
+    const errorResponse: HttpResponse = {
+      statusCode: 500,
+      headers: {},  // Add your headers if necessary
+      statusMessage: 'Internal Server Error',
+      createUnbufferedStream: () => { return {} as XMLHttpRequest },  // Adjust this line based on your requirements
+      streaming: false,  // Modify based on your requirements
+      body: JSON.stringify({ error: 'Failed to update order' }),
+    };
+
+    return errorResponse;
+  }
 };

@@ -1,12 +1,12 @@
 import { OrderType } from '@zocom/types';
-import { useData as uesHookData } from '@zocom/fetch-hook';
+import { useData as useHookData } from '@zocom/fetch-hook';
 
 export type OrdersRepsonse = OrderType[];
 
 export const useData = () => {
   const TOKEN = localStorage.getItem('AccessToken');
 
-  const { useFetch } = uesHookData();
+  const { useFetch } = useHookData();
 
   return {
     useFetchOrders() {

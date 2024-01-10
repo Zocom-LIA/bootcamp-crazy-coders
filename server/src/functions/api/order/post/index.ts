@@ -62,9 +62,10 @@ const deleteOrderAndReceipt = async (
   return exeBatchWrite(params);
 };
 
-const putOrderAndReceipt = async (order: ISchemaCreateOrder) => {
+const putOrderAndReceipt = async (order: ISchemaCreateOrder, token: string) => {
   let orderItem = createOrderItemFrom(order);
   let receiptItem = createReceiptItemFrom(orderItem);
+  orderItem.token = token;
   let params = batchRequestParams([
     putRequestItem(orderItem),
     putRequestItem(receiptItem),
@@ -90,14 +91,14 @@ const postOrder: Handler<FromSchema<typeof bodySchema>, void, void> = async (
   event
 ) => {
   try {
-    let order: ISchemaCreateOrder = event.body;
+    const { order, token } = event.body as { order: ISchemaCreateOrder; token: string };
     let validationError = await validateSumBeforePurchase(order);
     if (validationError) {
       return failedResponse(validationError);
     }
 
     await sendRefreshToClients();
-    return putOrderAndReceipt(order);
+    return putOrderAndReceipt(order, token);
   } catch (error) {
     return failedResponse(error);
   }

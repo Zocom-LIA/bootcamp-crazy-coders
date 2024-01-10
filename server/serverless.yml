@@ -11,6 +11,9 @@ custom: ${file(src/files/yml/esbuild.yml)}
 
 package:
   individually: true
+  include:
+    
+  
 
 functions:
   - ${file(src/files/yml/get-functions.yml)}
