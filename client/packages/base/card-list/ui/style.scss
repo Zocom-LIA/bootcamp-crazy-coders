@@ -1,0 +1,52 @@
+@use '@zocom/styles' as *;
+
+.card-list {
+  @include column;
+
+  align-items: stretch;
+  justify-content: flex-start;
+
+  flex: 1;
+
+  overflow-y: auto;
+
+  // Hides scrollbar
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; // Firefox
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__label {
+    @include row;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1;
+
+    background-color: $color-coal;
+
+    > h2 {
+      @include fontsizeMedium;
+      color: $color-ash;
+    }
+
+    > hr {
+      align-self: center;
+      background: none;
+      border-top: solid 1px $color-shade-24-light;
+      justify-self: stretch;
+    }
+  }
+
+  &__items {
+    @include column;
+    align-items: stretch;
+
+    gap: $gap-huge;
+
+    padding-bottom: $padding-large;
+  }
+}
