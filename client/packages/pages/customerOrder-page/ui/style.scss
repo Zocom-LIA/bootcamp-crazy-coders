@@ -30,6 +30,12 @@
       @include fontsizeRegular;
     }
   }
+
+  &__not-found {
+    @include fontsizeLarge;
+    margin-top: auto;
+    color: $color-snow;
+  }
 }
 .customer-order.done {
   background-color: $color-dark-mint;
