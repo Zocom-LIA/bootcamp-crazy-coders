@@ -2,22 +2,24 @@ service: yum-yum-aws
 frameworkVersion: '3'
 useDotenv: true
 
-provider: 
-  ${file(src/files/yml/provider.yml)}
+provider: ${file(src/files/yml/provider.yml)}
 
 plugins:
   - serverless-esbuild
 
-custom: 
-  ${file(src/files/yml/esbuild.yml)}
+custom: ${file(src/files/yml/esbuild.yml)}
 
-package: 
+package:
   individually: true
+  include:
+    
+  
 
 functions:
   - ${file(src/files/yml/get-functions.yml)}
   - ${file(src/files/yml/post-functions.yml)}
   - ${file(src/files/yml/put-functions.yml)}
+  - ${file(src/files/yml/websocket-functions.yml)}
 
 resources:
   - ${file(src/files/yml/Resources.yml)}

@@ -2,6 +2,7 @@ import middy from "@middy/core";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyValidationError } from "@util/response.js";
 import { MiddyError, MiddyErrorObject } from "@src/types";
+import { HttpCode } from "@src/util/httpCodes";
 
 const middyValidatorErrorObj = (): middy.MiddlewareObj<
   APIGatewayProxyEvent,
@@ -23,7 +24,17 @@ const middyValidatorErrorObj = (): middy.MiddlewareObj<
           message += `[ ${(err as MiddyErrorObject).message} ] `;
         }
       });
-      request.response = middyValidationError(message);
+      request.response = middyValidationError(HttpCode.BAD_REQUEST, message);
+    } else if (request.error?.name === "UnauthorizedError") {
+      request.response = middyValidationError(
+        HttpCode.UNAUTHORIZED,
+        request.error.message
+      );
+    } else {
+      request.response = middyValidationError(
+        HttpCode.BAD_REQUEST,
+        request.error?.message ?? "Unexpected error"
+      );
     }
     Promise.resolve();
   };

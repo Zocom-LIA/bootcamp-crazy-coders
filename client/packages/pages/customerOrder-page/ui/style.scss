@@ -1,0 +1,46 @@
+@use '@zocom/styles' as *;
+
+.customer-order {
+  height: 100vh;
+  @include column;
+  background-color: $color-clay;
+  padding: $padding-large;
+
+  transition: background-color 1s;
+
+  &__logo {
+    @include flexCenterPickDirection(flex-end);
+    align-self: start;
+  }
+  &__info {
+    @include column;
+    gap: $baseline;
+    color: $color-snow;
+    text-align: center;
+    overflow-y: hidden;
+
+    &-food {
+      @include fontsizeLarge;
+    }
+    &-eta {
+      @include fontsizeMedium;
+      font-weight: 500;
+    }
+    &-orderId {
+      @include fontsizeRegular;
+    }
+  }
+
+  &__not-found {
+    @include fontsizeLarge;
+    margin-top: auto;
+    color: $color-snow;
+  }
+}
+.customer-order.done {
+  background-color: $color-dark-mint;
+
+  .customer-order__info-food {
+    margin-bottom: $gap-huge;
+  }
+}

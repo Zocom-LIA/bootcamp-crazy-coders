@@ -24,6 +24,7 @@
     @include fontsizeMedium;
     font-weight: 500; // fråga ang denna.
     text-align: center;
+    word-wrap: break-word;
   }
 
   &__product {

@@ -39,3 +39,8 @@ export type OrderType = {
 
   selection: Item[];
 };
+
+export type ServerResponse = {
+  status: number;
+  message: string;
+};

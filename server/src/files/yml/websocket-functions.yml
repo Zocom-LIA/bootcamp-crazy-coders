@@ -1,0 +1,7 @@
+websocketHandler:
+  handler: src/functions/api/websocket/index.handler
+  events:
+    - websocket:
+        route: $connect
+    - websocket:
+        route: $disconnect

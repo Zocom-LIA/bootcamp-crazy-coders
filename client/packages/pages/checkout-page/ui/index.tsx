@@ -9,9 +9,11 @@ import {
   increaseQuantity,
   decreaseQuantity,
   emptyCart,
+  addNewOrderToCustomerOrderHistory,
 } from '../../../../src/reduxstore/slices/shoppingCartSlice';
 import { RootState } from '../../../../src/reduxstore/store';
-
+import { useNavigate } from 'react-router-dom';
+import { IoIosArrowBack } from 'react-icons/io';
 type OrderItem = {
   count: number;
   name: string;
@@ -20,12 +22,16 @@ type OrderItem = {
 
 type Order = {
   customerId?: string;
+  orderId?: string;
   totalSum: number;
   selection: OrderItem[];
+  createdAt?: Date;
 };
 
 export const CheckoutPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const shoppingCartItems = useSelector(
     (state: RootState) => state.shoppingCart.shoppingCartItems
   );
@@ -46,12 +52,12 @@ export const CheckoutPage = () => {
   }
 
   const orderItems: OrderItem[] = shoppingCartItems.map((item) => ({
-    count: item.quantity, // Assuming you have a quantity property in your item structure
+    count: item.quantity,
     name: item.name,
     totalPrice: item.price * item.quantity,
   }));
 
-  const testOrder: Order = {
+  const newOrder: Order = {
     totalSum: totalSum(),
     selection: orderItems,
   };
@@ -60,24 +66,45 @@ export const CheckoutPage = () => {
     const customerId = localStorage.getItem('customerId');
 
     if (!customerId) {
-      const order: Order = await postOrder(testOrder);
-      dispatch(emptyCart());
-      if (order.customerId) {
-        localStorage.setItem('customerId', order?.customerId);
+      const { customerId, orderId, totalSum, selection, createdAt }: Order =
+        await postOrder(newOrder);
+
+      if (customerId && orderId && totalSum && selection && createdAt) {
+        localStorage.setItem('customerId', customerId);
+        dispatch(
+          addNewOrderToCustomerOrderHistory({
+            customerId,
+            orderId,
+            totalSum,
+            selection,
+            createdAt,
+          })
+        );
+        dispatch(emptyCart());
+        navigate(`/order/${orderId}`);
       }
     } else {
-      const existingCustomer: Order = {
+      const existingCustomerNewOrder: Order = {
         customerId,
-        ...testOrder,
+        ...newOrder,
       };
-      postOrder(existingCustomer);
-      dispatch(emptyCart());
+
+      if (existingCustomerNewOrder) {
+        const order = await postOrder(existingCustomerNewOrder);
+        dispatch(addNewOrderToCustomerOrderHistory(order));
+        dispatch(emptyCart());
+        navigate(`/order/${order.orderId}`);
+      }
     }
   }
 
   return (
     <main className="checkout-page">
       <section className="checkout-page__cart">
+        <IoIosArrowBack
+          className="checkout-page__cart_arrow-back"
+          onClick={() => navigate('/')}
+        />
         <Cart bgColor="transparent" />
       </section>
 
@@ -102,7 +129,11 @@ export const CheckoutPage = () => {
         <section className="checkout-page__amount">
           <ReceiptTotal total={totalSum()} />
         </section>
-        <Button onClick={() => createOrder()} type="primary">
+        <Button
+          disabled={orderItems.length > 0 ? false : true}
+          onClick={() => createOrder()}
+          type="primary"
+        >
           Take my Money!
         </Button>
       </section>

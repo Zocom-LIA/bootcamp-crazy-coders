@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Logo } from '@zocom/logo';
 import './style.scss';
+import { useState, useEffect } from 'react';
 import { getReceiptData } from '..';
-
+import { Logo } from '@zocom/logo';
 import { Receipt } from '@zocom/receipt';
 import { Button } from '@zocom/button';
-interface ReceiptItem {
-  product: string;
-  quantity: number;
-  total: number;
-}
+import { useNavigate, useParams } from 'react-router-dom';
+import { Item } from '@zocom/types';
 
 interface IReceiptData {
   Items: [
@@ -18,7 +14,7 @@ interface IReceiptData {
       orderId: string;
       createdAt: string;
       SK: string;
-      selection: SelectionItem[];
+      selection: Item[];
       PK: string;
       customerId: string;
     }
@@ -27,22 +23,17 @@ interface IReceiptData {
   ScannedCount: number;
 }
 
-interface SelectionItem {
-  name: string;
-  count: number;
-  totalPrice: number;
-}
-
-const testOrderId = "C_A_5vgteC3Y2AximP2WC";
-
 export const ReceiptPage = () => {
   const { fetchReceipt } = getReceiptData();
   const [receipt, setReceipt] = useState<IReceiptData | null>(null);
 
+  const navigate = useNavigate();
+  const { orderId } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const receiptData: IReceiptData = await fetchReceipt(testOrderId);
+        const receiptData: IReceiptData = await fetchReceipt(orderId || '');
         setReceipt(receiptData);
       } catch (error) {
         console.error('Error fetching receipt:', error);
@@ -61,15 +52,7 @@ export const ReceiptPage = () => {
   }
 
   const receiptItem = receipt.Items[0];
-
-  // Map the receipt data
-  const items: ReceiptItem[] = receiptItem.selection.map((item: SelectionItem) => ({
-    product: item.name,
-    quantity: item.count,
-    total: item.totalPrice,
-  }));
-
-  console.log(receiptItem);
+  const items = receiptItem.selection;
 
   return (
     <main className="receipt-page">
@@ -78,10 +61,19 @@ export const ReceiptPage = () => {
       </section>
       <Receipt
         items={items}
-        total={items.reduce((acc, item) => acc + item.total, 0)}
+        total={receiptItem.totalSum}
         orderId={receiptItem.orderId}
       />
+
+      <section className="receipt-page__buttons">
+        <Button onClick={() => navigate('/')} type="primary">
+          Gör en ny beställning
+        </Button>
+
+        <Button onClick={() => navigate(`/order/${orderId}`)} type="secondary">
+          se orderstatus
+        </Button>
+      </section>
     </main>
   );
 };
-

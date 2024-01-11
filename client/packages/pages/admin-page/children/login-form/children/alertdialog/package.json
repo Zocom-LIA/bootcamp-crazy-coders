@@ -1,0 +1,4 @@
+{
+  "name": "@zocom/action-alert-dialog",
+  "main": "./index.ts"
+}

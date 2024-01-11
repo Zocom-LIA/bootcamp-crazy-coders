@@ -1,0 +1,8 @@
+@use '@zocom/styles' as *;
+
+.progress-bar {
+    @include center;
+    background-color: $color-coal;
+    width: 100%;
+    height: 100%;
+}

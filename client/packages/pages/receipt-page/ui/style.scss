@@ -13,4 +13,10 @@
   &____logo {
     width: 100%;
   }
+
+  &__buttons {
+    @include column;
+    align-items: stretch;
+    margin-top: auto;
+  }
 }

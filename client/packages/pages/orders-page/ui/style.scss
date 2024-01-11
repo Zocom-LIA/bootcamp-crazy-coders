@@ -2,7 +2,6 @@
 
 .orders-page {
   @include column;
-  align-items: flex-start;
 
   background-color: $color-coal;
 
@@ -11,17 +10,30 @@
   height: 100%;
   max-height: 100%;
 
-  &__header {
-    @include row;
-    align-items: center;
+  padding: $padding-huge $padding-huge 0 $padding-huge;
 
-    margin: $margin-huge $margin-huge;
+  &__content {
+    @include column;
+    align-items: flex-start;
 
-    gap: $gap-large;
+    width: 100%;
+    max-width: $ipad-width;
 
-    > h1 {
-      @include fontsizeHuge;
-      color: $color-snow;
+    height: 100%;
+    max-height: 100%;
+
+    > header {
+      @include row;
+      align-items: center;
+
+      margin-bottom: $margin-huge;
+
+      gap: $gap-large;
+
+      > h1 {
+        @include fontsizeHuge;
+        color: $color-snow;
+      }
     }
   }
 }
